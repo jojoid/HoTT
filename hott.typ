@@ -77,7 +77,7 @@
   $2.$ （傳遞性）如果 $L in op("Sub")(M)$ 且 $M in op("Sub")(N)$，則 $L in op("Sub")(N)$.
 ]
 
-#proposition[
+#lemma[
   項可以以樹表示給出，如下圖中的例子
 
   #align(
