@@ -684,7 +684,7 @@
 == *類型是高維羣胚*
 
 #lemma[
-  對於任何 $A: cal(U)_i, x,y: A$，存在項 $op("_")^(-1): (x scripts(=)_A y) -> (y scripts(=)_A x)$ 使得 $("refl"_x)^(-1) eq.triple "refl"_x$.
+  對於任何 $A: cal(U)_i, x,y: A$，都能構造一個函數 $op("_")^(-1): (x scripts(=)_A y) -> (y scripts(=)_A x)$ 使得 $("refl"_x)^(-1) eq.triple "refl"_x$.
 
   $p^(-1)$ 稱爲 $p$ 的*逆*.
 ]
