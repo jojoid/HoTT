@@ -690,13 +690,72 @@
 ]
 
 #proof[
+  第一種證明
+  
   設 $A: cal(U)_i$，$D: (x,y: A) -> (x scripts(=)_A y) -> cal(U)_i, D(x,y,p) :eq.triple (y scripts(=)_A x)$.
   
-  那麼我們就有一個項 $d :eq.triple x |-> "refl"_x : (x: A) -> D(x, x, "refl"_x)$.
+  隨即我們就能構造一個函數 $d :eq.triple x |-> "refl"_x : (x: A) -> D(x, x, "refl"_x)$.
   
   然後根據恆等類型的消除規則我們有，對於任何 $x,y: A, p: (x scripts(=)_A y)$，可以構造項 $op("ind")_(scripts(=)_A) (D, d, x, y, p) : (y scripts(=)_A x)$.
   
   現在對於任何 $x, y : A$ 我們可以定義期望得到的函數 $op("_")^(-1) :eq.triple p |-> op("ind")_(scripts(=)_A) (D, d, x, y, p)$.
   
   由恆等類型的計算規則，得 $("refl"_x)^(-1) eq.triple "refl"_x$.
+]
+
+#proof[
+  第二種證明
+
+  對於每個 $x, y: A$ 和 $p: x = y$，我們想要構造一個項 $p^(-1): y = x$. 根據 $p$ 的道路歸納，我們只需要給出 $y$ 是 $x$ 且 $p$ 是 $"refl"_x$ 時的構造. 在該情況下，$"refl"_x$ 和 $"refl"_x^(-1)$ 的類型都是 $x = x$. 因此我們可以簡單地定義 $"refl"_x^(-1) :eq.triple "refl"_x$. 於是根據道路歸納，我們完成了構造.
+]
+
+#lemma[
+  對於任何 $A: cal(U)_i, x,y,z: A$，都能構造一個函數 $square.filled.tiny: (x scripts(=)_A y) -> (y scripts(=)_A z) -> (x scripts(=)_A z)$ 使得 $"refl"_x op(square.filled.tiny) "refl"_x :eq.triple "refl"_x$.
+
+  $p op(square.filled.tiny) q$ 稱爲 $p$ 和 $q$ 的*合成*.
+]
+
+#proof[
+  期望得到的函數擁有類型 $(x, y, z: A) -> (x scripts(=)_A y) -> (y scripts(=)_A z) -> (x scripts(=)_A z)$.
+
+  我們將改爲定義一個函數，擁有和預期等價的類型 $(x, y: A) -> (x scripts(=)_A y) -> (z: A) -> (y scripts(=)_A z) -> (x scripts(=)_A z)$，這允許我們使用兩次恆等類型的消除規則.
+
+  設 $D: (x, y: A) -> (x scripts(=)_A y) -> cal(U)_i, D(x,y,p) :eq.triple (z: A) -> (q: y scripts(=)_A z) -> (x scripts(=)_A z)$.
+
+  然後，爲了對 $D$ 應用恆等類型的消除規則，我們需要類型爲 $(x: A) -> D(x, x, "refl"_x)$ 的函數，也就是類型爲 $(x, z: A) -> (q: x scripts(=)_A z) -> (x scripts(=)_A z)$.
+
+  現在設 $E: (x, z: A) -> (q: x scripts(=)_A z) -> cal(U)_i, E(x, z, q) :eq.triple (x scripts(=)_A z)$.
+
+  隨即我們能構造函數 $e :eq.triple x |-> "refl"_x : (x: A) -> E(x, x, "refl"_x)$.
+
+  對 $E$ 應用恆等類型的消除規則，我們得到函數 $d: (x, z: A) -> (q: x scripts(=)_A z) -> E(x, z, q), x |-> z |-> q |-> op("ind")_(scripts(=)_A) (E, e, x, z, q)$.
+
+  因爲 $E(x, z, q) eq.triple (x scripts(=)_A z)$，所以 $d: (x: A) -> D(x, x, "refl"_x)$.
+
+  然後對 $D$ 應用恆等類型的消除規則我們有，對於任何 $x,y: A, p: (x scripts(=)_A y)$，可以構造項 $op("ind")_(scripts(=)_A) (D, d, x, y, p) eq.triple op("ind")_(scripts(=)_A) (D, (x, z: A) |-> (q: y scripts(=)_A z) |-> op("ind")_(scripts(=)_A) (E, e, x, z, q), x, y, p) : (z: A) -> (q: y scripts(=)_A z) -> (x scripts(=)_A z)$.
+
+  於是我們有
+  $
+    (x, y: A) |-> (p: x scripts(=)_A y) |-> op("ind")_(scripts(=)_A) (D, (x, z: A) |-> (q: y scripts(=)_A z) |-> op("ind")_(scripts(=)_A) (E, e, x, z, q), x, y, p) :
+  $$
+    (x, y: A) -> (x scripts(=)_A y) -> (z: A) -> (y scripts(=)_A z) -> (x scripts(=)_A z)
+  $
+
+  現在對於任何 $a, b, c: A$ 我們可以定義期望得到的函數
+  $
+    square.filled.tiny :eq.triple (p: a scripts(=)_A b) |-> op("ind")_(scripts(=)_A) (D, (x: A) |-> (q: b scripts(=)_A c) |-> op("ind")_(scripts(=)_A) (E, e, x, c, q), a, b, p) :
+  $$
+    (a, b, c: A) -> (a scripts(=)_A b) -> (b scripts(=)_A c) -> (a scripts(=)_A c).
+  $
+
+  由恆等映射的計算規則，得
+  $
+    "refl"_a op(square.filled.tiny) "refl"_a eq.triple op("ind")_(scripts(=)_A) (D, (x: A) |-> op("ind")_(scripts(=)_A) (E, e, x, a, "refl"_a), a, a, "refl"_a) eq.triple op("ind")_(scripts(=)_A) (E, e, a, a, "refl"_a) eq.triple e(a) eq.triple "refl"_a.
+  $
+]
+
+#proof[
+  第二種證明
+
+  對於每個 $x, y, z: A$，$p: x = y$ 和 $q: y = z$，我們想要構造一個項 $p op(square.filled.tiny) q : x = z$. 根據 $p$ 的道路歸納，我們只需要給出 $y$ 是 $x$ 且 $p$ 是 $"refl"_x$ 時的構造，即對於每個 $x, z: A$ 和 $q: x = z$，構造一個項 $"refl"_x op(square.filled.tiny) q : x = z$. 根據 $q$ 的路徑歸納，只需給出 $z$ 是 $x$ 且 $q$ 是 $"refl"_x$ 時的構造，即對於每個 $x: A$，構造一個項 $"refl"_x op(square.filled.tiny) "refl"_x : x = x$. 因此我們可以簡單地定義 $"refl"_x op(square.filled.tiny) "refl"_x :eq.triple "refl"_x$. 於是根據道路歸納，我們完成了構造.
 ]
