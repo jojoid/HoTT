@@ -714,10 +714,12 @@
 #lemma[
   對於任何 $A: cal(U)_i, x,y,z: A$，都能構造一個函數 $square.filled.tiny: (x scripts(=)_A y) -> (y scripts(=)_A z) -> (x scripts(=)_A z)$ 使得 $"refl"_x op(square.filled.tiny) "refl"_x :eq.triple "refl"_x$.
 
-  $p op(square.filled.tiny) q$ 稱爲 $p$ 和 $q$ 的*合成*.
+  $p op(square.filled.tiny) q$ 稱爲 $p$ 和 $q$ 的*連接*.
 ]
 
 #proof[
+  第一種證明
+
   期望得到的函數擁有類型 $(x, y, z: A) -> (x scripts(=)_A y) -> (y scripts(=)_A z) -> (x scripts(=)_A z)$.
 
   我們將改爲定義一個函數，擁有和預期等價的類型 $(x, y: A) -> (x scripts(=)_A y) -> (z: A) -> (y scripts(=)_A z) -> (x scripts(=)_A z)$，這允許我們使用兩次恆等類型的消除規則.
@@ -760,4 +762,36 @@
   第二種證明
 
   對於每個 $x, y, z: A$，$p: x = y$ 和 $q: y = z$，我們想要構造一個項 $p op(square.filled.tiny) q : x = z$. 根據 $p$ 的道路歸納，我們只需要給出 $y$ 是 $x$ 且 $p$ 是 $"refl"_x$ 時的構造，即對於每個 $x, z: A$ 和 $q: x = z$，構造一個項 $"refl"_x op(square.filled.tiny) q : x = z$. 根據 $q$ 的道路歸納，只需給出 $z$ 是 $x$ 且 $q$ 是 $"refl"_x$ 時的構造，即對於每個 $x: A$，構造一個項 $"refl"_x op(square.filled.tiny) "refl"_x : x = x$. 因此我們可以簡單地定義 $"refl"_x op(square.filled.tiny) "refl"_x :eq.triple "refl"_x$. 於是根據道路歸納，我們完成了構造.
+]
+
+#lemma[
+  設 $A: cal(U)_i$，$x, y, z, w : A$，$p: x = y$，$q: y = z$ 且 $r: z = w$. 我們有以下結論：
+
+  $1.$ $p = p op(square.filled.tiny) "refl"_y$ 且 $p = "refl"_x op(square.filled.tiny) p$；
+
+  $2.$ $p op(square.filled.tiny) p^(-1) = "refl"_x$ 且 $p^(-1) op(square.filled.tiny) p = "refl"_y$；
+
+  $3.$ $(p^(-1))^(-1) = p$；
+
+  $4.$ $p op(square.filled.tiny) (q op(square.filled.tiny) r) = (p op(square.filled.tiny) q) op(square.filled.tiny) r$.
+]
+
+#proof[
+  所有證明都使用道路歸納.
+
+  $1.$ 第一種證明：設 $D: (x, y : A) -> (p: x = y) -> cal(U), D(x, y, p) :eq.triple (p = p op(square.filled.tiny) "refl"_y)$. 那麼 $D(x, x, "refl"_x)$ 是 $"refl"_x = "refl"_x op(square.filled.tiny) "refl"_x$. 因爲 $"refl"_x op(square.filled.tiny) "refl"_x eq.triple "refl"_x$，我們有 $D(x, x, "refl"_1) eq.triple ("refl"_x = "refl"_x)$. 因此可以構造函數 $d :eq.triple x |-> "refl"_("refl"_x) : (x: A) -> D(x, x, "refl"_1)$. 根據道路歸納，對於每個 $x, y: A$ 和 $p: x = y$，我們有項 $op("ind")_(scripts(=)_A) (D, d, x, y, p) : p = p op(square.filled.tiny) "refl"_y$.
+
+  第二種證明：根據 $p$ 的道路歸納，只需要假設 $y$ 是 $x$ 且 $p$ 是 $"refl"_x$. 在該情況下，$p op(square.filled.tiny) "refl"_y eq.triple "refl"_x op(square.filled.tiny) "refl"_x eq.triple "refl"_x$. 因此只需證明 $"refl"_x = "refl"_x$，這是簡單的，即 $"refl"_("refl"_x) : "refl"_x = "refl"_x$.
+
+  $2.$ 第一種證明：設 $D: (x, y : A) -> (p: x = y) -> cal(U), D(x, y, p) :eq.triple (p op(square.filled.tiny) p^(-1) = "refl"_x)$. 那麼 $D(x, x, "refl"_x)$ 是 $"refl"_x op(square.filled.tiny) "refl"_x^(-1) = "refl"_x$. 因爲 $"refl"_x^(-1) eq.triple "refl"_x$ 且 $"refl"_x op(square.filled.tiny) "refl"_x eq.triple "refl"_x$，我們有 $D(x, x, "refl"_x) eq.triple ("refl"_x = "refl"_x)$. 因此可以構造函數 $d :eq.triple x |-> "refl"_("refl"_x) : (x: A) -> D(x, x, "refl"_x)$. 根據道路歸納，對於每個 $x, y: A$ 和 $p: x = y$，我們有項 $op("ind")_(scripts(=)_A) (D, d, x, y, p) : p op(square.filled.tiny) p^(-1) = "refl"_x$.
+
+  第二種證明：根據 $p$ 的道路歸納，只需要假設 $y$ 是 $x$ 且 $p$ 是 $"refl"_x$. 在該情況下，$p op(square.filled.tiny) p^(-1) eq.triple "refl"_x op(square.filled.tiny) "refl"_x^(-1) eq.triple "refl"_x$.
+
+  $3.$ 第一種證明：設 $D: (x, y : A) -> (p: x = y) -> cal(U), D(x, y, p) :eq.triple (p^(-1))^(-1) = p$. 那麼 $D(x, x, p)$ 是 $("refl"_x^(-1))^(-1) = "refl"_x$. 因爲 $"refl"_x^(-1) eq.triple "refl"_x$，所以 $("refl"_x^(-1))^(-1) eq.triple "refl"_x^(-1) eq.triple "refl"_x$，那麼 $D(x, x, "refl"_x) eq.triple ("refl"_x = "refl"_x)$. 因此我們能構造函數 $d :eq.triple x |-> "refl"_("refl"_x) : (x: A) -> D(x, x, "refl"_x)$. 根據道路歸納，對於每個 $x, y: A$ 和 $p: x = y$，我們有項 $op("ind")_(scripts(=)_A) (D, d, x, y, p) : (p^(-1))^(-1) = p$.
+
+  第二種證明：根據 $p$ 的道路歸納，只需要假設 $y$ 是 $x$ 且 $p$ 是 $"refl"_x$. 在該情況下，$(p^(-1))^(-1) eq.triple ("refl"_x^(-1))^(-1) eq.triple "refl"_x$.
+
+  $4.$ 第一種證明：我們想要構造的函數的類型是 $(x, y, z, w : A) -> (p: x = y) -> (q: y = z) -> (r: z = w) -> (p op(square.filled.tiny) (q op(square.filled.tiny) r) = (p op(square.filled.tiny) q) op(square.filled.tiny) r)$，我們改爲證明 $(x, y : A) -> (p: x = y) -> (z: A) -> (q: y = z) -> (w: A) -> (r: z = w) -> (p op(square.filled.tiny) (q op(square.filled.tiny) r) = (p op(square.filled.tiny) q) op(square.filled.tiny) r)$. 設 $D_1 : (x, y : A) -> (p: x = y) -> cal(U), D_1 (x, y, p) :eq.triple (z: A) -> (q: y = z) -> (w: A) -> (r: z = w) -> (p op(square.filled.tiny) (q op(square.filled.tiny) r) = (p op(square.filled.tiny) q) op(square.filled.tiny) r)$. 根據 $p$ 的道路歸納，只需要構造類型爲 $(x: A) -> D_1 (x, x, "refl"_x) eq.triple (x, z: A) -> (q: x = z) -> (w: A) -> (r: z = w) -> ("refl"_x op(square.filled.tiny) (q op(square.filled.tiny) r) = ("refl"_x op(square.filled.tiny) q) op(square.filled.tiny) r)$ 的函數. 爲了構造這個類型的函數，我們設 $D_2 : (x, z: A) -> (q: x = z) -> cal(U), D_2(x, z, q) :eq.triple (w: A) -> (r: z = w) -> ("refl"_x op(square.filled.tiny) (q op(square.filled.tiny) r) = ("refl"_x op(square.filled.tiny) q) op(square.filled.tiny) r)$. 根據 $q$ 的道路歸納，只需要構造類型爲 $(x: A) -> D(x, x, "refl"_x) eq.triple (x, w: A) -> (r: x = w) -> ("refl"_x op(square.filled.tiny) ("refl"_x op(square.filled.tiny) r) = ("refl"_x op(square.filled.tiny) "refl"_x) op(square.filled.tiny) r)$ 的函數. 爲了構造這個類型的函數，我們設 $D_3 : (x, w: A) -> (r: x = w) -> cal(U), D_3 (x, w, r) :eq.triple ("refl"_x op(square.filled.tiny) ("refl"_x op(square.filled.tiny) r) = ("refl"_x op(square.filled.tiny) "refl"_x) op(square.filled.tiny) r)$. 根據 $r$ 的道路歸納，只需要構造類型爲  $(x: A) -> D_3 (x, x, "refl"_x) eq.triple (x: A) -> ("refl"_x op(square.filled.tiny) ("refl"_x op(square.filled.tiny) "refl"_x) = ("refl"_x op(square.filled.tiny) "refl"_x) op(square.filled.tiny) "refl"_x) eq.triple (x: A) -> "refl"_x = "refl"_x$ 的函數. 這是簡單的，即 $"refl"_("refl"_x)$.
+  
+  因此，應用 $3$ 此道路歸納，我們就得到了想要的類型的函數.
 ]
