@@ -803,10 +803,21 @@
 ]
 
 #definition[
-  *迴路空間*
-
-  給定一個類型 $A$ 和一個點 $a: A$，定義它們的*迴路空間* $op(Omega)(A, a)$ 爲類型 $a scripts(=)_A a$. 如果上下文中點 $a$ 是清楚的，有時可以簡單地簡寫爲 $Omega A$. 迴路空間的項稱爲*迴路*.
-
-  還可以定義迴路空間的迴路空間 $op(Omega^2)(A, a) :eq.triple op(Omega)(op(Omega)(A,a), "refl"_a) eq.triple op(Omega)(a scripts(=)_A a, "refl"_a) eq.triple ("refl"_a scripts(=)_(a scripts(=)_A a) "refl"_a)$，它的項稱爲 *$2$ 維迴路*.
+  設 $A: cal(U), a: A$. 序偶 $(A, a) : (A: cal(U)) times A$ 稱爲一個*有點類型*，$a$ 稱爲它的*基點*. 類型 $(A: cal(U)) times A$ 記爲 $cal(U)_circle.filled.small$.
 ]
 
+#definition[
+  *迴路空間*
+
+  對於 $n: NN$，一個有點類型 $(A, a)$ 的 *$n$ 重迭代迴路空間* $op(Omega)^n (A, a)$ 遞歸地定義爲
+  $
+    op(Omega)^0 (A, a) :eq.triple (A, a)，
+  $$
+    op(Omega)^1 (A, a) :eq.triple ((a scripts(=)_A a), "refl"_a)，
+  $$
+    op(Omega)^(n+1) (A, a) :eq.triple op(Omega)^n (op(Omega) (A, a))，
+  $
+  它的一個項稱爲點 $a$ 的一個 *$n$ 維迴路*.
+]
+
+== *函數是函子*
