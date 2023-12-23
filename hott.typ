@@ -807,7 +807,7 @@
 
   給定一個類型 $A$ 和一個點 $a: A$，定義它們的*迴路空間* $op(Omega)(A, a)$ 爲類型 $a scripts(=)_A a$. 如果上下文中點 $a$ 是清楚的，有時可以簡單地簡寫爲 $Omega A$. 迴路空間的項稱爲*迴路*.
 
-  還可以定義迴路空間的迴路空間 $op(Omega^2)(A, a) :eq.triple op(Omega)(op(Omega)(A,a), "refl"_a) eq.triple op(Omega)(a scripts(=)_A a, "refl"_a) eq.triple ("refl"_a scripts(=)_(a scripts(=)_A a) "refl"_a)$，其元素稱爲 *$2$ 維迴路*.
+  還可以定義迴路空間的迴路空間 $op(Omega^2)(A, a) :eq.triple op(Omega)(op(Omega)(A,a), "refl"_a) eq.triple op(Omega)(a scripts(=)_A a, "refl"_a) eq.triple ("refl"_a scripts(=)_(a scripts(=)_A a) "refl"_a)$，它的項稱爲 *$2$ 維迴路*.
 ]
 
 #theorem[
