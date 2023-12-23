@@ -810,12 +810,3 @@
   還可以定義迴路空間的迴路空間 $op(Omega^2)(A, a) :eq.triple op(Omega)(op(Omega)(A,a), "refl"_a) eq.triple op(Omega)(a scripts(=)_A a, "refl"_a) eq.triple ("refl"_a scripts(=)_(a scripts(=)_A a) "refl"_a)$，它的項稱爲 *$2$ 維迴路*.
 ]
 
-#theorem[
-  *Eckmann-Hilton*
-
-  設 $A: cal(U), a: A$. 則 $(alpha, beta : op(Omega^2)(A, a)) -> (alpha op(square.filled.tiny) beta = beta op(square.filled.tiny) alpha)$.
-]
-
-#proof[
-  
-]
