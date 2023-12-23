@@ -669,7 +669,7 @@
     prooftrees.tri(right_label: [$" "="-COMP"$])[$Gamma vdash op("ind")_(scripts(=)_A)(x.y.p.C, z.c, a, a, "refl"_a) eq.triple c[a slash z] : C[a, a, "refl"_a slash x, y, p]$],
   )
 
-  恆等類型的項稱爲*道路*，恆等類型的消除規則稱爲*道路歸納*.
+  恆等類型的項稱爲*道路*；恆等類型的消除規則稱爲*道路歸納*.
 ]
 
 == *定義*
@@ -800,4 +800,22 @@
   爲了構造這個類型的函數，我們設 $D_3 : (x, w: A) -> (r: x = w) -> cal(U), D_3 (x, w, r) :eq.triple ("refl"_x op(square.filled.tiny) ("refl"_x op(square.filled.tiny) r) = ("refl"_x op(square.filled.tiny) "refl"_x) op(square.filled.tiny) r)$. 根據 $r$ 的道路歸納，只需要構造類型爲  $(x: A) -> D_3 (x, x, "refl"_x) eq.triple (x: A) -> ("refl"_x op(square.filled.tiny) ("refl"_x op(square.filled.tiny) "refl"_x) = ("refl"_x op(square.filled.tiny) "refl"_x) op(square.filled.tiny) "refl"_x) eq.triple (x: A) -> "refl"_x = "refl"_x$ 的函數. 這是簡單的，即 $"refl"_("refl"_x)$.
   
   因此，應用 $3$ 此道路歸納，我們就得到了想要的類型的函數.
+]
+
+#definition[
+  *迴路空間*
+
+  給定一個類型 $A$ 和一個點 $a: A$，定義它們的*迴路空間* $op(Omega)(A, a)$ 爲類型 $a scripts(=)_A a$. 如果上下文中點 $a$ 是清楚的，有時可以簡單地簡寫爲 $Omega A$. 迴路空間的項稱爲*迴路*.
+
+  還可以定義迴路空間的迴路空間 $op(Omega^2)(A, a) :eq.triple op(Omega)(op(Omega)(A,a), "refl"_a) eq.triple op(Omega)(a scripts(=)_A a, "refl"_a) eq.triple ("refl"_a scripts(=)_(a scripts(=)_A a) "refl"_a)$，其元素稱爲 *$2$ 維迴路*.
+]
+
+#theorem[
+  *Eckmann-Hilton*
+
+  設 $A: cal(U), a: A$. 則 $(alpha, beta : op(Omega^2)(A, a)) -> (alpha op(square.filled.tiny) beta = beta op(square.filled.tiny) alpha)$.
+]
+
+#proof[
+  
 ]
