@@ -910,3 +910,26 @@
 #proof[
   根據道路歸納，只需證明 $op("ap"_f) ("refl"_x) = op("transportconst"^B) ("refl"_x, f(x)) op(square.filled.tiny) op("apd"_f) ("refl"_x)$，即 $"refl"_(f(x)) = "refl"_(f(x)) op(square.filled.tiny) "refl"_(f(x))$，這是顯然的.
 ]
+
+#lemma[
+  $(P: A -> cal(U)) -> (x, y : A) -> (p: x = y) -> (q: y = z) -> (u: P(x)) -> op("transport"^P) (q, op("transport"^P) (p, u)) = op("transport"^P) (p op(square.filled.tiny) q, u).$
+]
+
+#proof[
+  略.
+]
+
+#lemma[
+  $(f: A -> B) -> (P: B -> cal(U)) -> (x, y : A) -> (p: x = y) -> (u: P(f(x))) -> op("transport"^(P compose f)) (p, u) = op("transport"^P) (op("ap"_f) (p), u).$
+]
+
+#proof[
+  略.
+]
+
+#lemma[
+  $(P, Q : A -> cal(U)) -> (f: (x: A) -> P(x) -> Q(x)) -> (x, y : A) -> (p: x = y) -> (u: P(x)) -> op("transport"^Q) (p, f_x (u)) scripts(=)_(Q(y)) f_y (op("transport"^P) (p, u)).$
+]
+
+== *同倫與等價*
+
