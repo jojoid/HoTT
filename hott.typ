@@ -850,5 +850,63 @@
 ]
 
 #proof[
-  
+  $1.$ 根據的道路歸納，只需要證明 $op("ap"_f) ("refl"_x op(square.filled.tiny) "refl"_x) = op("ap"_f) ("refl"_x) op(square.filled.tiny) op("ap"_f) ("refl"_x)$，這太簡單，遂略.
+
+  $2.$ 根據道路歸納，只需要證明 $op("ap"_f) ("refl"_x^(-1)) = (op("ap"_f) ("refl"_x))^(-1)$，略.
+
+  $3.$ 根據道路歸納，只需證明 $op("ap"_g) (op("ap"_f) ("refl"_x)) = op("ap"_(g compose f)) ("refl"_x)$，即 $op("ap"_g) ("refl"_(f(x))) = "refl"_(g compose f)$，略.
+
+  $4.$ 根據道路歸納，只需證明 $op("ap")_(op("id")_A) ("refl"_x) = "refl"_x$，略.
+]
+
+== *類型族是纖維化*
+
+#lemma[
+  *傳送*
+
+  設 $B: A -> cal(U), x, y : A$，則存在函數 $op("transport"^B) ("_","_") : p: x scripts(=)_A y -> B(x) -> B(y), op("transport"^B) ("refl"_x, b) eq.triple b$.
+]
+
+#proof[
+  第一種證明：設 $D: (x, y : A) -> (p: x = y) -> cal(U), D(x, y, p) :eq.triple B(x) -> B(y)$. 那麼我們有函數 $d :eq.triple (x: A) |-> op("id"_(B(x))) : D(x, x, "refl"_x)$. 根據道路歸納，對於任何 $x, y : A, p: x = y$，我們有函數 $op("ind"_(scripts(=)_A)) (D, d, x, y, p) : B(x) -> B(y)$. 於是我們可以定義，對於任何 $p: x = y$，函數 $op("transport"^B) (p, " _") :eq.triple op("ind"_(scripts(=)_A)) (D, d, x, y, p)$. 根據計算規則，$op("transport"^B) ("refl"_x, " _") eq.triple op("id"_(B(x)))$.
+
+  第二種證明：根據道路歸納，只需假設 $p$ 是 $"refl"_x$. 在該情況下，對於任何 $b: B(x)$，我們定義 $op("transport"^B) ("refl"_x, b) :eq.triple b$.
+]
+
+#lemma[
+  *道路提升*
+
+  設 $P: A -> cal(U), x, y: A$. 則對於任何 $u: P(x), p: x = y$，我們有 $op("lift") (u, p) : (x, u) scripts(=)_((x: A) times P(x)) (y, op("transport"^P) (p, u)), op("lift") (u, "refl"_x) eq.triple "refl"_((x, u))$.
+]
+
+#proof[
+  根據道路歸納，只需證明 $(x, u) = (x, op("id"_(P(x))) (u))$，略.
+]
+
+#lemma[
+  *依賴映射*
+
+  設 $B: A -> cal(U), f: (x: A) -> B(x), x, y : A$. 我們有映射 $op("apd"_f) : (p: x scripts(=)_A y) -> (op("transport"^B) (p, f(x)) scripts(=)_(B(y)) f(y)), op("apd"_f) ("refl"_x) :eq.triple "refl"_(f(x))$.
+]
+
+#proof[
+  第一種證明：設 $D: (x, y : A) -> (x = y) -> cal(U), D(x, y, p) :eq.triple op("transport"^B) (p, f(x)) scripts(=)_(B(y)) f(y)$. 於是我們有函數 $d :eq.triple (x: A) |-> "refl"_(f(x)) : (x: A) -> D(x, x, "refl"_x)$. 根據道路歸納，對於任何 $x, y :A, p: x = y$，我們有函數 $op("ind"_(scripts(=)_A)) (D, d, x, y, p) : op("transport"^B) (p, f(x)) scripts(=)_(B(y)) f(y)$. 於是我們可以定義，對於任何 $p: x = y$，函數 $op("apd"_f) (p) :eq.triple op("ind"_(scripts(=)_A)) (D, d, x, y, p)$. 根據計算規則，$op("apd"_f) ("refl"_x) :eq.triple "refl"_(f(x))$.
+
+  第二種證明：根據道路歸納，只需假設 $p$ 是 $"refl"_x$. 在該情況下，我們定義 $op("apd"_f) ("refl"_x) :eq.triple "refl"_(f(x)) : op("transport"^B) ("refl"_x, f(x)) scripts(=)_(B(x)) f(x)$.
+]
+
+#lemma[
+  設 $B: A -> cal(U), B(x) :eq.triple B, x, y : A$. 則能構造函數 $op("transportconst"^B) ("_","_") : (p: x = y) -> b: B -> b = op("transport"^B) (p, b)$.
+]
+
+#proof[
+  根據道路歸納，只需證明 $(b: B) -> b = op("transport"^B) ("refl"_x, b)$，即 $(b: B) -> b = b$. 顯然只需定義 $op("transportconst"^B) ("refl"_x, b) :eq.triple "refl"_b$.
+]
+
+#lemma[
+  設 $f: A -> B, x, y : A$. 則對於任何路徑 $p: x = y$，我們有類型爲 $op("ap"_f) (p) = op("transportconst"^B) (p, f(x)) op(square.filled.tiny) op("apd"_f) (p)$ 的路徑.
+]
+
+#proof[
+  根據道路歸納，只需證明 $op("ap"_f) ("refl"_x) = op("transportconst"^B) ("refl"_x, f(x)) op(square.filled.tiny) op("apd"_f) ("refl"_x)$，即 $"refl"_(f(x)) = "refl"_(f(x)) op(square.filled.tiny) "refl"_(f(x))$，這是顯然的.
 ]
