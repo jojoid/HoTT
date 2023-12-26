@@ -821,3 +821,34 @@
 ]
 
 == *函數是函子*
+
+#lemma[
+  對於任何 $A, B : cal(U), f: A -> B, x, y : A$，都能構造函數 $op("ap"_f): (x scripts(=)_A y) -> (f(x) scripts(=)_B f(y)), op("ap"_f) ("refl"_x) eq.triple "refl"_(f(x))$.
+]
+
+#proof[
+  第一種證明：設 $D: (x, y : A) -> (x scripts(=)_A y) -> cal(U), D(x, y, p) :eq.triple (f(x) scripts(=)_B f(y))$. 那麼我們有 $d :eq.triple (x: A) |-> "refl"_(f(x)) : (x: A) -> (f(x) scripts(=)_B f(y))$. 根據 $p$ 的道路歸納，我們得到函數 $op("ap"_f): (x scripts(=)_A y) -> (f(x) scripts(=)_B f(y))$. 根據恆等類型的計算規則，對於任何 $x: A$，有 $op("ap"_f) ("refl"_x) eq.triple "refl"_(f(x))$.
+
+  第二種證明：爲了對任何 $p: x = y$ 定義 $op("ap"_f) (p)$，根據 $p$ 的道路歸納，只需要構造 $p$ 是 $"refl"_x$ 的情況. 在該情況下，我們定義 $op("ap"_f) ("refl"_x) :eq.triple "refl"_(f(x)) : f(x) = f(x)$.
+  
+]
+
+#convention[
+  我們將經常將 $op("ap"_f) (p)$ 簡寫爲 $f(p)$.
+]
+
+#lemma[
+  對於任何函數 $f: A -> B, g: B -> C$ 和道路 $p: x scripts(=)_A y, q: y scripts(=)_A z$，我們有：
+
+  $1.$ $op("ap"_f) (p op(square.filled.tiny) q) = op("ap"_f) (p) op(square.filled.tiny) op("ap"_f) (q)$；
+
+  $2.$ $op("ap"_f) (p^(-1)) = (op("ap"_f) (p))^(-1)$；
+
+  $3.$ $op("ap"_g) (op("ap"_f) (p)) = op("ap"_(g compose f)) (p)$；
+
+  $4.$ $op("ap"_(op(id_A))) (p) = p$.
+]
+
+#proof[
+  
+]

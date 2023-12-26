@@ -144,7 +144,7 @@
 )
 
 #let convention = thm-base(
-  type: "約定",
+  type: "慣例",
   color: gray,
 )
 
