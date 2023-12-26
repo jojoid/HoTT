@@ -931,5 +931,9 @@
   $(P, Q : A -> cal(U)) -> (f: (x: A) -> P(x) -> Q(x)) -> (x, y : A) -> (p: x = y) -> (u: P(x)) -> op("transport"^Q) (p, f_x (u)) scripts(=)_(Q(y)) f_y (op("transport"^P) (p, u)).$
 ]
 
+#proof[
+  略.
+]
+
 == *同倫與等價*
 
