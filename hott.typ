@@ -837,6 +837,8 @@
 ]
 
 #definition[
+  *有點類型*
+
   設 $A: cal(U), a: A$. 序偶 $(A, a) : (A: cal(U)) times A$ 稱爲一個*有點類型*，$a$ 稱爲它的*基點*. 類型 $(A: cal(U)) times A$ 記爲 $cal(U)_circle.filled.small$.
 ]
 
@@ -1036,4 +1038,44 @@
   )
 
   我們可以用 $(op(H) x)^(-1)$ 加鬚來消除 $op(H) x$，得到 $f(op(H) x) = f(op(H) x) op(square.filled.tiny) op(H) x op(square.filled.tiny) (op(H) x)^(-1) = H(op(f) x) op(square.filled.tiny) op(H) x op(square.filled.tiny) (op(H) x)^(-1) = H(op(f) x)$.
+]
+
+#definition[
+  *擬逆*
+
+  對於一個函數 $f: A -> B$，它的一個*擬逆*是一個三元組 $(g, alpha, beta) : (g: B -> A) times (g compose f op(~) op("id"_A)) times (f compose g op(~) op("id"_B))$. $f$ 的擬逆的類型簡記爲 $op("qinv") (f)$.
+]
+
+#definition[
+  *等價*
+
+  對於任何函數 $f: A -> B$，定義 *$op("isequiv")$*$(f) :eq.triple (g: B -> A) times (g compose f op(~) op("id"_A)) times (h: B -> A) times (f compose h op(~) op("id"_B))$，$(A$ *$tilde.eq$* $B) :eq.triple (f: A -> B) times op("isequiv") (f)$.
+]
+
+#lemma[
+  $1.$ 對於任何 $f: A -> B$，存在函數 $op("qinv") (f) -> op("isequiv") (f)$；
+
+  $2.$ 對於任何 $f: A -> B$，存在函數 $op("isequiv") (f) -> op("qinv") (f)$.
+]
+
+#proof[
+  $1.$ 略.
+
+  $2.$ 給定四元組 $(g, alpha, h, beta)： op("isequiv") (f)$，我們有 $alpha: (x: A) -> (g compose f) (x) = x, beta: (y: B) -> (f compose h) (y) = y$，那麼我們有同倫 $g compose beta^(-1) : (y: B) -> g(y) = (g compose f compose h) (y) eq.triple g op(~) (g compose f compose h)$ 和 $alpha compose h : (y: B) -> (g compose f compose h) (y) = h(y) eq.triple (g compose f compose h) op(~) h$. 於是我們可以定義同倫 $gamma :eq.triple (g compose beta^(-1)) op(square.filled.tiny) (alpha compose h) : g op(~) h eq.triple (y: B) -> g(y) = h(y)$. 那麼 $f compose gamma : (y: B) -> (f compose g) (y) = (f compose h) (y) eq.triple (f compose g) op(~) (f compose h)$. 於是有 $(f compose gamma) op(square.filled.tiny) beta : (f compose g) op(~) op("id"_B)$. 所以有 $(g, alpha, (f compose gamma) op(square.filled.tiny) beta) : op("qinv") (f)$.
+]
+
+#lemma[
+  $1.$ $op("isequiv") (op("id"_A))$；
+
+  $2.$ 如果有等價 $(f: A tilde.eq B)$ 則存在一個等價 $(f^(-1) : B tilde.eq A)$；
+
+  $3.$ 如果 $f: A tilde.eq B, g: B tilde.eq C$ 則 $g compose f : A tilde.eq C$.
+]
+
+#proof[
+  $1.$ 略.
+
+  $2.$ 它的擬逆就是一個實例.
+
+  $3.$ $g compose f$ 的擬逆是 $f^(-1) compose g(-1)$.
 ]
