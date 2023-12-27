@@ -115,7 +115,7 @@
 // Presets
 #let theorem = thm-base(
   type: "定理",
-  color: blue,
+  color: navy,
 )
 
 #let definition = thm-base(
@@ -130,7 +130,7 @@
 
 #let corollary = thm-base(
   type: "推論",
-  color: navy,
+  color: blue,
 )
 
 #let proposition = thm-base(

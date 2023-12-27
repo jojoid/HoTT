@@ -781,6 +781,8 @@
 
   $1.$ 第一種證明：設 $D: (x, y : A) -> (p: x = y) -> cal(U), D(x, y, p) :eq.triple (p = p op(square.filled.tiny) "refl"_y)$. 那麼 $D(x, x, "refl"_x)$ 是 $"refl"_x = "refl"_x op(square.filled.tiny) "refl"_x$. 因爲 $"refl"_x op(square.filled.tiny) "refl"_x eq.triple "refl"_x$，我們有 $D(x, x, "refl"_1) eq.triple ("refl"_x = "refl"_x)$. 因此可以構造函數 $d :eq.triple x |-> "refl"_("refl"_x) : (x: A) -> D(x, x, "refl"_1)$. 根據道路歸納，對於每個 $x, y: A$ 和 $p: x = y$，我們有項 $op("ind")_(scripts(=)_A) (D, d, x, y, p) : p = p op(square.filled.tiny) "refl"_y$.
 
+  本書後面將把 $op("ind"_(scripts(=)_A)) ((x,y,p) |-> (p = p op(square.filled.tiny) "refl"_y), x |-> "refl"_("refl"_x), x, y, p)$ 記爲 *$"ru"_p$*，把 $op("ind"_(scripts(=)_A)) ((x,y,p) |-> (p = "refl"_y op(square.filled.tiny) p), x |-> "refl"_("refl"_x), x, y, p)$ 記爲 *$"lu"_p$*.
+
   第二種證明：根據 $p$ 的道路歸納，只需要假設 $y$ 是 $x$ 且 $p$ 是 $"refl"_x$. 在該情況下，$p op(square.filled.tiny) "refl"_y eq.triple "refl"_x op(square.filled.tiny) "refl"_x eq.triple "refl"_x$. 因此只需證明 $"refl"_x = "refl"_x$，這是簡單的，即 $"refl"_("refl"_x) : "refl"_x = "refl"_x$.
 
   $2.$ 第一種證明：設 $D: (x, y : A) -> (p: x = y) -> cal(U), D(x, y, p) :eq.triple (p op(square.filled.tiny) p^(-1) = "refl"_x)$. 那麼 $D(x, x, "refl"_x)$ 是 $"refl"_x op(square.filled.tiny) "refl"_x^(-1) = "refl"_x$. 因爲 $"refl"_x^(-1) eq.triple "refl"_x$ 且 $"refl"_x op(square.filled.tiny) "refl"_x eq.triple "refl"_x$，我們有 $D(x, x, "refl"_x) eq.triple ("refl"_x = "refl"_x)$. 因此可以構造函數 $d :eq.triple x |-> "refl"_("refl"_x) : (x: A) -> D(x, x, "refl"_x)$. 根據道路歸納，對於每個 $x, y: A$ 和 $p: x = y$，我們有項 $op("ind")_(scripts(=)_A) (D, d, x, y, p) : p op(square.filled.tiny) p^(-1) = "refl"_x$.
@@ -802,6 +804,38 @@
   因此，應用 $3$ 此道路歸納，我們就得到了想要的類型的函數.
 ]
 
+#lemma[
+  *加鬚*
+
+  $1.$ 對於任何 $a, b, c : A, p, q : a = b$，我們可以構造函數 *$"_" op(square.filled.tiny_r) "_"$* $: (p = q) -> (r: b = c) -> (p op(square.filled.tiny) r = q op(square.filled.tiny) r), alpha op(square.filled.tiny_r) "refl"_b :eq.triple "ru"_p^(-1) op(square.filled.tiny) alpha op(square.filled.tiny) "ru"_q$；
+
+  $2.$ 對於任何 $a, b, c : A, q, r : b = c$，我們可以構造函數 *$"_" op(square.filled.tiny_l) "_"$* $: (p: a = b) -> (q = r) -> (p op(square.filled.tiny) q = p op(square.filled.tiny) r), "refl"_b op(square.filled.tiny_l) beta :eq.triple "lu"_q^(-1) op(square.filled.tiny) beta op(square.filled.tiny) "lu"_r$.
+]
+
+#proof[
+  略.
+]
+
+#lemma[
+  對於任何 $a, b, c : A, p, q : a = b, r, s : b = c, alpha: p = q, beta: r = s$，我們有 $(alpha op(square.filled.tiny_r) r) op(square.filled.tiny) (q op(square.filled.tiny_l) beta) = (p op(square.filled.tiny_l) beta) op(square.filled.tiny) (alpha op(square.filled.tiny_r) s)$.
+]
+
+#proof[
+  略.
+]
+
+#theorem[
+  *Eckmann–Hilton*
+
+  $
+    (alpha, beta : op(Omega^2) (A, a)) -> (alpha op(square.filled.tiny) beta = beta op(square.filled.tiny) alpha)
+  $
+]
+
+#proof[
+  略.
+]
+
 #definition[
   設 $A: cal(U), a: A$. 序偶 $(A, a) : (A: cal(U)) times A$ 稱爲一個*有點類型*，$a$ 稱爲它的*基點*. 類型 $(A: cal(U)) times A$ 記爲 $cal(U)_circle.filled.small$.
 ]
@@ -818,6 +852,10 @@
     op(Omega)^(n+1) (A, a) :eq.triple op(Omega)^n (op(Omega) (A, a))，
   $
   它的一個項稱爲點 $a$ 的一個 *$n$ 維迴路*.
+]
+
+#convention[
+  設 $op(Omega^(n))(A,a) eq.triple (B,b)$. 則 $x: op(Omega^(n))(A,a)$ 表示 $x: B$.
 ]
 
 == *函數是函子*
@@ -928,6 +966,7 @@
 ]
 
 #lemma[
+
   $(P, Q : A -> cal(U)) -> (f: (x: A) -> P(x) -> Q(x)) -> (x, y : A) -> (p: x = y) -> (u: P(x)) -> op("transport"^Q) (p, f_x (u)) scripts(=)_(Q(y)) f_y (op("transport"^P) (p, u)).$
 ]
 
@@ -937,3 +976,64 @@
 
 == *同倫與等價*
 
+#definition[
+  *同倫*
+
+  設 $P: A -> cal(U), f, g : (x: A) -> P(x)$. 從 $f$ 到 $g$ 的一個*同倫*定義爲一個類型爲 $(f op(~) g) :eq.triple (x: A) -> f(x) = g(x)$ 的函數.
+]
+
+#lemma[
+  設 $P: A -> cal(U)$. 我們有：
+
+  $1.$ $(f: (x: A) -> P(x)) -> (f op(~) f)$；
+
+  $2.$ $(f, g : (x: A) -> P(x)) -> (f op(~) g) -> (g op(~) f)$；
+
+  $3.$ $(f, g, h : (x: A) -> P(x)) -> (f op(~) g) -> (g op(~) h) -> (f op(~) h)$.
+]
+
+#proof[
+  略.
+]
+
+#lemma[
+  設 $f, g : A -> B, H: f op(~) g$. 則對於任何 $x, y : A, p: x = y$ 我們有 $H(x) op(square.filled.tiny) g(p) = f(p) op(square.filled.tiny) H(y)$，即下圖交換
+
+  #align(
+    center,
+    commutative-diagram(
+      node((0,0), $f(x)$), node((0,1), $f(y)$),
+      node((1,0), $g(x)$), node((1,1), $g(y)$),
+      arr((0,0), (1,0), $H(x)$, label-pos: right),
+      arr((1,0), (1,1), $g(p)$, label-pos: right),
+      arr((0,0), (0,1), $f(p)$),
+      arr((0,1), (1,1), $H(y)$),
+    )
+  )
+]
+
+#proof[
+  略.
+]
+
+#corollary[
+  設 $f: A -> A, H: f op(~) op("id"_A)$. 則對於任何 $x: A$ 我們有 $H(f(x)) = f(H(x))$.
+]
+
+#proof[
+  根據 $H$ 的自然性，我們有 $f(op(H) x) op(square.filled.tiny) op(H) x = H(op(f) x) op(square.filled.tiny) op(H) x$，即下圖交換
+
+  #align(
+    center,
+    commutative-diagram(
+      node((0,0), $op(f) op(f) x$), node((0,1), $op(f) x$),
+      node((1,0), $op(f) x$), node((1,1), $x$),
+      arr((0,0), (1,0), $H(op(f) x)$, label-pos: right),
+      arr((1,0), (1,1), $op(H) x$, label-pos: right),
+      arr((0,0), (0,1), $f(op(H) x)$),
+      arr((0,1), (1,1), $op(H) x$),
+    )
+  )
+
+  我們可以用 $(op(H) x)^(-1)$ 加鬚來消除 $op(H) x$，得到 $f(op(H) x) = f(op(H) x) op(square.filled.tiny) op(H) x op(square.filled.tiny) (op(H) x)^(-1) = H(op(f) x) op(square.filled.tiny) op(H) x op(square.filled.tiny) (op(H) x)^(-1) = H(op(f) x)$.
+]
