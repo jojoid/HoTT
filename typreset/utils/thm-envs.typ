@@ -148,6 +148,11 @@
   color: gray,
 )
 
+#let axiom = thm-base(
+  type: "公理",
+  color: red,
+)
+
 // Proof environment
 #let proof(body) = block(spacing: 11.5pt, {
   emph[Proof.]
@@ -166,5 +171,6 @@
     proposition,
     example,
     convention,
+    axiom,
   )
 }

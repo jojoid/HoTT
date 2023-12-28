@@ -7,7 +7,7 @@
 
 #show: font.set-font.with(lang: "zh")
 
-#let (theorem, definition, lemma, corollary, proof, proposition, example, convention) = thm-envs.presets()
+#let (theorem, definition, lemma, corollary, proof, proposition, example, convention, axiom) = thm-envs.presets()
 #let thm-base = thm-envs.thm-base
 
 #show: project.with(
@@ -976,12 +976,20 @@
   略.
 ]
 
-== *同倫與等價*
+== *同倫和等價*
 
 #definition[
   *同倫*
 
   設 $P: A -> cal(U), f, g : (x: A) -> P(x)$. 從 $f$ 到 $g$ 的一個*同倫*定義爲一個類型爲 $(f op(~) g) :eq.triple (x: A) -> f(x) = g(x)$ 的函數.
+]
+
+#lemma[
+  設 $f: A -> B$. 則 $(x: A) |-> "refl"_(f(x)) : f op(~) f$.
+]
+
+#proof[
+  略.
 ]
 
 #lemma[
@@ -1078,4 +1086,54 @@
   $2.$ 它的擬逆就是一個實例.
 
   $3.$ $g compose f$ 的擬逆是 $((f "的擬逆") compose (g "的擬逆"))$.
+]
+
+== *笛卡爾積類型*
+
+#lemma[
+  *投影函數*
+
+  對於任何類型 $A, B : cal(U)$，可以構造兩個*投影函數* $op("pr"_1) : A times B -> A, op("pr"_1) (a, b) :eq.triple a$ 和 $op("pr"_2) : A times B -> B, op("pr"_2) (a, b) :eq.triple b$.
+]
+
+#proof[
+  略.
+]
+
+#lemma[
+  對於任何 $x, y : A times B$，可以構造一個函數 $(x scripts(=)_(A times B) y) -> ((op("pr"_1)) (x) scripts(=)_(A) (op("pr"_1)) (y)) times ((op("pr"_2)) (x) scripts(=)_(B) (op("pr"_2)) (y))$.
+]
+
+#proof[
+  略.
+]
+
+#theorem[
+  對於任何 $x, y : A times B$，上面引理中的函數是一個等價.
+]
+
+#proof[
+
+]
+
+== *$Sigma$-類型*
+
+== *宇宙和泛等公理*
+
+#lemma[
+  對於任何類型 $A, B : cal(U)$，可以構造函數 *$op("idtoeqv"_(A, B))$* $: (A scripts(=)_(cal(U)) B) -> (A tilde.eq B)$
+]
+
+#proof[
+  
+]
+
+#axiom[
+  *泛等*
+
+  #prooftrees.tree(
+    prooftrees.axi[$Gamma vdash A: cal(U)_i$],
+      prooftrees.axi[$Gamma vdash B: cal(U)_i$],
+    prooftrees.bin(right_label: [$" "cal(U)_i"-UNIV"$])[$Gamma vdash op(bold("univalence")) (A, B) : op("isequiv") (op("idtoeqv"_(A, B)))$],
+  )
 ]
