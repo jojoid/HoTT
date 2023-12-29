@@ -1051,7 +1051,7 @@
 #definition[
   *擬逆*
 
-  對於一個函數 $f: A -> B$，它的一個*擬逆*是一個三元組 $(g, alpha, beta) : (g: B -> A) times (g compose f op(~) op("id"_A)) times (f compose g op(~) op("id"_B))$. $f$ 的擬逆的類型簡記爲 $op("qinv") (f)$.
+  對於一個函數 $f: A -> B$，它的一個*擬逆*是一個三元組 $(g, alpha, beta) : (g: B -> A) times (g compose f op(~) op("id"_A)) times (f compose g op(~) op("id"_B))$. $f$ 的擬逆的 $Sigma$-類型簡記爲 *$op("qinv")$*$(f)$.
 ]
 
 #definition[
@@ -1086,54 +1086,4 @@
   $2.$ 它的擬逆就是一個實例.
 
   $3.$ $g compose f$ 的擬逆是 $((f "的擬逆") compose (g "的擬逆"))$.
-]
-
-== *笛卡爾積類型*
-
-#lemma[
-  *投影函數*
-
-  對於任何類型 $A, B : cal(U)$，可以構造兩個*投影函數* $op("pr"_1) : A times B -> A, op("pr"_1) (a, b) :eq.triple a$ 和 $op("pr"_2) : A times B -> B, op("pr"_2) (a, b) :eq.triple b$.
-]
-
-#proof[
-  略.
-]
-
-#lemma[
-  對於任何 $x, y : A times B$，可以構造一個函數 $(x scripts(=)_(A times B) y) -> ((op("pr"_1)) (x) scripts(=)_(A) (op("pr"_1)) (y)) times ((op("pr"_2)) (x) scripts(=)_(B) (op("pr"_2)) (y))$.
-]
-
-#proof[
-  略.
-]
-
-#theorem[
-  對於任何 $x, y : A times B$，上面引理中的函數是一個等價.
-]
-
-#proof[
-
-]
-
-== *$Sigma$-類型*
-
-== *宇宙和泛等公理*
-
-#lemma[
-  對於任何類型 $A, B : cal(U)$，可以構造函數 *$op("idtoeqv"_(A, B))$* $: (A scripts(=)_(cal(U)) B) -> (A tilde.eq B)$
-]
-
-#proof[
-  
-]
-
-#axiom[
-  *泛等*
-
-  #prooftrees.tree(
-    prooftrees.axi[$Gamma vdash A: cal(U)_i$],
-      prooftrees.axi[$Gamma vdash B: cal(U)_i$],
-    prooftrees.bin(right_label: [$" "cal(U)_i"-UNIV"$])[$Gamma vdash op(bold("univalence")) (A, B) : op("isequiv") (op("idtoeqv"_(A, B)))$],
-  )
 ]
