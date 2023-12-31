@@ -1051,7 +1051,7 @@
 #definition[
   *擬逆*
 
-  對於一個函數 $f: A -> B$，它的一個*擬逆*是一個三元組 $(g, alpha, beta) : (g: B -> A) times [(g compose f op(~) op("id"_A)) times (f compose g op(~) op("id"_B))]$. $f$ 的擬逆的類型簡記爲 *$op("qinv")$*$(f)$.
+  對於一個函數 $f: A -> B$，它的一個*擬逆*是一個三元組 $(g, alpha, beta) : op(bold("qinv")) (f) :eq.triple (g: B -> A) times [(g compose f op(~) op("id"_A)) times (f compose g op(~) op("id"_B))]$.
 ]
 
 #definition[
