@@ -1051,13 +1051,13 @@
 #definition[
   *擬逆*
 
-  對於一個函數 $f: A -> B$，它的一個*擬逆*是一個三元組 $(g, alpha, beta) : (g: B -> A) times (g compose f op(~) op("id"_A)) times (f compose g op(~) op("id"_B))$. $f$ 的擬逆的類型簡記爲 *$op("qinv")$*$(f)$.
+  對於一個函數 $f: A -> B$，它的一個*擬逆*是一個三元組 $(g, alpha, beta) : (g: B -> A) times [(g compose f op(~) op("id"_A)) times (f compose g op(~) op("id"_B))]$. $f$ 的擬逆的類型簡記爲 *$op("qinv")$*$(f)$.
 ]
 
 #definition[
   *等價*
 
-  對於任何函數 $f: A -> B$，定義 *$op("isequiv")$*$(f) :eq.triple (g: B -> A) times (g compose f op(~) op("id"_A)) times (h: B -> A) times (f compose h op(~) op("id"_B))$，$(A$ *$tilde.eq$* $B) :eq.triple (f: A -> B) times op("isequiv") (f)$.
+  對於任何函數 $f: A -> B$，定義 *$op("isequiv")$*$(f) :eq.triple [(g: B -> A) times (g compose f op(~) op("id"_A))] times [(h: B -> A) times (f compose h op(~) op("id"_B))]$，$(A$ *$tilde.eq$* $B) :eq.triple (f: A -> B) times op("isequiv") (f)$.
 ]
 
 #lemma[
@@ -1072,6 +1072,22 @@
   $2.$ 給定四元組 $(g, alpha, h, beta)： op("isequiv") (f)$，我們有 $alpha: (x: A) -> (g compose f) (x) = x, beta: (y: B) -> (f compose h) (y) = y$，那麼我們有同倫 $g compose beta^(-1) : (y: B) -> g(y) = (g compose f compose h) (y) eq.triple g op(~) (g compose f compose h)$ 和 $alpha compose h : (y: B) -> (g compose f compose h) (y) = h(y) eq.triple (g compose f compose h) op(~) h$. 於是我們可以定義同倫 $gamma :eq.triple (g compose beta^(-1)) op(square.filled.tiny) (alpha compose h) : g op(~) h eq.triple (y: B) -> g(y) = h(y)$. 那麼 $f compose gamma : (y: B) -> (f compose g) (y) = (f compose h) (y) eq.triple (f compose g) op(~) (f compose h)$. 於是有 $(f compose gamma) op(square.filled.tiny) beta : (f compose g) op(~) op("id"_B)$. 所以有 $(g, alpha, (f compose gamma) op(square.filled.tiny) beta) : op("qinv") (f)$.
 ]
 
+== *恆等類型*
+
+#lemma[
+  對於任何 $a, x_1, x_2 : A$ 和 $p: x_1 = x_2$，我們有
+
+  $1.$ $(q: a = x_1) -> op("transport"^(x |-> (a = x))) (p, q) = q op(square.filled.tiny) p$；
+
+  $2.$ $(q: x_1 = a) -> op("transport"^(x |-> (x = a))) (p, q) = p^(-1) op(square.filled.tiny) q$；
+
+  $3.$ $(q: x_1 = x_2) -> op("transport"^(x |-> (x = x))) (p, q) = p^(-1) op(square.filled.tiny) q op(square.filled.tiny) p$.
+]
+
+#proof[
+  略.
+]
+
 #pagebreak()
 
 = *集合和邏輯*
@@ -1079,10 +1095,39 @@
 == *集合和 $n$-類型*
 
 #definition[
-  *集合*
+  *集合（$0$-類型）*
 
   設 $A: cal(U)$.
   $
     op(bold("isSet")) (A) :eq.triple (x, y : A) -> (p, q : x = y) -> (p = q)
+  $
+]
+
+#definition[
+  *$1$-類型*
+
+  一個類型 $A$ 是一個 *$1$-類型* 如果 $(x, y : A) -> (p, q : x = y) -> (alpha, beta : p = q) -> (alpha = beta)$.
+]
+
+#lemma[
+  如果 $A$ 是一個集合，則 $A$ 是一個 $1$-類型.
+]
+
+#proof[
+  我們想證明 $[(x, y : A) -> (p, q : x = y) -> (p = q)] -> (x, y : A) -> (p, q : x = y) -> (alpha, beta : p = q) -> (alpha = beta)$.
+
+  設 $f: op("isSet") (A)$. 那麼對於任何 $x, y : A$ 和 $p, q : x = y$ 我們有 $p = q$. 給定 $x, y$ 和 $p$，定義 $g: (q: x = y) -> (p = q), g :eq.triple f(x, y, p, "_")$. 那麼對於任何 $q, q' : x = y$ 和 $alpha: q = q'$，我們有 $op("apd"_g) (alpha) : op("transport"^(q |-> (p = q))) (alpha, g(q)) = g(q')$，也就有 $g(q) op(square.filled.tiny) alpha = g(q')$.
+
+  因此對於任何 $x, y : A, p, q : x = y, alpha, beta : p = q$，我們有 $g(p) op(square.filled.tiny) alpha = g(q)$ 且 $g(p) op(square.filled.tiny) beta = g(q)$，也就有 $g(p) op(square.filled.tiny) alpha = g(p) op(square.filled.tiny) beta$，也就有 $alpha = beta$.
+]
+
+== *命題*
+
+#definition[
+  *命題*
+
+  設 $A: cal(U)$.
+  $
+    op(bold("isProp")) (A) :eq.triple (x, y : A) -> (x = y)
   $
 ]
