@@ -1072,6 +1072,36 @@
   $2.$ 給定四元組 $(g, alpha, h, beta)： op("isequiv") (f)$，我們有 $alpha: (x: A) -> (g compose f) (x) = x, beta: (y: B) -> (f compose h) (y) = y$，那麼我們有同倫 $g compose beta^(-1) : (y: B) -> g(y) = (g compose f compose h) (y) eq.triple g op(~) (g compose f compose h)$ 和 $alpha compose h : (y: B) -> (g compose f compose h) (y) = h(y) eq.triple (g compose f compose h) op(~) h$. 於是我們可以定義同倫 $gamma :eq.triple (g compose beta^(-1)) op(square.filled.tiny) (alpha compose h) : g op(~) h eq.triple (y: B) -> g(y) = h(y)$. 那麼 $f compose gamma : (y: B) -> (f compose g) (y) = (f compose h) (y) eq.triple (f compose g) op(~) (f compose h)$. 於是有 $(f compose gamma) op(square.filled.tiny) beta : (f compose g) op(~) op("id"_B)$. 所以有 $(g, alpha, (f compose gamma) op(square.filled.tiny) beta) : op("qinv") (f)$.
 ]
 
+#lemma[
+  $1.$ 對於任何類型 $A: cal(U)$，我們有 $op("isequiv") (op("id"_A))$；
+]
+
+#proof[
+  $1.$ 我們要證明對於任何類型 $A: cal(U)$ 有 $[(g: B -> A) times (g compose op("id"_A) op(~) op("id"_A))] times [(h: B -> A) times (op("id"_A) compose h op(~) op("id"_B))]$.
+]
+
+== *宇宙和泛等公理*
+
+#lemma[
+  對於任何類型 $A, B : cal(U)$，我們有一個函數 $op(bold("idtoeqv")_(A, B)) : (A scripts(=)_cal(U) B) -> A -> B$ 滿足 $(p: A scripts(=)_cal(U) B) -> op("isequiv") (op("idtoeqv"_(A, B)) (p))$.
+]
+
+#proof[
+  函數 $op("transport"^(op("id"_cal(U)))) ("_", "_") : (A scripts(=)_cal(U) B) -> A -> B$. 我們要證明 $(p: A scripts(=)_cal(U) B) -> op("isequiv") (op("transport"^(op("id"_cal(U)))) (p, "_"))$. 根據 $p$ 的道路歸納，只需證明 $op("isequiv") (op("transport"^(op("id"_cal(U)))) ("refl"_A, "_"))$，即證明 $op("isequiv") (op("id"_A))$，證畢.
+
+  定義 $op(bold("idtoeqv")_(A, B)) (p) :eq.triple op("transport"^(op("id"_cal(U)))) (p, "_")$.
+]
+
+#definition[
+  *泛等公理*
+
+  #prooftrees.tree(
+    prooftrees.axi[$Gamma vdash A: cal(U)_i$],
+      prooftrees.axi[$Gamma vdash B: cal(U)_i$],
+    prooftrees.bin(right_label: [$" "cal(U)_i"-UNIV"$])[$Gamma vdash op("univalence") (A, B) : op("isequiv") (op("idtoeqv"_(A, B)))$],
+  )
+]
+
 == *恆等類型*
 
 #lemma[
