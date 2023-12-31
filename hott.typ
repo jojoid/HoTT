@@ -1051,7 +1051,7 @@
 #definition[
   *擬逆*
 
-  對於一個函數 $f: A -> B$，它的一個*擬逆*是一個三元組 $(g, alpha, beta) : (g: B -> A) times (g compose f op(~) op("id"_A)) times (f compose g op(~) op("id"_B))$. $f$ 的擬逆的 $Sigma$-類型簡記爲 *$op("qinv")$*$(f)$.
+  對於一個函數 $f: A -> B$，它的一個*擬逆*是一個三元組 $(g, alpha, beta) : (g: B -> A) times (g compose f op(~) op("id"_A)) times (f compose g op(~) op("id"_B))$. $f$ 的擬逆的類型簡記爲 *$op("qinv")$*$(f)$.
 ]
 
 #definition[
@@ -1072,18 +1072,17 @@
   $2.$ 給定四元組 $(g, alpha, h, beta)： op("isequiv") (f)$，我們有 $alpha: (x: A) -> (g compose f) (x) = x, beta: (y: B) -> (f compose h) (y) = y$，那麼我們有同倫 $g compose beta^(-1) : (y: B) -> g(y) = (g compose f compose h) (y) eq.triple g op(~) (g compose f compose h)$ 和 $alpha compose h : (y: B) -> (g compose f compose h) (y) = h(y) eq.triple (g compose f compose h) op(~) h$. 於是我們可以定義同倫 $gamma :eq.triple (g compose beta^(-1)) op(square.filled.tiny) (alpha compose h) : g op(~) h eq.triple (y: B) -> g(y) = h(y)$. 那麼 $f compose gamma : (y: B) -> (f compose g) (y) = (f compose h) (y) eq.triple (f compose g) op(~) (f compose h)$. 於是有 $(f compose gamma) op(square.filled.tiny) beta : (f compose g) op(~) op("id"_B)$. 所以有 $(g, alpha, (f compose gamma) op(square.filled.tiny) beta) : op("qinv") (f)$.
 ]
 
-#lemma[
-  $1.$ $op("isequiv") (op("id"_A))$；
+#pagebreak()
 
-  $2.$ 如果有等價 $(f: A tilde.eq B)$ 則存在一個等價 $(f^(-1) : B tilde.eq A)$；
+= *集合和邏輯*
 
-  $3.$ 如果 $f: A tilde.eq B, g: B tilde.eq C$ 則 $g compose f : A tilde.eq C$.
-]
+== *集合和 $n$-類型*
 
-#proof[
-  $1.$ 略.
+#definition[
+  *集合*
 
-  $2.$ 它的擬逆就是一個實例.
-
-  $3.$ $g compose f$ 的擬逆是 $((f "的擬逆") compose (g "的擬逆"))$.
+  設 $A: cal(U)$.
+  $
+    op(bold("isSet")) (A) :eq.triple (x, y : A) -> (p, q : x = y) -> (p = q)
+  $
 ]
