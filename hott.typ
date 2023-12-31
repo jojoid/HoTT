@@ -1077,19 +1077,19 @@
 ]
 
 #proof[
-  $1.$ 我們要證明對於任何類型 $A: cal(U)$ 有 $[(g: B -> A) times (g compose op("id"_A) op(~) op("id"_A))] times [(h: B -> A) times (op("id"_A) compose h op(~) op("id"_B))]$.
+  $1.$ 我們要證明對於任何類型 $A: cal(U)$ 有 $[(g: B -> A) times (g compose op("id"_A) op(~) op("id"_A))] times [(h: B -> A) times (op("id"_A) compose h op(~) op("id"_B))]$，略.
 ]
 
 == *宇宙和泛等公理*
 
 #lemma[
-  對於任何類型 $A, B : cal(U)$，我們有一個函數 $op(bold("idtoeqv")_(A, B)) : (A scripts(=)_cal(U) B) -> A -> B$ 滿足 $(p: A scripts(=)_cal(U) B) -> op("isequiv") (op("idtoeqv"_(A, B)) (p))$.
+  對於任何類型 $A, B : cal(U)$，我們有一個函數 $op(bold("idtoeqv")_(A, B)) : (A scripts(=)_cal(U) B) -> (A tilde.eq B)$.
 ]
 
 #proof[
-  函數 $op("transport"^(op("id"_cal(U)))) ("_", "_") : (A scripts(=)_cal(U) B) -> A -> B$. 我們要證明 $(p: A scripts(=)_cal(U) B) -> op("isequiv") (op("transport"^(op("id"_cal(U)))) (p, "_"))$. 根據 $p$ 的道路歸納，只需證明 $op("isequiv") (op("transport"^(op("id"_cal(U)))) ("refl"_A, "_"))$，即證明 $op("isequiv") (op("id"_A))$，證畢.
+  函數 $op("transport"^(op("id"_cal(U)))) ("_", "_") : (A scripts(=)_cal(U) B) -> A -> B$. 我們要證明 $(p: A scripts(=)_cal(U) B) -> op("isequiv") (op("transport"^(op("id"_cal(U)))) (p, "_"))$. 根據 $p$ 的道路歸納，只需證明 $op("isequiv") (op("transport"^(op("id"_cal(U)))) ("refl"_A, "_"))$，即證明 $op("isequiv") (op("id"_A))$.
 
-  定義 $op(bold("idtoeqv")_(A, B)) (p) :eq.triple op("transport"^(op("id"_cal(U)))) (p, "_")$.
+  定義 $op(bold("idtoeqv")_(A, B)) (p) :eq.triple (op("transport"^(op("id"_cal(U)))) (p, "_"), a) : A tilde.eq B$，其中 $a: op("isequiv") (op("transport"^(op("id"_cal(U)))) (p, "_"))$.
 ]
 
 #definition[
@@ -1100,6 +1100,10 @@
       prooftrees.axi[$Gamma vdash B: cal(U)_i$],
     prooftrees.bin(right_label: [$" "cal(U)_i"-UNIV"$])[$Gamma vdash op("univalence") (A, B) : op("isequiv") (op("idtoeqv"_(A, B)))$],
   )
+]
+
+#lemma[
+  $(op("idtoeqv"_(A, B)), op("isequiv") (op("idtoeqv"_(A, B)))) : (A scripts(=)_cal(U) B) tilde.eq (A tilde.eq B)$
 ]
 
 == *恆等類型*
