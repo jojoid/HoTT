@@ -1073,7 +1073,7 @@
 ]
 
 #lemma[
-  $1.$ 對於任何類型 $A: cal(U)$，我們有 $op("isequiv") (op("id"_A))$；
+  $1.$ 對於任何類型 $A: cal(U)$，我們有 $op("isequiv") (op("id"_A))$，即 $A tilde.eq A$；
 ]
 
 #proof[
