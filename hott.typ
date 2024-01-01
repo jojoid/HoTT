@@ -1100,6 +1100,22 @@
   定義 $op(bold("idtoeqv")_(A, B)) (p) :eq.triple (op("transport"^(op("id"_cal(U)))) (p, "_"), a) : A tilde.eq B$，其中 $a: op("isequiv") (op("transport"^(op("id"_cal(U)))) (p, "_"))$.
 ]
 
+#lemma[
+  $(op("id"_A), a) = op("idtoeqv"_(A,B)) ("refl"_A)$，其中 $a: op("isequiv") (op("id"_A))$.
+]
+
+#lemma[
+  對於任何 $x, y : A, p: x = y, B: A -> cal(U), u: B(x)$，我們有 $op("transport"^B) (p, u) = op("transport"^(op("id"_cal(U)))) (op("ap"_B) (p), u) = op(op("pr"_1) (op("idtoeqv") (op("ap"_B) (p)))) (u)$.
+]
+
+#proof[
+  根據歸納原理，只需證明 $op("transport"^B) ("refl"_x, u) = op("transport"^(op("id"_cal(U)))) (op("ap"_B) ("refl"_x), u) = op(op("pr"_1) (op("idtoeqv") (op("ap"_B) ("refl"_x)))) (u)$，略.
+]
+
+#proof[
+  略.
+]
+
 #definition[
   *泛等公理*（不常用）
 
@@ -1114,6 +1130,10 @@
   $(op("idtoeqv"_(A,B)), op("univalence") (A,B)) : (A scripts(=)_cal(U) B) tilde.eq (A tilde.eq B)$.
 ]
 
+#proof[
+  略.
+]
+
 #definition[
   *泛等公理*（常用）
 
@@ -1122,6 +1142,18 @@
   $2.$ 對於任何 $(f, a) : A tilde.eq B$，我們有 $op("idtoeqv"_(A,B)) (op(bold("ua")) (f, a)) = (f, a)$；
 
   $3.$ 對於任何 $p: A scripts(=)_cal(U) B$，我們有 $p = op(bold("ua")) (op("idtoeqv"_(A, B)) (p))$.
+]
+
+#lemma[
+  $1.$ 對於任何類型 $A: cal(U)$，我們有 $"refl"_A = op("ua") (op("id"_A), a)$，其中 $a: op("isequiv") (op("id"_A))$；
+
+  $2.$ 對於任何 $(f, a) : A tilde.eq B, (g, b) : B tilde.eq C$，我們有 $op("ua") (f, a) op(square.filled.tiny) op("ua") (g, b) = op("ua") (g compose f, c)$.
+
+  $3.$ 對於任何 $(f, a) : A tilde.eq B$ 和它的一個擬逆 $(f^(-1), b)$，我們有 $(op("ua") (f, a))^(-1) = op("ua") (f^(-1), b)$.
+]
+
+#proof[
+  略.
 ]
 
 == *恆等類型*
@@ -1139,6 +1171,8 @@
 #proof[
   略.
 ]
+
+== *自然數*
 
 #pagebreak()
 
