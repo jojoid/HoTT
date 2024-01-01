@@ -1101,17 +1101,27 @@
 ]
 
 #definition[
-  *泛等公理*
+  *泛等公理*（不常用）
 
   #prooftrees.tree(
     prooftrees.axi[$Gamma vdash A: cal(U)_i$],
       prooftrees.axi[$Gamma vdash B: cal(U)_i$],
-    prooftrees.bin(right_label: [$" "cal(U)_i"-UNIV"$])[$Gamma vdash op("univalence") (A, B) : op("isequiv") (op("idtoeqv"_(A, B)))$],
+    prooftrees.bin(right_label: [$" "cal(U)_i"-UNIV"$])[$Gamma vdash op(bold("univalence")) (A,B) : op("isequiv") (op("idtoeqv"_(A,B)))$],
   )
 ]
 
 #lemma[
-  $(op("idtoeqv"_(A, B)), op("univalence") (A, B)) : (A scripts(=)_cal(U) B) tilde.eq (A tilde.eq B)$.
+  $(op("idtoeqv"_(A,B)), op("univalence") (A,B)) : (A scripts(=)_cal(U) B) tilde.eq (A tilde.eq B)$.
+]
+
+#definition[
+  *泛等公理*（常用）
+
+  $1.$ 對於任何類型 $A, B : cal(U)$，我們有一個函數 $op(bold("ua")) : (A tilde.eq B) -> (A scripts(=)_cal(U) B)$；
+
+  $2.$ 對於任何 $(f, a) : A tilde.eq B$，我們有 $op("idtoeqv"_(A,B)) (op(bold("ua")) (f, a)) = (f, a)$；
+
+  $3.$ 對於任何 $p: A scripts(=)_cal(U) B$，我們有 $p = op(bold("ua")) (op("idtoeqv"_(A, B)) (p))$.
 ]
 
 == *恆等類型*
