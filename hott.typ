@@ -1076,6 +1076,8 @@
   $1.$ 對於任何類型 $A: cal(U)$，我們有 $op("isequiv") (op("id"_A))$，即 $A tilde.eq A$；
 
   $2.$ 對於任何函數 $f: A -> B$ 使得 $op("isequiv") (f)$，即 $A tilde.eq B$，我們有一個函數 $f^(-1) : B -> A$ 使得 $op("isequiv") (f^(-1))$，即 $B tilde.eq A$；
+
+  $3.$ 對於任何函數 $f: A -> B$ 使得 $op("isequiv") (f)$（即 $A tilde.eq B$）和 $g: B -> C$ 使得 $op("isequiv") (g)$（即 $B tilde.eq C$），我們有 $op("isequiv") (g compose f)$（即 $A tilde.eq C$）.
 ]
 
 #proof[
@@ -1083,7 +1085,7 @@
 
   $2.$ $f$ 的擬逆.
 
-  $3.$ 
+  $3.$ $f^(-1) compose g^(-1)$ 是 $g compose f$ 的一個擬逆.
 ]
 
 == *宇宙和泛等公理*
@@ -1109,7 +1111,7 @@
 ]
 
 #lemma[
-  $(op("idtoeqv"_(A, B)), a) : (A scripts(=)_cal(U) B) tilde.eq (A tilde.eq B)$，其中 $a: op("isequiv") (op("idtoeqv"_(A, B)))$.
+  $(op("idtoeqv"_(A, B)), op("univalence") (A, B)) : (A scripts(=)_cal(U) B) tilde.eq (A tilde.eq B)$.
 ]
 
 == *恆等類型*
