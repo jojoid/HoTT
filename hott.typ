@@ -1074,10 +1074,16 @@
 
 #lemma[
   $1.$ 對於任何類型 $A: cal(U)$，我們有 $op("isequiv") (op("id"_A))$，即 $A tilde.eq A$；
+
+  $2.$ 對於任何函數 $f: A -> B$ 使得 $op("isequiv") (f)$，即 $A tilde.eq B$，我們有一個函數 $f^(-1) : B -> A$ 使得 $op("isequiv") (f^(-1))$，即 $B tilde.eq A$；
 ]
 
 #proof[
   $1.$ 我們要證明對於任何類型 $A: cal(U)$ 有 $[(g: B -> A) times (g compose op("id"_A) op(~) op("id"_A))] times [(h: B -> A) times (op("id"_A) compose h op(~) op("id"_B))]$，略.
+
+  $2.$ $f$ 的擬逆.
+
+  $3.$ 
 ]
 
 == *宇宙和泛等公理*
@@ -1103,7 +1109,7 @@
 ]
 
 #lemma[
-  $(op("idtoeqv"_(A, B)), op("isequiv") (op("idtoeqv"_(A, B)))) : (A scripts(=)_cal(U) B) tilde.eq (A tilde.eq B)$
+  $(op("idtoeqv"_(A, B)), a) : (A scripts(=)_cal(U) B) tilde.eq (A tilde.eq B)$，其中 $a: op("isequiv") (op("idtoeqv"_(A, B)))$.
 ]
 
 == *恆等類型*
