@@ -863,7 +863,7 @@
 == *函數是函子*
 
 #lemma[
-  對於任何 $A, B : cal(U), f: A -> B, x, y : A$，都能構造函數 $op("ap"_f): (x scripts(=)_A y) -> (f(x) scripts(=)_B f(y)), op("ap"_f) ("refl"_x) eq.triple "refl"_(f(x))$.
+  對於任何 $A, B : cal(U), f: A -> B, x, y : A$，都能構造函數 $op(bold("ap"_f)): (x scripts(=)_A y) -> (f(x) scripts(=)_B f(y)), op("ap"_f) ("refl"_x) eq.triple "refl"_(f(x))$.
 ]
 
 #proof[
@@ -1157,6 +1157,54 @@
 ]
 
 == *恆等類型*
+
+#theorem[
+  如果 $(f, a) : A tilde.eq B$，則對於任何 $x, x' : A$，函數 $op("ap"_f) : (x = x') -> (f(x) = f(x'))$ 也是一個等價.
+]
+
+#proof[
+  我們想要構造一個四元組 $(g, gamma, h, delta) : op("isequiv") (op("ap"_f))$，即 $g: (f(x) = f(x')) -> (x = x'), gamma: (p: x = x') -> (g(op("ap"_f) (p)) = p), h: (f(x) = f(x')) -> (x = x'), delta: (q: f(x) = f(x')) -> (op("ap"_f) (g(q)))$.
+
+  設 $(f^(-1), alpha, beta) : op("qinv") (f)$，即 $f^(-1) : B -> A, alpha: (x: A) -> (f^(-1)(f(x)) = x), beta: (y: B) -> (f(f^(-1) (y)) = y)$.
+  
+  那麼對於任何 $x, x' : A$，我們有 $op("ap"_(f^(-1))) : (f(x) = f(x')) -> (f^(-1)(f(x)) = f^(-1)(f(x')))$.
+  
+  於是對於任何 $p: x = x'$，我們有
+  
+  $alpha_x^(-1) op(square.filled.tiny) op("ap"_(f^(-1))) (op("ap"_f) (p)) op(square.filled.tiny) alpha_(x') =$
+  
+  $alpha_x^(-1) op(square.filled.tiny) op("ap"_(f^(-1) compose f)) (p) op(square.filled.tiny) alpha_(x') =$
+  
+  $op("ap"_(op("id"_A))) (p) =$
+  
+  $p$.
+  
+  且對於任何 $q: f(x) = f(x')$，我們有
+  
+  $op("ap"_f) (alpha_x^(-1) op(square.filled.tiny) op("ap"_(f^(-1))) (q) op(square.filled.tiny) alpha_(x')) =$
+  
+  $beta_(f(x))^(-1) op(square.filled.tiny) beta_(f(x)) op(square.filled.tiny) op("ap"_f) (alpha_x^(-1) op(square.filled.tiny) op("ap"_(f^(-1))) (q) op(square.filled.tiny) alpha_(x')) op(square.filled.tiny) beta_(f(x'))^(-1) op(square.filled.tiny) beta_(f(x')) =$
+  
+  $beta_(f(x))^(-1) op(square.filled.tiny)
+  op("ap"_f) (
+    op("ap"_f^(-1)) (
+      op("ap"_f) (
+        alpha_x^(-1) op(square.filled.tiny) op("ap"_(f^(-1))) (q) op(square.filled.tiny) alpha_(x')
+      )
+    )
+  )
+  op(square.filled.tiny) beta_(f(x')) =$
+  
+  $beta_(f(x))^(-1) op(square.filled.tiny)
+  op("ap"_f) (alpha_x op(square.filled.tiny) alpha_x^(-1) op(square.filled.tiny) op("ap"_(f^(-1))) (q) op(square.filled.tiny) alpha_(x') op(square.filled.tiny) alpha_(x')^(-1))
+  op(square.filled.tiny) beta_(f(x')) =$
+  
+  $beta_(f(x))^(-1) op(square.filled.tiny)
+  op("ap"_f) (op("ap"_(f^(-1))) (q))
+  op(square.filled.tiny) beta_(f(x')) =$
+  
+  $q$.
+]
 
 #lemma[
   對於任何 $a, x_1, x_2 : A$ 和 $p: x_1 = x_2$，我們有
