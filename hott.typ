@@ -1088,6 +1088,28 @@
   $3.$ $f^(-1) compose g^(-1)$ 是 $g compose f$ 的一個擬逆.
 ]
 
+== *單元類型*
+
+#theorem[
+  $
+    (x, y : bold(1)) -> (x = y) tilde.eq bold(1).
+  $
+]
+
+#proof[
+  
+]
+
+#theorem[
+  $
+    (x, y : bold(1)) -> x = y.
+  $
+]
+
+#proof[
+
+]
+
 == *宇宙和泛等公理*
 
 #lemma[
@@ -1221,6 +1243,69 @@
 ]
 
 == *自然數*
+
+#definition[
+  $op(bold("code"))$
+
+  定義函數
+  $
+    op(bold("code")) : NN -> NN -> cal(U)，
+  $
+  模式匹配
+  $
+    op(bold("code")) (0, 0) :eq.triple bold(1)
+  $$
+    op(bold("code")) (op("succ") (m), 0) :eq.triple bold(0)
+  $$
+    op(bold("code")) (0, op("succ") (n)) :eq.triple bold(0)
+  $$
+    op(bold("code")) (op("succ") (m), op("succ") (n)) :eq.triple op(bold("code")) (m, n).
+  $
+]
+
+#definition[
+  $op(bold(r))$
+
+  定義函數
+  $
+    op(bold(r)) : (n: NN) -> op("code") (n, n)
+  $
+  模式匹配
+  $
+    op(bold(r)) (0) :eq.triple ast.small
+  $$
+    op(bold(r)) (op("succ") (n)) :eq.triple op(bold(r)) (n).
+  $
+]
+
+#theorem[
+  對於任何 $m, n : NN$ 我們有 $(m = n) tilde.eq op("code") (m, n)$.
+]
+
+#proof[
+  定義函數
+  $
+    op(bold("encode")) : (m, n : NN) -> (m = n) -> op("code") (m, n),
+  $$
+  op(bold("encode")) (m, n, p) :eq.triple op("transport"^(op("code") (m,"_"))) (p, op(r) (m))，
+  $ 和函數 $
+    op(bold("decode")) : (m, n : NN) -> op("code") (m, n) -> (m = n),
+  $ 模式匹配 $
+    op(bold("decode"))(0, 0, ast.small) :eq.triple "refl"_0
+  $$
+    op(bold("decode")) (op("succ") (m), 0, "_") :eq.triple op("ind"_bold(0)) ((x: bold(0)) |-> (m = n), "_")
+  $$
+    op(bold("decode")) (0, op("succ") (n), "_") :eq.triple op("ind"_bold(0)) ((x: bold(0)) |-> (m = n), "_")
+  $$
+    op(bold("decode")) (op("succ") (m), op("succ") (n), "_") :eq.triple op("ap"_op("succ")) compose op(bold("decode")) (m, n, "_").
+  $
+
+  接下來我們要證明對於任何 $m, n : NN$ 有 $op("encode") (m, n, "_")$ 和 $op("decode") (m, n, "_")$ 互爲擬逆.
+
+  我們先證明對於任何 $p: m = n$ 有 $op("decode") (m, n, op("encode") (m, n, p)) = p$. 根據 $p$ 的道路歸納，只需證明 $op("decode") (m, m, op("encode") (m, m, "refl"_m)) = "refl"_m$，即 $op("decode") (m, m, r(m)) = "refl"_m$. 對 $m$ 使用歸納法，如果 $m eq.triple 0$，那麼 $op("decode") (0, 0, r(0)) = op("decode") (0, 0, ast.small) = "refl"_0$；設 $x: NN, y: op("decode") (x, x, r(x)) = "refl"_x$，則 $op("decode") (op("succ") (x), op("succ") (x), r(op("succ") (x))) = op("ap"_op("succ")) (op("decode") (x, x, r(x))) = op("ap"_op("succ")) ("refl"_x) = "refl"_(op("succ") (x))$.
+
+  然後我們證明對於任何 $c: op("code") (m, n)$ 有 $op("encode") (m, n, op("decode") (m, n, c)) = c$. 我們對 $m, n$ 進行雙歸納. 如果都是 $0$，那麼 $op("encode") (0, 0, op("decode") (0, 0, c)) = op("encode") (0, 0, op("decode") (0, 0, ast.small)) = op("encode") (0, 0, "refl"_0) = r(0) = ast.small = c$.
+]
 
 #pagebreak()
 
