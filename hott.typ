@@ -1102,7 +1102,7 @@
 
 #theorem[
   $
-    (x, y : bold(1)) -> x = y.
+    (x, y : bold(1)) -> (x = y).
   $
 ]
 
