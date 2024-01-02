@@ -1092,7 +1092,7 @@
 
 #theorem[
   $
-    (x, y : bold(1)) -> (x = y) tilde.eq bold(1).
+    (x, y : bold(1)) -> ((x = y) tilde.eq bold(1)).
   $
 ]
 
