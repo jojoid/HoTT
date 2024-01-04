@@ -382,6 +382,8 @@
     prooftrees.bin(right_label: [$" "Sigma"-FORM-EQ"$])[$Gamma vdash (x: A_1) times B_1 eq.triple (x: A_2) times B_2 : cal(U)_i$],
   )
 
+  構造子（引入規則）：$angle.l "_" , "_" angle.r : {B: A -> cal(U)} -> (a: A) -> b: B(a) -> (x: A) times B$
+
   #prooftrees.tree(
     prooftrees.axi[$Gamma, x: A vdash B: cal(U)_i$],
       prooftrees.axi[$Gamma vdash a: A$],
@@ -395,6 +397,8 @@
       prooftrees.axi[$Gamma vdash b_1 eq.triple b_2 : B[a slash x]$],
     prooftrees.tri(right_label: $" "Sigma"-INTRO-EQ"$)[$Gamma vdash (a_1, b_1) eq.triple (a_2, b_2) : (x: A) times B$],
   )
+
+  消除器（消除規則）：$op("ind")_((x: A) times B) : [C: ((x: A) times B(x)) -> cal(U)] -> [(a: A) -> (b: B(a)) -> C(angle.l a,b angle.r)] -> [p: (x: A) times B(x)] -> C(p)$
 
   #prooftrees.tree(
     prooftrees.axi[$Gamma, z: (x: A) times B vdash C: cal(U)_i$],
@@ -410,6 +414,8 @@
     prooftrees.tri(right_label: $" "Sigma"-ELIM-EQ"$)[$Gamma vdash op("ind")_((x: A) times B)(z.C, x.y.g, p_1) eq.triple op("ind")_((x: A) times B)(z.C, x.y.g, p_2) : C[p_1 slash z] eq.triple C[p_2 slash z]$],
   )
 
+  計算規則：$op("ind")_((x: A) times B) (C, g, angle.l a,b angle.r) :eq.triple op(g) (a) (b)$
+  
   #prooftrees.tree(
     prooftrees.axi[$Gamma, z: (x: A) times B vdash C: cal(U)_i$],
       prooftrees.axi[$Gamma, x: A, y: B vdash g: C[(x, y) slash z]$],
@@ -436,12 +442,16 @@
     prooftrees.bin(right_label: [$" "+"-FORM-EQ"$])[$Gamma vdash A_1 + B_1 eq.triple A_2 + B_2 : cal(U)_i$],
   )
 
+  構造子 $1$：$op("inl") : {A, B: cal(U)} -> A -> A + B$
+
   #prooftrees.tree(
     prooftrees.axi[$Gamma vdash A: cal(U)_i$],
       prooftrees.axi[$Gamma vdash B: cal(U)_i$],
       prooftrees.axi[$Gamma vdash a: A$],
     prooftrees.tri(right_label: [$" "+"-INTRO"_1$])[$Gamma vdash op("inl")(a): A + B$],
   )
+
+  構造子 $2$：$op("inl") : {A, B: cal(U)} -> B -> A + B$
 
   #prooftrees.tree(
     prooftrees.axi[$Gamma vdash A: cal(U)_i$],
@@ -464,6 +474,8 @@
     prooftrees.tri(right_label: [$" "+"-INTRO"_2"-EQ"$])[$Gamma vdash op("inr")(b_1) eq.triple op("inr")(b_2) : A + B$],
   )
 
+  消除器：$op("ind")_(A + B) : [C: (A + B) -> cal(U)] -> [(a: A) -> C(op("inl") (a))] -> [(b: B) -> C(op("inr") (b))] -> (e: A + B) -> C(e)$
+
   #prooftrees.tree(
     prooftrees.axi[$Gamma, z: (A + B) vdash C: cal(U)_i$],
       prooftrees.axi[$Gamma, x: A vdash c: C[op("inl")(x) slash z]$],
@@ -480,6 +492,8 @@
     prooftrees.quart(right_label: [$" "+"-ELIM-EQ"$])[$Gamma vdash op("ind")_(A + B)(z.C, x.c, y.d, e_1) eq.triple op("ind")_(A + B)(z.C, x.c, y.d, e_2) : C[e_1 slash z] eq.triple C[e_2 slash z]$],
   )
 
+  計算規則 $1$：$op("ind")_(A + B) (C, g_0, g_1, op("inl") (a)) :eq.triple g_0 (a)$
+
   #prooftrees.tree(
     prooftrees.axi[$Gamma, z: (A + B) vdash C: cal(U)_i$],
       prooftrees.axi[$Gamma, x: A vdash c: C[op("inl")(x) slash z]$],
@@ -487,6 +501,8 @@
       prooftrees.axi[$Gamma vdash a: A$],
     prooftrees.quart(right_label: [$" "+"-COMP"_1$])[$Gamma vdash op("ind")_(A + B)(z.C, x.c, y.d, op("inl")(a)) eq.triple c[a slash x] : C[op("inl")(a) slash z]$],
   )
+
+  計算規則 $2$：$op("ind")_(A + B) (C, g_0, g_1, op("inr") (b)) :eq.triple g_1 (b)$
 
   #prooftrees.tree(
     prooftrees.axi[$Gamma, z: (A + B) vdash C: cal(U)_i$],
@@ -506,6 +522,8 @@
     prooftrees.axi[$Gamma "ctx"$],
     prooftrees.uni(right_label: [$" "bold(0)"-FORM"$])[$Gamma vdash bold(0): cal(U)_i$],
   )
+
+  消除器：$op("ind")_(bold(0)) : (C: bold(0) -> cal(U)) -> (a: bold(0)) -> C(a)$
 
   #prooftrees.tree(
     prooftrees.axi[$Gamma, x: bold(0) vdash C: cal(U)_i$],
@@ -530,10 +548,14 @@
     prooftrees.uni(right_label: [$" "bold(1)"-FORM"$])[$Gamma vdash bold(1): cal(U)_i$],
   )
 
+  構造子：$ast.small : bold(1)$
+
   #prooftrees.tree(
     prooftrees.axi[$Gamma "ctx"$],
     prooftrees.uni(right_label: [$" "bold(1)"-INTRO"$])[$Gamma vdash ast.small: bold(1)$],
   )
+
+  消除器：$op("ind")_(bold(1)) : (C: bold(1) -> cal(U)) -> C(ast.small) -> (x: bold(1)) -> C(x)$
 
   #prooftrees.tree(
     prooftrees.axi[$Gamma, x: bold(1) vdash C: cal(U)_i$],
@@ -548,6 +570,8 @@
       prooftrees.axi[$Gamma vdash a_1 eq.triple a_2 : bold(1)$],
     prooftrees.tri(right_label: [$" "bold(1)"-ELIM-EQ"$])[$Gamma vdash op("ind")_(bold(1))(x.C, c, a_1) eq.triple op("ind")_(bold(1))(x.C, c, a_2) : C[a_1 slash x] eq.triple C[a_2 slash x]$],
   )
+
+  計算規則：$op("ind")_(bold(1)) (C, c, ast.small) :eq.triple c$
 
   #prooftrees.tree(
     prooftrees.axi[$Gamma, x: bold(1) vdash C: cal(U)_i$],
@@ -566,10 +590,14 @@
     prooftrees.uni(right_label: [$" "NN"-FORM"$])[$Gamma vdash NN: cal(U)_i$],
   )
 
+  構造子 $1$：$0: NN$
+
   #prooftrees.tree(
     prooftrees.axi[$Gamma "ctx"$],
     prooftrees.uni(right_label: [$" "NN"-INTRO"_1$])[$Gamma vdash 0: NN$],
   )
+
+  構造子 $2$：$op("succ") : NN -> NN$
 
   #prooftrees.tree(
     prooftrees.axi[$Gamma vdash n: NN$],
@@ -580,6 +608,8 @@
     prooftrees.axi[$Gamma vdash n_1 eq.triple n_2 : NN$],
     prooftrees.uni(right_label: [$" "NN"-INTRO"_2"-EQ"$])[$Gamma vdash op("succ")(n_1) eq.triple op("succ")(n_2) : NN$],
   )
+
+  消除器：$op("ind")_NN : (C: NN -> cal(U)) -> C(0) -> [(n: N) -> C(n) -> C(op("succ") (n))] -> (n: NN) -> C(n)$
 
   #prooftrees.tree(
     prooftrees.axi[$Gamma, x: NN vdash C: cal(U)_i$],
@@ -597,12 +627,16 @@
     prooftrees.quart(right_label: [$" "NN"-ELIM-EQ"$])[$Gamma vdash op("ind")_NN (x.C, c_0, x.y.c_s, n_1) eq.triple op("ind")_NN (x.C, c_0, x.y.c_s, n_2) : C[n_1 slash x] eq.triple C[n_2 slash x]$],
   )
 
+  計算規則 $1$：$op("ind")_NN (C, c_0, c_s, 0) :eq.triple c_0$
+
   #prooftrees.tree(
     prooftrees.axi[$Gamma, x: NN vdash C: cal(U)_i$],
       prooftrees.axi[$Gamma vdash c_0: C[0 slash x]$],
       prooftrees.axi[$Gamma, x: NN, y:C vdash c_s: C[op("succ")(x) slash x]$],
     prooftrees.tri(right_label: [$" "NN"-COMP"_1$])[$Gamma vdash op("ind")_NN (x.C, c_0, x.y.c_s, 0) eq.triple c_0 : C[0 slash x]$],
   )
+
+  計算規則 $2$：$op("ind")_NN (C, c_0, c_s, op("succ") (n)) :eq.triple op(c_s) (n, op("ind"_NN) (C, c_0, c_s, n))$
 
   #prooftrees.tree(
     prooftrees.axi[$Gamma, x: NN vdash C: cal(U)_i$],
@@ -632,6 +666,8 @@
     prooftrees.tri(right_label: [$" "="-FORM-EQ"$])[$Gamma vdash a_1 scripts(=)_A b_1 eq.triple a_2 scripts(=)_A b_2 : cal(U)_i$],
   )
 
+  構造子：$op("refl") : {A: cal(U)} -> (a: A) -> (a = a)$
+
   #prooftrees.tree(
     prooftrees.axi[$Gamma vdash A: cal(U)_i$],
       prooftrees.axi[$Gamma vdash a: A$],
@@ -643,6 +679,8 @@
       prooftrees.axi[$Gamma vdash a_1 eq.triple a_2 : A$],
     prooftrees.bin(right_label: [$" "="-INTRO-EQ"$])[$Gamma vdash "refl"_(a_1) eq.triple "refl"_(a_2) : a_1 scripts(=)_A a_1 eq.triple a_2 scripts(=)_A a_2$],
   )
+
+  消除器：$op("ind")_(scripts(=)_A) : [C: (x, y : A) -> (x = y) -> cal(U)] -> [(x: A) -> C(x, x, "refl"_x)] -> (x, y : A) -> (p: x = y) -> C(x, y, p)$
 
   #prooftrees.tree(
     prooftrees.axi[$Gamma, x:A, y:A, p: x scripts(=)_A y vdash C: cal(U)_i$],
@@ -661,6 +699,8 @@
       prooftrees.axi[$Gamma vdash q_1 eq.triple q_2 : a scripts(=)_A b$],
     prooftrees.quint(right_label: [$" "="-ELIM-EQ"$])[$Gamma vdash op("ind")_(scripts(=)_A)(x.y.p.C, z.c, a, b, q_1) eq.triple op("ind")_(scripts(=)_A)(x.y.p.C, z.c, a, b, q_2) : C[a, b, q_1 slash x, y, p] eq.triple C[a, b, q_2 slash x, y, p]$],
   )
+
+  計算規則：$op("ind")_(scripts(=)_A) (C, c, x, x, "refl"_x) :eq.triple c(x)$
 
   #prooftrees.tree(
     prooftrees.axi[$Gamma, x:A, y:A, p: x scripts(=)_A y vdash C: cal(U)_i$],
