@@ -944,7 +944,7 @@
 #lemma[
   *傳送*
 
-  設 $B: A -> cal(U), x, y : A$，則存在函數 $op("transport"^B) ("_","_") : p: x scripts(=)_A y -> B(x) -> B(y), op("transport"^B) ("refl"_x, b) eq.triple b$.
+  設 $B: A -> cal(U), x, y : A$，則存在函數 $op(bold("transport")^B) ("_","_") : p: x scripts(=)_A y -> B(x) -> B(y), op(bold("transport")^B) ("refl"_x, b) eq.triple b$.
 ]
 
 #proof[
@@ -1128,6 +1128,12 @@
   $3.$ $f^(-1) compose g^(-1)$ 是 $g compose f$ 的一個擬逆.
 ]
 
+== *$Sigma$-類型*
+
+#theorem[
+  
+]
+
 == *單元類型*
 
 #theorem[
@@ -1137,7 +1143,7 @@
 ]
 
 #proof[
-  
+  根據單元類型和恆等類型的歸納原理，我們只需要證明 $(ast.small = ast.small) tilde.eq bold(1)$. 設函數 $f: (ast.small = ast.small) -> bold(1), x |-> ast.small$ 和 $g: bold(1) -> (ast.small = ast.small), x |-> "refl"_ast.small$. 那麼我們只需證明對於任何 $x: ast.small = ast.small$ 有 $(g compose f) (x) = op("id"_(ast.small = ast.small)) (x)$ 和對於任何 $x: bold(1)$ 有 $(f compose g) (x) = op("id"_(bold(1))) (x)$. 根據單元類型和恆等類型的歸納原理，我們只需要證明 $(g compose f) ("refl"_ast.small) = op("id"_(ast.small = ast.small)) ("refl"_ast.small)$ 和 $(f compose g) (ast.small) = op("id"_(bold(1))) (ast.small)$，略.
 ]
 
 #theorem[
@@ -1147,7 +1153,7 @@
 ]
 
 #proof[
-
+  略.
 ]
 
 == *宇宙和泛等公理*
@@ -1233,21 +1239,21 @@
   
   於是對於任何 $p: x = x'$，我們有
   
-  $alpha_x^(-1) op(square.filled.tiny) op("ap"_(f^(-1))) (op("ap"_f) (p)) op(square.filled.tiny) alpha_(x') =$
+  $alpha_x^(-1) op(square.filled.tiny) op("ap"_(f^(-1))) (op("ap"_f) (p)) op(square.filled.tiny) alpha_(x')$
   
-  $alpha_x^(-1) op(square.filled.tiny) op("ap"_(f^(-1) compose f)) (p) op(square.filled.tiny) alpha_(x') =$
+  $= alpha_x^(-1) op(square.filled.tiny) op("ap"_(f^(-1) compose f)) (p) op(square.filled.tiny) alpha_(x')$
   
-  $op("ap"_(op("id"_A))) (p) =$
+  $= op("ap"_(op("id"_A))) (p)$
   
-  $p$.
+  $= p$.
   
   且對於任何 $q: f(x) = f(x')$，我們有
   
-  $op("ap"_f) (alpha_x^(-1) op(square.filled.tiny) op("ap"_(f^(-1))) (q) op(square.filled.tiny) alpha_(x')) =$
+  $op("ap"_f) (alpha_x^(-1) op(square.filled.tiny) op("ap"_(f^(-1))) (q) op(square.filled.tiny) alpha_(x'))$
   
-  $beta_(f(x))^(-1) op(square.filled.tiny) beta_(f(x)) op(square.filled.tiny) op("ap"_f) (alpha_x^(-1) op(square.filled.tiny) op("ap"_(f^(-1))) (q) op(square.filled.tiny) alpha_(x')) op(square.filled.tiny) beta_(f(x'))^(-1) op(square.filled.tiny) beta_(f(x')) =$
+  $= beta_(f(x))^(-1) op(square.filled.tiny) beta_(f(x)) op(square.filled.tiny) op("ap"_f) (alpha_x^(-1) op(square.filled.tiny) op("ap"_(f^(-1))) (q) op(square.filled.tiny) alpha_(x')) op(square.filled.tiny) beta_(f(x'))^(-1) op(square.filled.tiny) beta_(f(x'))$
   
-  $beta_(f(x))^(-1) op(square.filled.tiny)
+  $= beta_(f(x))^(-1) op(square.filled.tiny)
   op("ap"_f) (
     op("ap"_f^(-1)) (
       op("ap"_f) (
@@ -1255,17 +1261,17 @@
       )
     )
   )
-  op(square.filled.tiny) beta_(f(x')) =$
+  op(square.filled.tiny) beta_(f(x'))$
   
-  $beta_(f(x))^(-1) op(square.filled.tiny)
+  $= beta_(f(x))^(-1) op(square.filled.tiny)
   op("ap"_f) (alpha_x op(square.filled.tiny) alpha_x^(-1) op(square.filled.tiny) op("ap"_(f^(-1))) (q) op(square.filled.tiny) alpha_(x') op(square.filled.tiny) alpha_(x')^(-1))
-  op(square.filled.tiny) beta_(f(x')) =$
+  op(square.filled.tiny) beta_(f(x'))$
   
-  $beta_(f(x))^(-1) op(square.filled.tiny)
+  $= beta_(f(x))^(-1) op(square.filled.tiny)
   op("ap"_f) (op("ap"_(f^(-1))) (q))
-  op(square.filled.tiny) beta_(f(x')) =$
+  op(square.filled.tiny) beta_(f(x'))$
   
-  $q$.
+  $= q$.
 ]
 
 #lemma[
@@ -1344,7 +1350,32 @@
 
   我們先證明對於任何 $p: m = n$ 有 $op("decode") (m, n, op("encode") (m, n, p)) = p$. 根據 $p$ 的道路歸納，只需證明 $op("decode") (m, m, op("encode") (m, m, "refl"_m)) = "refl"_m$，即 $op("decode") (m, m, r(m)) = "refl"_m$. 對 $m$ 使用歸納法，如果 $m eq.triple 0$，那麼 $op("decode") (0, 0, r(0)) = op("decode") (0, 0, ast.small) = "refl"_0$；設 $x: NN, y: op("decode") (x, x, r(x)) = "refl"_x$，則 $op("decode") (op("succ") (x), op("succ") (x), r(op("succ") (x))) = op("ap"_op("succ")) (op("decode") (x, x, r(x))) = op("ap"_op("succ")) ("refl"_x) = "refl"_(op("succ") (x))$.
 
-  然後我們證明對於任何 $c: op("code") (m, n)$ 有 $op("encode") (m, n, op("decode") (m, n, c)) = c$. 我們對 $m, n$ 進行雙歸納. 如果都是 $0$，那麼 $op("encode") (0, 0, op("decode") (0, 0, c)) = op("encode") (0, 0, op("decode") (0, 0, ast.small)) = op("encode") (0, 0, "refl"_0) = r(0) = ast.small = c$.
+  然後我們證明對於任何 $c: op("code") (m, n)$ 有 $op("encode") (m, n, op("decode") (m, n, c)) = c$. 我們對 $m, n$ 進行雙歸納. 如果都是 $0$，那麼 $op("encode") (0, 0, op("decode") (0, 0, c)) = op("encode") (0, 0, op("decode") (0, 0, ast.small)) = op("encode") (0, 0, "refl"_0) = r(0) = ast.small = c$；如果 $m$ 是 $0$ 且 $n$ 是一個後繼，或反之，那麼有 $c: bold(0)$；最後是兩個後繼的情況，根據歸納假設我們有
+  $
+    op("encode") (op("succ") (m), op("succ") (n), op("decode") (op("succ") (m), op("succ") (n), c))
+  $$
+    = op("encode") (op("succ") (m), op("succ") (n), op("ap"_op("succ")) (op("decode") (m, n, c)))
+  $$
+    = op("transport"^(op("code") (op("succ") (m),"_"))) (op("ap"_op("succ")) (op("decode") (m, n, c)), r(op("succ") (m)))
+  $$
+    = op("transport"^(op("code") (op("succ") (m), op("succ") ("_")))) (op("decode") (m, n, c), r(op("succ") (m)))
+  $$
+    = op("transport"^(op("code") (m, "_"))) (op("decode") (m, n, c), r(m))
+  $$
+    = op("encode") (m, n, op("decode") (m, n, c))
+  $$
+    = c
+  $
+]
+
+#corollary[
+  $1.$ 對於任何 $m: NN$，我們有 $op("encode") (op("succ") (m), 0, "_") : (op("succ") (m) = 0) -> bold(0)$；
+
+  $2.$ 對於任何 $m, n : NN$，我們有 $op("encode") (op("succ") (m), op("succ") (n), op("decode") (op("succ") (m), op("succ") (n), "_")) : (op("succ") (m) = op("succ") (n)) -> (m = n)$.
+]
+
+#proof[
+  略.
 ]
 
 #pagebreak()
@@ -1358,7 +1389,7 @@
 
   設 $A: cal(U)$.
   $
-    op(bold("isSet")) (A) :eq.triple (x, y : A) -> (p, q : x = y) -> (p = q)
+    op(bold("isSet")) (A) :eq.triple (x, y : A) -> (p, q : x = y) -> (p = q).
   $
 ]
 
@@ -1383,10 +1414,46 @@
 == *命題*
 
 #definition[
-  *命題*
+  *命題（$-1$-類型）*
 
   設 $A: cal(U)$.
   $
-    op(bold("isProp")) (A) :eq.triple (x, y : A) -> (x = y)
+    op(bold("isProp")) (A) :eq.triple (x, y : A) -> (x = y).
   $
+]
+
+#lemma[
+  如果 $P, Q$ 是命題使得 $P -> Q$ 且 $Q -> P$，則 $P tilde.eq Q$.
+]
+
+#proof[
+  略.
+]
+
+#lemma[
+  如果 $P$ 是一個命題且 $x_0 : P$，則 $P tilde.eq bold(1)$.
+]
+
+#proof[
+  略.
+]
+
+#definition[
+  *可縮的*
+
+  $
+    op(bold("isContr")) (A) :eq.triple (a: A) times ((x: A) -> (a = x)).
+  $
+]
+
+#lemma[
+  每個命題都是一個集合.
+]
+
+#proof[
+  我們想證明 $[(x, y : A) -> (x = y)] -> (x, y : A) -> (p, q : x = y) -> (p = q)$.
+
+  設 $f: op("isProp") (A)$. 那麼對於任何 $x, y : A$ 我們有 $f(x, y) : x = y$. 給定 $x$，定義 $g: (y: A) -> x = y, g : eq.triple f(x, "_")$. 那麼對於任何 $y, z : A$ 和 $p: y = z$，我們有 $op("apd"_g) (p) : op("transport"^(y |-> x = y)) (p, g(y)) = g(z)$，也就有 $g(y) op(square.filled.tiny) p = g(z)$，也就有 $p = (g(y))^(-1) op(square.filled.tiny) g(z)$.
+
+  因此對於任何 $x, y : A, p, q : x = y$，我們有 $p = (g(x))^(-1) op(square.filled.tiny) g(y) = q$.
 ]
