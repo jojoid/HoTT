@@ -1172,16 +1172,16 @@
   $(op("id"_A), a) = op("idtoeqv"_(A,B)) ("refl"_A)$，其中 $a: op("isequiv") (op("id"_A))$.
 ]
 
+#proof[
+  略.
+]
+
 #lemma[
   對於任何 $x, y : A, p: x = y, B: A -> cal(U), u: B(x)$，我們有 $op("transport"^B) (p, u) = op("transport"^(op("id"_cal(U)))) (op("ap"_B) (p), u) = op(op("pr"_1) (op("idtoeqv") (op("ap"_B) (p)))) (u)$.
 ]
 
 #proof[
   根據歸納原理，只需證明 $op("transport"^B) ("refl"_x, u) = op("transport"^(op("id"_cal(U)))) (op("ap"_B) ("refl"_x), u) = op(op("pr"_1) (op("idtoeqv") (op("ap"_B) ("refl"_x)))) (u)$，略.
-]
-
-#proof[
-  略.
 ]
 
 #definition[
