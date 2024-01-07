@@ -425,6 +425,22 @@
   )
 ]
 
+#lemma[
+  *投影函數*
+
+  對於任何 $Sigma$-類型 $(x: A) times B(x)$，我們有函數
+  $
+    op(bold("pr"_1)) : ((x: A) times B(x)) -> A, op(bold("pr"_1)) (angle.l a, b angle.r) :eq.triple a
+  $ 和 $
+    op(bold("pr"_2)) : (p: (x: A) times B(x)) -> B(op("pr"_1) (p)),
+    op(bold("pr"_2)) (angle.l a, b angle.r) :eq.triple b.
+  $
+]
+
+#proof[
+  略.
+]
+
 == *餘積類型*
 
 #definition[
@@ -1131,7 +1147,17 @@
 == *$Sigma$-類型*
 
 #theorem[
+  設 $P: A -> cal(U)$，$w, w' : (x: A) times P(x)$.
+
+  則我們有一個等價 $(w = w') tilde.eq (p: op("pr"_1) (w) = op("pr"_1) (w')) times (op("transport"^P) (p, op("pr"_2) (w)) = op("pr"_2) (w'))$.
+]
+
+#proof[
+  我們定義一個函數 $f: (w, w' : (x: A) times P(x)) -> (w = w') -> (p: op("pr"_1) (w) = op("pr"_1) (w')) times (op("transport"^P) (p, op("pr"_2) (w)) = op("pr"_2) (w'))$，根據道路歸納，只需給出定義 $f(w, w, "refl"_w) :eq.triple angle.l "refl"_(op("pr"_1) (w)), "refl"_(op("pr"_2) (w)) angle.r$. 我們想要證明 $f$ 是一個等價.
+
+  首先我們需要構造一個函數 $g: (w, w' : (x: A) times P(x)) -> [(p: op("pr"_1) (w) = op("pr"_1) (w')) times (op("transport"^P) (p, op("pr"_2) (w)) = op("pr"_2) (w'))] -> (w = w')$. 根據 $w$ 和 $w'$ 的歸納，我們設 $angle.l w_1, w_2 angle.r :eq.triple w$，$angle.l w'_1, w'_2 angle.r :eq.triple w'$，因此我們只需構造 $[(p: w_1 = w'_1) times (op("transport"^P) (p, w_2) = w'_2)] -> (angle.l w_1, w_2 angle.r = angle.l w'_1, w'_2 angle.r)$. 接下來，給定一個序偶 $(p: w_1 = w'_1) times (op("transport"^P) (p, w_2) = w'_2)$，我們可以利用 $Sigma$-類型的歸納原理來得到 $p: w_1 = w'_1$ 和 $q: op("transport"^P) (p, w_2) = w'_2$. 根據 $p$ 的道路歸納，我們有 $q: op("transport"^P) ("refl"_(w_1), w_2) = w'_2 eq.triple w_2 = w'_2$，這足以證明 $angle.l w_1, w_2 angle.r = angle.l w'_1, w'_2 angle.r$. 因此，我們完成了 $g$ 的構造.
   
+  接下來，我們要證明 $g$ 是 $f$ 的一個擬逆，略
 ]
 
 == *單元類型*
@@ -1163,7 +1189,7 @@
 ]
 
 #proof[
-  函數 $op("transport"^(op("id"_cal(U)))) ("_", "_") : (A scripts(=)_cal(U) B) -> A -> B$. 我們要證明 $(p: A scripts(=)_cal(U) B) -> op("isequiv") (op("transport"^(op("id"_cal(U)))) (p, "_"))$. 根據 $p$ 的道路歸納，只需證明 $op("isequiv") (op("transport"^(op("id"_cal(U)))) ("refl"_A, "_"))$，即證明 $op("isequiv") (op("id"_A))$.
+  函數 $op("transport"^(op("id"_cal(U)))) ("_", "_") : (A scripts(=)_cal(U) B) -> A -> B$. 我們要證明 $(p: A scripts(=)_cal(U) B) -> op("isequiv") (op("transport"^(op("id"_cal(U)))) (p, "_"))$. 根據 $p$ 的道路歸納，只需證明 $op("isequiv") (op("transport"^(op("id"_cal(U)))) ("refl"_A, "_"))$，即證明 $op("isequiv") (op("id"_A))$，略.
 
   定義 $op(bold("idtoeqv")_(A, B)) (p) :eq.triple (op("transport"^(op("id"_cal(U)))) (p, "_"), a) : A tilde.eq B$，其中 $a: op("isequiv") (op("transport"^(op("id"_cal(U)))) (p, "_"))$.
 ]
@@ -1457,3 +1483,37 @@
 
   因此對於任何 $x, y : A, p, q : x = y$，我們有 $p = (g(x))^(-1) op(square.filled.tiny) g(y) = q$.
 ]
+
+== *子集*
+
+#lemma[
+  設 $P: A -> cal(U)$ 且對於任何 $x: A$，$P(x)$ 是一個命題. 則對於任何 $u, v : (x: A) times P(x)$，若 $op("pr"_1) (u) = op("pr"_1) (v)$，則有 $u = v$.
+]
+
+#proof[
+  設 $p: op("pr"_1) (u) = op("pr"_1) (v)$. 則爲了證明 $u = v$，我們只需證明 $op("transport"^P) (p, op("pr"_2) (u)) = op("pr"_2) (v)$. 因爲 $op("transport"^P) (p, op("pr"_2) (u)), op("pr"_2) (v) : P(op("pr"_1) (v))$ 且該類型是一個命題，所以證畢.
+]
+
+#definition[
+  *子集*
+
+  設 $P: A -> cal(U)$ 是一個命題族（即每個 $P(x)$ 是一個命題）.
+
+  $
+    {x: A | P(x)} :eq.triple (x: A) times P(x).
+  $
+]
+
+#definition[
+  *$"Set"_cal(U)$*
+
+  定義 $cal(U)$ 的一個“子宇宙”：
+  $
+    "Set"_cal(U) :eq.triple {A: cal(U) | op("isSet") (A)}.
+  $
+]
+
+#pagebreak()
+
+= *範疇論*
+
