@@ -1509,7 +1509,7 @@
 
   定義 $cal(U)$ 的一個“子宇宙”：
   $
-    "Set"_cal(U) :eq.triple {A: cal(U) | op("isSet") (A)}.
+    bold("Set")_cal(U) :eq.triple {A: cal(U) | op("isSet") (A)}.
   $
 ]
 
