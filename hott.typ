@@ -314,10 +314,10 @@
   )
 ]
 
-== *依賴函數類型*
+== *依賴函數類型（$Pi$-類型）*
 
 #definition[
-  *依賴函數類型*
+  *依賴函數類型（$Pi$-類型）*
 
   #prooftrees.tree(
     prooftrees.axi[$Gamma vdash A: cal(U)_i$],
@@ -365,10 +365,19 @@
   )
 ]
 
-== *依賴序偶類型*
+#definition[
+  *函數類型*
+
+  設 $B: cal(U), x |-> B : A -> cal(U)$. 我們定義*函數類型*
+  $
+    A -> B :eq.triple (x: A) -> B.
+  $
+]
+
+== *依賴序偶類型（$Sigma$-類型）*
 
 #definition[
-  *依賴序偶類型*
+  *依賴序偶類型（$Sigma$-類型）*
 
   #prooftrees.tree(
     prooftrees.axi[$Gamma vdash A: cal(U)_i$],
@@ -401,6 +410,15 @@
   )
 
   計算規則：$op("ind")_((x: A) times B) (C, g, angle.l a,b angle.r) :eq.triple op(g) (a) (b)$
+]
+
+#definition[
+  *cartesian 類型*
+
+  設 $B: cal(U), x |-> B : A -> cal(U)$. 我們定義*cartesian 類型*
+  $
+    A times B :eq.triple (x: A) times B.
+  $
 ]
 
 #lemma[
@@ -755,7 +773,7 @@
 
   $1.$ 對於任何 $a, b, c : A, p, q : a = b$，我們可以構造函數 *$"_" op(square.filled.tiny_r) "_"$* $: (p = q) -> (r: b = c) -> (p op(square.filled.tiny) r = q op(square.filled.tiny) r), alpha op(square.filled.tiny_r) "refl"_b :eq.triple "ru"_p^(-1) op(square.filled.tiny) alpha op(square.filled.tiny) "ru"_q$；
 
-  $2.$ 對於任何 $a, b, c : A, q, r : b = c$，我們可以構造函數 *$"_" op(square.filled.tiny_l) "_"$* $: (p: a = b) -> (q = r) -> (p op(square.filled.tiny) q = p op(square.filled.tiny) r), "refl"_b op(square.filled.tiny_l) beta :eq.triple "lu"_q^(-1) op(square.filled.tiny) beta op(square.filled.tiny) "lu"_r$.
+  $2.$ 對於任何 $a, b, c : A, q, r : b = c$，我們可以構造函數 *$"_" op(square.filled.tiny_l) "_"$* $: (p: a = b) -> (r = s) -> (p op(square.filled.tiny) r = p op(square.filled.tiny) s), "refl"_b op(square.filled.tiny_l) beta :eq.triple "lu"_r^(-1) op(square.filled.tiny) beta op(square.filled.tiny) "lu"_s$.
 ]
 
 #proof[
@@ -850,7 +868,7 @@
 #lemma[
   *傳送*
 
-  設 $B: A -> cal(U), x, y : A$，則存在函數 $op(bold("transport")^B) ("_","_") : p: x scripts(=)_A y -> B(x) -> B(y), op(bold("transport")^B) ("refl"_x, b) eq.triple b$.
+  設 $B: A -> cal(U), x, y : A$，則存在函數 $op(bold("transport")^B) ("_","_") : (x scripts(=)_A y) -> B(x) -> B(y), op(bold("transport")^B) ("refl"_x, "_") eq.triple op("id"_(B(x)))$.
 ]
 
 #proof[
@@ -890,7 +908,7 @@
 ]
 
 #lemma[
-  設 $f: A -> B, x, y : A$. 則對於任何路徑 $p: x = y$，我們有類型爲 $op("ap"_f) (p) = op("transportconst"^B) (p, f(x)) op(square.filled.tiny) op("apd"_f) (p)$ 的路徑.
+  設 $f: A -> B, x, y : A$. 則對於任何道路 $p: x = y$，我們有類型爲 $op("ap"_f) (p) = op("transportconst"^B) (p, f(x)) op(square.filled.tiny) op("apd"_f) (p)$ 的道路.
 ]
 
 #proof[
@@ -1043,11 +1061,7 @@
 ]
 
 #proof[
-  我們定義一個函數 $f: (w, w' : (x: A) times P(x)) -> (w = w') -> (p: op("pr"_1) (w) = op("pr"_1) (w')) times (op("transport"^P) (p, op("pr"_2) (w)) = op("pr"_2) (w'))$，根據道路歸納，只需給出定義 $f(w, w, "refl"_w) :eq.triple angle.l "refl"_(op("pr"_1) (w)), "refl"_(op("pr"_2) (w)) angle.r$. 我們想要證明 $f$ 是一個等價.
-
-  首先我們需要構造一個函數 $g: (w, w' : (x: A) times P(x)) -> [(p: op("pr"_1) (w) = op("pr"_1) (w')) times (op("transport"^P) (p, op("pr"_2) (w)) = op("pr"_2) (w'))] -> (w = w')$. 根據 $w$ 和 $w'$ 的歸納，我們設 $angle.l w_1, w_2 angle.r :eq.triple w$，$angle.l w'_1, w'_2 angle.r :eq.triple w'$，因此我們只需構造 $[(p: w_1 = w'_1) times (op("transport"^P) (p, w_2) = w'_2)] -> (angle.l w_1, w_2 angle.r = angle.l w'_1, w'_2 angle.r)$. 接下來，給定一個序偶 $(p: w_1 = w'_1) times (op("transport"^P) (p, w_2) = w'_2)$，我們可以利用 $Sigma$-類型的歸納原理來得到 $p: w_1 = w'_1$ 和 $q: op("transport"^P) (p, w_2) = w'_2$. 根據 $p$ 的道路歸納，我們有 $q: op("transport"^P) ("refl"_(w_1), w_2) = w'_2 eq.triple w_2 = w'_2$，這足以證明 $angle.l w_1, w_2 angle.r = angle.l w'_1, w'_2 angle.r$. 因此，我們完成了 $g$ 的構造.
-  
-  接下來，我們要證明 $g$ 是 $f$ 的一個擬逆，略
+  略.
 ]
 
 == *單元類型*
@@ -1072,6 +1086,22 @@
   略.
 ]
 
+== *$Pi$-類型*
+
+#lemma[
+  *happly*
+
+  對於任何函數 $f, g : (x: A) -> B(x)$，我們有函數
+  $
+    op(bold("happly")) : (f = g) -> (x: A) -> (f(x) = g(x)),
+  $$
+    op(bold("happly")) ("refl"_f) :eq.triple (x: A) |-> "refl"_(f(x)).
+  $
+]
+
+#proof[
+  略.
+]
 == *宇宙和泛等公理*
 
 #lemma[
@@ -1354,14 +1384,6 @@
   略.
 ]
 
-#definition[
-  *可縮的*
-
-  $
-    op(bold("isContr")) (A) :eq.triple (a: A) times ((x: A) -> (a = x)).
-  $
-]
-
 #lemma[
   每個命題都是一個集合.
 ]
@@ -1385,13 +1407,17 @@
 ]
 
 #definition[
-  *子集*
+  *子類型，子集*
 
   設 $P: A -> cal(U)$ 是一個命題族（即每個 $P(x)$ 是一個命題）.
 
   $
-    {x: A | P(x)} :eq.triple (x: A) times P(x).
+    {x: A | P(x)} :eq.triple (x: A) times P(x)；
+  $$
+    a in {x: A | P(x)} :eq.triple P(a).
   $
+
+  ${x: A | P(x)}$ 稱爲 $A$ 的一個*子類型*；如果 $A$ 是集合，則 ${x: A | P(x)}$ 稱爲 $A$ 的一個*子集*.
 ]
 
 #definition[
@@ -1403,7 +1429,36 @@
   $
 ]
 
+== *可縮性*
+
+#definition[
+  *可縮的*
+
+  $
+    op(bold("isContr")) (A) :eq.triple (a: A) times ((x: A) -> (a = x)).
+  $
+]
+
 #pagebreak()
 
-= *等價*
+= *範疇論*
 
+== *範疇和預範疇*
+
+#definition[
+  *預範疇*
+
+  一個*預範疇* $A$ 系如下資料：
+
+  $1.$ 一個類型 $A_0$，它的項稱爲*對象*；
+
+  $2.$ 一個函數 $op("hom"_A) : A_0 -> A_0 -> "Set"$，集合 $op("hom"_A) (a, b)$ 的元素稱爲*態射*；
+
+  $3.$ 一個函數 $op(1) : (a: A_0) -> op("hom"_A) (a, a)$，$op(1)_a$ 稱爲*恆等態射*；
+
+  $4.$ 一個函數 $"_" compose "_" : op("hom"_A) (b, c) -> op("hom"_A) (a, b) -> op("hom"_A) (a, c)$ 稱爲*合成*；
+
+  $5.$ 對於任何 $a, b : A_0$ 和 $f: op("hom"_A) (a, b)$，我們有 $f = op(1)_b compose f$ 且 $f = f compose op(1)_a$；
+
+  $6.$ 對於任何 $a, b, c, d : A$ 和 $f: op("hom"_A) (a, b), g: op("hom"_A) (b, c), h: op("hom"_A) (c, d)$，我們有 $h compose (g compose f) = (h compose g) compose f$.
+]
