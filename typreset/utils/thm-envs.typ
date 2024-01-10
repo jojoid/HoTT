@@ -153,6 +153,11 @@
   color: red,
 )
 
+#let recall = thm-base(
+  type: "回顧",
+  color: silver,
+)
+
 // Proof environment
 #let proof(body) = block(spacing: 11.5pt, {
   emph[Proof.]
@@ -172,5 +177,6 @@
     example,
     convention,
     axiom,
+    recall,
   )
 }

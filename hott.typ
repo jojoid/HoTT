@@ -7,7 +7,7 @@
 
 #show: font.set-font.with(lang: "zh")
 
-#let (theorem, definition, lemma, corollary, proof, proposition, example, convention, axiom) = thm-envs.presets()
+#let (theorem, definition, lemma, corollary, proof, proposition, example, convention, axiom, recall) = thm-envs.presets()
 #let thm-base = thm-envs.thm-base
 
 #show: project.with(
@@ -773,7 +773,29 @@
 
   $1.$ 對於任何 $a, b, c : A, p, q : a = b$，我們可以構造函數 *$"_" op(square.filled.tiny_r) "_"$* $: (p = q) -> (r: b = c) -> (p op(square.filled.tiny) r = q op(square.filled.tiny) r), alpha op(square.filled.tiny_r) "refl"_b :eq.triple "ru"_p^(-1) op(square.filled.tiny) alpha op(square.filled.tiny) "ru"_q$；
 
-  $2.$ 對於任何 $a, b, c : A, q, r : b = c$，我們可以構造函數 *$"_" op(square.filled.tiny_l) "_"$* $: (p: a = b) -> (r = s) -> (p op(square.filled.tiny) r = p op(square.filled.tiny) s), "refl"_b op(square.filled.tiny_l) beta :eq.triple "lu"_r^(-1) op(square.filled.tiny) beta op(square.filled.tiny) "lu"_s$.
+  $2.$ 對於任何 $a, b, c : A, r, s : b = c$，我們可以構造函數 *$"_" op(square.filled.tiny_l) "_"$* $: (p: a = b) -> (r = s) -> (p op(square.filled.tiny) r = p op(square.filled.tiny) s), "refl"_b op(square.filled.tiny_l) beta :eq.triple "lu"_r^(-1) op(square.filled.tiny) beta op(square.filled.tiny) "lu"_s$.
+]
+
+#proof[
+  略.
+]
+
+#lemma[
+  *橫合成*
+
+  對於任何 $a, b, c : A$，$p, q : a = b$，$r, s : b = c$，我們可以構造函數 $"_" op(square.filled.tiny) "_" : (p = q) -> (r = s) -> (p op(square.filled.tiny) r = q op(square.filled.tiny) s)$.
+]
+
+#proof[
+  略.
+]
+
+#lemma[
+  *剪鬚*
+
+  $1.$ 對於任何 $a, b, c : A, p, q : a = b$，我們可以構造函數 $(r: b = c) -> (p op(square.filled.tiny) r = q op(square.filled.tiny) r) -> (p = q)$；
+
+  $2.$ 對於任何 $a, b, c : A, r, s : b = c$，我們可以構造函數 $(p: a = b) -> (p op(square.filled.tiny) r = p op(square.filled.tiny) s) -> (r = s)$.
 ]
 
 #proof[
@@ -827,7 +849,7 @@
 == *函數是函子*
 
 #lemma[
-  對於任何 $A, B : cal(U), f: A -> B, x, y : A$，都能構造函數 $op(bold("ap"_f)): (x scripts(=)_A y) -> (f(x) scripts(=)_B f(y)), op("ap"_f) ("refl"_x) eq.triple "refl"_(f(x))$.
+  對於任何 $A, B : cal(U), f: A -> B, x, y : A$，都能構造函數 $op(bold("ap")_f): (x scripts(=)_A y) -> (f(x) scripts(=)_B f(y)), op(bold("ap")_f) ("refl"_x) eq.triple "refl"_(f(x))$.
 ]
 
 #proof[
@@ -865,6 +887,14 @@
 
 == *類型族是纖維化*
 
+#definition[
+  *纖維化*
+
+  我們把類型族 $P: A -> cal(U)$ 視爲一個*纖維化*，$A$ 稱爲它的*底空間*，$P(x)$ 稱爲 $x$ 上的*纖維*，$(x: A) times P(x)$ 稱爲它的*全空間*，如果存在函數 $f: (x: A) -> P(x)$，則稱該函數爲 $P$ 的一個*截面*.
+
+  有時也稱全空間爲 $A$ 上的*纖維化*.
+]
+
 #lemma[
   *傳送*
 
@@ -880,7 +910,7 @@
 #lemma[
   *道路提升*
 
-  設 $P: A -> cal(U), x, y: A$. 則對於任何 $u: P(x), p: x = y$，我們有 $op("lift") (u, p) : (x, u) scripts(=)_((x: A) times P(x)) (y, op("transport"^P) (p, u)), op("lift") (u, "refl"_x) eq.triple "refl"_((x, u))$.
+  設 $P: A -> cal(U), x, y: A$. 則對於任何 $u: P(x), p: x = y$，我們有 $op(bold("lift")) (u, p) : (x, u) scripts(=)_((x: A) times P(x)) (y, op("transport"^P) (p, u)), op(bold("lift")) (u, "refl"_x) eq.triple "refl"_((x, u))$.
 ]
 
 #proof[
@@ -890,7 +920,7 @@
 #lemma[
   *依賴映射*
 
-  設 $B: A -> cal(U), f: (x: A) -> B(x), x, y : A$. 我們有映射 $op("apd"_f) : (p: x scripts(=)_A y) -> (op("transport"^B) (p, f(x)) scripts(=)_(B(y)) f(y)), op("apd"_f) ("refl"_x) :eq.triple "refl"_(f(x))$.
+  設 $B: A -> cal(U), f: (x: A) -> B(x), x, y : A$. 我們有映射 $op(bold("apd")_f) : (p: x scripts(=)_A y) -> (op("transport"^B) (p, f(x)) scripts(=)_(B(y)) f(y)), op(bold("apd")_f) ("refl"_x) :eq.triple "refl"_(f(x))$.
 ]
 
 #proof[
@@ -945,11 +975,11 @@
 #definition[
   *同倫*
 
-  設 $P: A -> cal(U), f, g : (x: A) -> P(x)$. 從 $f$ 到 $g$ 的一個*同倫*定義爲一個類型爲 $(f op(~) g) :eq.triple (x: A) -> f(x) = g(x)$ 的函數.
+  設 $P: A -> cal(U), f, g : (x: A) -> P(x)$. 從 $f$ 到 $g$ 的一個*同倫*定義爲一個類型爲 $(f tilde.op g) :eq.triple (x: A) -> f(x) = g(x)$ 的函數.
 ]
 
 #lemma[
-  設 $f: A -> B$. 則 $(x: A) |-> "refl"_(f(x)) : f op(~) f$.
+  設 $f: A -> B$. 則 $(x: A) |-> "refl"_(f(x)) : f tilde.op f$.
 ]
 
 #proof[
@@ -959,11 +989,11 @@
 #lemma[
   設 $P: A -> cal(U)$. 我們有：
 
-  $1.$ $(f: (x: A) -> P(x)) -> (f op(~) f)$；
+  $1.$ $(f: (x: A) -> P(x)) -> (f tilde.op f)$；
 
-  $2.$ $(f, g : (x: A) -> P(x)) -> (f op(~) g) -> (g op(~) f)$；
+  $2.$ $(f, g : (x: A) -> P(x)) -> (f tilde.op g) -> (g tilde.op f)$；
 
-  $3.$ $(f, g, h : (x: A) -> P(x)) -> (f op(~) g) -> (g op(~) h) -> (f op(~) h)$.
+  $3.$ $(f, g, h : (x: A) -> P(x)) -> (f tilde.op g) -> (g tilde.op h) -> (f tilde.op h)$.
 ]
 
 #proof[
@@ -971,7 +1001,7 @@
 ]
 
 #lemma[
-  設 $f, g : A -> B, H: f op(~) g$. 則對於任何 $x, y : A, p: x = y$ 我們有 $H(x) op(square.filled.tiny) g(p) = f(p) op(square.filled.tiny) H(y)$，即下圖交換
+  設 $f, g : A -> B, H: f tilde.op g$. 則對於任何 $x, y : A, p: x = y$ 我們有 $H(x) op(square.filled.tiny) g(p) = f(p) op(square.filled.tiny) H(y)$，即下圖交換
 
   #align(
     center,
@@ -991,7 +1021,7 @@
 ]
 
 #corollary[
-  設 $f: A -> A, H: f op(~) op("id"_A)$. 則對於任何 $x: A$ 我們有 $H(f(x)) = f(H(x))$.
+  設 $f: A -> A, H: f tilde.op op("id"_A)$. 則對於任何 $x: A$ 我們有 $H(f(x)) = f(H(x))$.
 ]
 
 #proof[
@@ -1015,13 +1045,13 @@
 #definition[
   *擬逆*
 
-  對於一個函數 $f: A -> B$，它的一個*擬逆*是一個三元組 $(g, alpha, beta) : op(bold("qinv")) (f) :eq.triple (g: B -> A) times [(g compose f op(~) op("id"_A)) times (f compose g op(~) op("id"_B))]$.
+  對於一個函數 $f: A -> B$，它的一個*擬逆*是一個三元組 $(g, alpha, beta) : op(bold("qinv")) (f) :eq.triple (g: B -> A) times [(g compose f tilde.op op("id"_A)) times (f compose g tilde.op op("id"_B))]$.
 ]
 
 #definition[
   *等價*
 
-  對於任何函數 $f: A -> B$，定義 *$op("isequiv")$*$(f) :eq.triple [(g: B -> A) times (g compose f op(~) op("id"_A))] times [(h: B -> A) times (f compose h op(~) op("id"_B))]$，$(A$ *$tilde.eq$* $B) :eq.triple (f: A -> B) times op("isequiv") (f)$.
+  對於任何函數 $f: A -> B$，定義 *$op("isequiv")$*$(f) :eq.triple [(g: B -> A) times (g compose f tilde.op op("id"_A))] times [(h: B -> A) times (f compose h tilde.op op("id"_B))]$，$(A$ *$tilde.eq$* $B) :eq.triple (f: A -> B) times op("isequiv") (f)$.
 ]
 
 #lemma[
@@ -1033,7 +1063,7 @@
 #proof[
   $1.$ 略.
 
-  $2.$ 給定四元組 $(g, alpha, h, beta)： op("isequiv") (f)$，我們有 $alpha: (x: A) -> (g compose f) (x) = x, beta: (y: B) -> (f compose h) (y) = y$，那麼我們有同倫 $g compose beta^(-1) : (y: B) -> g(y) = (g compose f compose h) (y) eq.triple g op(~) (g compose f compose h)$ 和 $alpha compose h : (y: B) -> (g compose f compose h) (y) = h(y) eq.triple (g compose f compose h) op(~) h$. 於是我們可以定義同倫 $gamma :eq.triple (g compose beta^(-1)) op(square.filled.tiny) (alpha compose h) : g op(~) h eq.triple (y: B) -> g(y) = h(y)$. 那麼 $f compose gamma : (y: B) -> (f compose g) (y) = (f compose h) (y) eq.triple (f compose g) op(~) (f compose h)$. 於是有 $(f compose gamma) op(square.filled.tiny) beta : (f compose g) op(~) op("id"_B)$. 所以有 $(g, alpha, (f compose gamma) op(square.filled.tiny) beta) : op("qinv") (f)$.
+  $2.$ 給定四元組 $(g, alpha, h, beta)： op("isequiv") (f)$，我們有 $alpha: (x: A) -> (g compose f) (x) = x, beta: (y: B) -> (f compose h) (y) = y$，那麼我們有同倫 $g compose beta^(-1) : (y: B) -> g(y) = (g compose f compose h) (y) eq.triple g tilde.op (g compose f compose h)$ 和 $alpha compose h : (y: B) -> (g compose f compose h) (y) = h(y) eq.triple (g compose f compose h) tilde.op h$. 於是我們可以定義同倫 $gamma :eq.triple (g compose beta^(-1)) op(square.filled.tiny) (alpha compose h) : g tilde.op h eq.triple (y: B) -> g(y) = h(y)$. 那麼 $f compose gamma : (y: B) -> (f compose g) (y) = (f compose h) (y) eq.triple (f compose g) tilde.op (f compose h)$. 於是有 $(f compose gamma) op(square.filled.tiny) beta : (f compose g) tilde.op op("id"_B)$. 所以有 $(g, alpha, (f compose gamma) op(square.filled.tiny) beta) : op("qinv") (f)$.
 ]
 
 #lemma[
@@ -1045,7 +1075,7 @@
 ]
 
 #proof[
-  $1.$ 我們要證明對於任何類型 $A: cal(U)$ 有 $[(g: B -> A) times (g compose op("id"_A) op(~) op("id"_A))] times [(h: B -> A) times (op("id"_A) compose h op(~) op("id"_B))]$，略.
+  $1.$ 我們要證明對於任何類型 $A: cal(U)$ 有 $[(g: B -> A) times (g compose op("id"_A) tilde.op op("id"_A))] times [(h: B -> A) times (op("id"_A) compose h tilde.op op("id"_B))]$，略.
 
   $2.$ $f$ 的擬逆.
 
@@ -1385,6 +1415,14 @@
 ]
 
 #lemma[
+  如果 $P$ 和 $Q$ 是命題，且有 $P -> Q$ 和 $Q -> P$，則我們有 $P tilde.eq Q$.
+]
+
+#proof[
+  設 $f: P -> Q$，$g: Q -> P$. 那麼由於 $P$ 是命題，則對於任何 $x: P$ 我們有 $g(f(x)) = x$. 同理，對於任何 $y: Q$ 我們有 $f(g(y)) = y$. 因此 $f$ 和 $g$ 互爲擬逆.
+]
+
+#lemma[
   每個命題都是一個集合.
 ]
 
@@ -1429,6 +1467,62 @@
   $
 ]
 
+== *命題截斷*
+
+#definition[
+  *命題截斷（$-1$-截斷）*
+
+  *命題截斷*系如下資料：
+
+  $1.$ 類型形成器：$|| "_" || : cal(U) -> cal(U)$；
+
+  $2.$ 構造子 $1$：$| "_" | : A -> ||A||$；
+
+  $3.$ 構造子 $2$：對於任何 $x, y : ||A||$，我們有 $x = y$；
+
+  $4.$ 消除器：如果有 $op("isProp") (B)$，則有 $op("rec"_(|| "_" ||)) : (A -> B) -> ||A|| -> B$；
+
+  $5.$ 計算規則：$op("rec"_(|| "_" ||)) (f) (|a|) :eq.triple f(a)$
+]
+
+#definition[
+  *傳統邏輯記號*
+
+  給定類型 $A$ 和 $B$.
+
+  $
+    A "和" B "是邏輯等價的" :eq.triple (A -> B) times (B -> A)
+  $
+
+  給定命題 $P$ 和 $Q$.
+
+  $
+    tack.b :eq.triple bold(1)
+  $$
+    tack.t :eq.triple bold(0)
+  $$
+    P and Q :eq.triple P times Q
+  $$
+    P => Q :eq.triple P -> Q
+  $$
+    P <=> Q :eq.triple P = Q
+  $$
+    not P :eq.triple P -> bold(0)
+  $$
+    P or Q :eq.triple ||P + Q||
+  $$
+    forall (x: A). P(x) :eq.triple (x: A) -> P(x)
+  $$
+    exists (x: A). P(x) :eq.triple ||(x: A) times P(x)||
+  $$
+    {x: A | P(x)} sect {x: A | Q(x)} :eq.triple {x: A | P(x) and Q(x)}
+  $$
+    {x: A | P(x)} union {x: A | Q(x)} :eq.triple {x: A | P(x) or Q(x)}
+  $$
+    A backslash {x: A | P(x)} :eq.triple {x: A | not P(x)}
+  $
+]
+
 == *可縮性*
 
 #definition[
@@ -1439,26 +1533,150 @@
   $
 ]
 
+#lemma[
+  對於任何類型 $A$，以下是邏輯等價的：
+
+  $1.$ $op("isContr") (A)$；
+
+  $2.$ $op("isProp") (A)$ 且 我們有一個點 $a: A$；
+
+  $3.$ $A tilde.eq bold(1)$.
+]
+
+#proof[
+  略.
+]
+
+#lemma[
+  對於任何類型 $A$，類型 $op("isContr") (A)$ 是命題.
+]
+
+#proof[
+  略.
+]
+
 #pagebreak()
 
-= *範疇論*
+= *等價*
 
-== *範疇和預範疇*
+== *半伴隨等價*
+
+#recall[
+  對於任何函數 $f: A -> B$，定義 *$op("isequiv")$*$(f) :eq.triple [(g: B -> A) times (g compose f tilde.op op("id"_A))] times [(h: B -> A) times (f compose h tilde.op op("id"_B))]$，$(A$ *$tilde.eq$* $B) :eq.triple (f: A -> B) times op("isequiv") (f)$.
+
+  對於一個函數 $f: A -> B$，它的一個*擬逆*是一個三元組 $(g, alpha, beta) : op(bold("qinv")) (f) :eq.triple (g: B -> A) times (g compose f tilde.op op("id"_A)) times (f compose g tilde.op op("id"_B))$.
+]
 
 #definition[
-  *預範疇*
+  *半伴隨等價*
 
-  一個*預範疇* $A$ 系如下資料：
+  $
+    op(bold("ishae")) (f) :eq.triple
+    (g: B -> A) times (eta : g compose f tilde.op op("id"_A)) times (epsilon : f compose g tilde.op op("id"_B)) times
+    (op("ap"_f) compose eta tilde.op epsilon compose f)；
+  $$
+    op(bold("ishae")') (f) :eq.triple
+    (g: B -> A) times (eta : g compose f tilde.op op("id"_A)) times (epsilon : f compose g tilde.op op("id"_B)) times
+    (op("ap"_g) compose epsilon tilde.op eta compose g).
+  $
+]
 
-  $1.$ 一個類型 $A_0$，它的項稱爲*對象*；
+#lemma[
+  $op(bold("ishae")) (f)$ 和 $op(bold("ishae")') (f)$ 是邏輯等價的.
+]
 
-  $2.$ 一個函數 $op("hom"_A) : A_0 -> A_0 -> "Set"$，集合 $op("hom"_A) (a, b)$ 的元素稱爲*態射*；
+#proof[
+  我們先證明 $op(bold("ishae")) (f) -> op(bold("ishae")') (f)$.
 
-  $3.$ 一個函數 $op(1) : (a: A_0) -> op("hom"_A) (a, a)$，$op(1)_a$ 稱爲*恆等態射*；
+  設 $(g, eta, epsilon, tau) : op(bold("ishae")) (f)$. 由 $epsilon$ 的自然性，我們有路徑的交換圖如下：
 
-  $4.$ 一個函數 $"_" compose "_" : op("hom"_A) (b, c) -> op("hom"_A) (a, b) -> op("hom"_A) (a, c)$ 稱爲*合成*；
+  #align(
+    center,
+    commutative-diagram(
+      node((0,0), $op(g) op(f) op(g) op(f) op(g) y$), node((0,1), $op(g) op(f) op(g) y$),
+      node((1,0), $op(g) op(f) op(g) y$), node((1,1), $op(g) y$),
+      arr((0,0), (0,1), $op(g) op(f) op("ap"_g) op(epsilon) y$),
+      arr((1,0), (1,1), $op("ap"_g) op(epsilon) y$, label-pos:right),
+      arr((0,0), (1,0), $op("ap"_g) op(epsilon) op(f) op(g) y$, label-pos: right),
+      arr((0,1), (1,1), $op("ap"_g) op(epsilon) y$),
+    )
+  )
 
-  $5.$ 對於任何 $a, b : A_0$ 和 $f: op("hom"_A) (a, b)$，我們有 $f = op(1)_b compose f$ 且 $f = f compose op(1)_a$；
+  從而有：
 
-  $6.$ 對於任何 $a, b, c, d : A$ 和 $f: op("hom"_A) (a, b), g: op("hom"_A) (b, c), h: op("hom"_A) (c, d)$，我們有 $h compose (g compose f) = (h compose g) compose f$.
+  #align(
+    center,
+    commutative-diagram(
+      node((0,0), $op(g) op(f) op(g) op(f) op(g) y$), node((0,1), $op(g) op(f) op(g) y$),
+      node((1,0), $op(g) op(f) op(g) y$), node((1,1), $op(g) y$),
+      arr((0,0), (0,1), $op(g) op(f) op("ap"_g) op(epsilon) y$),
+      arr((1,0), (1,1), $op("ap"_g) op(epsilon) y$, label-pos:right),
+      arr((0,0), (1,0), $op("ap"_g) op("ap"_f) op(eta) op(g) y$, label-pos: right),
+      arr((0,1), (1,1), $op("ap"_g) op(epsilon) y$),
+    )
+  )
+
+  從而有：
+
+  #align(
+    center,
+    commutative-diagram(
+      node((0,0), $op(g) op(f) op(g) op(f) op(g) y$), node((0,1), $op(g) op(f) op(g) y$),
+      node((1,0), $op(g) op(f) op(g) y$), node((1,1), $op(g) y$),
+      arr((0,0), (0,1), $op(g) op(f) op("ap"_g) op(epsilon) y$),
+      arr((1,0), (1,1), $op("ap"_g) op(epsilon) y$, label-pos:right),
+      arr((0,0), (1,0), $op(eta) op(g) op(f) op(g) y$, label-pos: right),
+      arr((0,1), (1,1), $op(eta) op(g) y$),
+    )
+  )
+
+  根據 $eta$ 的自然性，我們有：
+
+  #align(
+    center,
+    commutative-diagram(
+      node((0,0), $op(g) op(f) op(g) op(f) op(g) y$), node((0,1), $op(g) op(f) op(g) y$),
+      node((1,0), $op(g) op(f) op(g) y$), node((1,1), $op(g) y$),
+      arr((0,0), (0,1), $op(g) op(f) op("ap"_g) op(epsilon) y$),
+      arr((1,0), (1,1), $op("ap"_g) op(epsilon) y$, label-pos:right),
+      arr((0,0), (1,0), $op(eta) op(g) op(f) op(g) y$, label-pos: right),
+      arr((0,1), (1,1), $op("ap"_g) op(epsilon) y$),
+    )
+  )
+
+  所以我們有 $op("ap"_g) op(epsilon) y = op(eta) op(g) y$，證畢.
+]
+
+#theorem[
+  $
+    (f: A -> B) -> op("qinv") (f) -> op("ishae") (f).
+  $
+]
+
+#proof[
+  
+]
+
+#definition[
+  *同倫纖維*
+
+  一個函數 $f: A -> B$ 在一個點 $y: B$ 的一個*同倫纖維*定義爲：
+  $
+    op(bold("fib")_f) (f) :eq.triple (x: A) times (f(x) = y).
+  $
+]
+
+== *雙可逆映射*
+
+
+
+== *可縮纖維*
+
+#definition[
+  *可縮映射*
+
+  設 $f: A -> B$. 我們定義：
+  $
+    op(bold("isContr")) (f) :eq.triple (y: B) -> op("isContr") (op("fib"_f) (y)).
+  $
 ]
