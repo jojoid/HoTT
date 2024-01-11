@@ -1562,9 +1562,9 @@
 == *半伴隨等價*
 
 #recall[
-  對於任何函數 $f: A -> B$，定義 *$op("isequiv")$*$(f) :eq.triple [(g: B -> A) times (g compose f tilde.op op("id"_A))] times [(h: B -> A) times (f compose h tilde.op op("id"_B))]$，$(A$ *$tilde.eq$* $B) :eq.triple (f: A -> B) times op("isequiv") (f)$.
+  對於任何函數 $f: A -> B$，定義 *$op("isequiv")$*$(f) :eq.triple [(g: B -> A) times (op(g) op(f) tilde.op op("id"_A))] times [(h: B -> A) times (op(f) op(h) tilde.op op("id"_B))]$，$(A$ *$tilde.eq$* $B) :eq.triple (f: A -> B) times op("isequiv") (f)$.
 
-  對於一個函數 $f: A -> B$，它的一個*擬逆*是一個三元組 $(g, alpha, beta) : op(bold("qinv")) (f) :eq.triple (g: B -> A) times (g compose f tilde.op op("id"_A)) times (f compose g tilde.op op("id"_B))$.
+  對於一個函數 $f: A -> B$，它的一個*擬逆*是一個三元組 $(g, alpha, beta) : op(bold("qinv")) (f) :eq.triple (g: B -> A) times (op(g) op(f) tilde.op op("id"_A)) times (op(f) op(g) tilde.op op("id"_B))$.
 ]
 
 #definition[
@@ -1572,33 +1572,35 @@
 
   $
     op(bold("ishae")) (f) :eq.triple
-    (g: B -> A) times (eta : g compose f tilde.op op("id"_A)) times (epsilon : f compose g tilde.op op("id"_B)) times
-    (op("ap"_f) compose eta tilde.op epsilon compose f)；
+    (g: B -> A) times (eta : op(g) op(f) tilde.op op("id"_A)) times (epsilon : op(f) op(g) tilde.op op("id"_B)) times
+    (op(f) op(eta) tilde.op op(epsilon) op(f))；
   $$
     op(bold("ishae")') (f) :eq.triple
-    (g: B -> A) times (eta : g compose f tilde.op op("id"_A)) times (epsilon : f compose g tilde.op op("id"_B)) times
-    (op("ap"_g) compose epsilon tilde.op eta compose g).
+    (g: B -> A) times (eta : op(g) op(f) tilde.op op("id"_A)) times (epsilon : op(f) op(g) tilde.op op("id"_B)) times
+    (op(g) op(epsilon) tilde.op op(eta) op(g)).
   $
 ]
 
 #lemma[
-  $op(bold("ishae")) (f)$ 和 $op(bold("ishae")') (f)$ 是邏輯等價的.
+  $op("ishae") (f)$ 和 $op("ishae"') (f)$ 是邏輯等價的.
 ]
 
 #proof[
-  我們先證明 $op(bold("ishae")) (f) -> op(bold("ishae")') (f)$.
+  我們先證明 $op("ishae") (f) -> op("ishae"') (f)$.
 
-  設 $(g, eta, epsilon, tau) : op(bold("ishae")) (f)$. 由 $epsilon$ 的自然性，我們有路徑的交換圖如下：
+  設 $(g, eta, epsilon, tau) : op("ishae") (f)$. 我們要構造一個四元組 $(g', eta', epsilon', tau') : op("ishae"') (f)$. 設 $g' :eq.triple g$，$eta' :eq.triple eta$，$epsilon' :eq.triple epsilon$.
+  
+  由 $op(g) op(epsilon)$ 的自然性，我們有路徑的交換圖如下：
 
   #align(
     center,
     commutative-diagram(
       node((0,0), $op(g) op(f) op(g) op(f) op(g) y$), node((0,1), $op(g) op(f) op(g) y$),
       node((1,0), $op(g) op(f) op(g) y$), node((1,1), $op(g) y$),
-      arr((0,0), (0,1), $op(g) op(f) op("ap"_g) op(epsilon) y$),
-      arr((1,0), (1,1), $op("ap"_g) op(epsilon) y$, label-pos:right),
-      arr((0,0), (1,0), $op("ap"_g) op(epsilon) op(f) op(g) y$, label-pos: right),
-      arr((0,1), (1,1), $op("ap"_g) op(epsilon) y$),
+      arr((0,0), (0,1), $op(g) op(f) op(g) op(epsilon) y$),
+      arr((1,0), (1,1), $op(g) op(epsilon) y$, label-pos:right),
+      arr((0,0), (1,0), $op(g) op(epsilon) op(f) op(g) y$, label-pos: right),
+      arr((0,1), (1,1), $op(g) op(epsilon) y$),
     )
   )
 
@@ -1609,10 +1611,10 @@
     commutative-diagram(
       node((0,0), $op(g) op(f) op(g) op(f) op(g) y$), node((0,1), $op(g) op(f) op(g) y$),
       node((1,0), $op(g) op(f) op(g) y$), node((1,1), $op(g) y$),
-      arr((0,0), (0,1), $op(g) op(f) op("ap"_g) op(epsilon) y$),
-      arr((1,0), (1,1), $op("ap"_g) op(epsilon) y$, label-pos:right),
-      arr((0,0), (1,0), $op("ap"_g) op("ap"_f) op(eta) op(g) y$, label-pos: right),
-      arr((0,1), (1,1), $op("ap"_g) op(epsilon) y$),
+      arr((0,0), (0,1), $op(g) op(f) op(g) op(epsilon) y$),
+      arr((1,0), (1,1), $op(g) op(epsilon) y$, label-pos:right),
+      arr((0,0), (1,0), $op(g) op(f) op(eta) op(g) y$, label-pos: right),
+      arr((0,1), (1,1), $op(g) op(epsilon) y$),
     )
   )
 
@@ -1623,8 +1625,8 @@
     commutative-diagram(
       node((0,0), $op(g) op(f) op(g) op(f) op(g) y$), node((0,1), $op(g) op(f) op(g) y$),
       node((1,0), $op(g) op(f) op(g) y$), node((1,1), $op(g) y$),
-      arr((0,0), (0,1), $op(g) op(f) op("ap"_g) op(epsilon) y$),
-      arr((1,0), (1,1), $op("ap"_g) op(epsilon) y$, label-pos:right),
+      arr((0,0), (0,1), $op(g) op(f) op(g) op(epsilon) y$),
+      arr((1,0), (1,1), $op(g) op(epsilon) y$, label-pos:right),
       arr((0,0), (1,0), $op(eta) op(g) op(f) op(g) y$, label-pos: right),
       arr((0,1), (1,1), $op(eta) op(g) y$),
     )
@@ -1637,14 +1639,16 @@
     commutative-diagram(
       node((0,0), $op(g) op(f) op(g) op(f) op(g) y$), node((0,1), $op(g) op(f) op(g) y$),
       node((1,0), $op(g) op(f) op(g) y$), node((1,1), $op(g) y$),
-      arr((0,0), (0,1), $op(g) op(f) op("ap"_g) op(epsilon) y$),
-      arr((1,0), (1,1), $op("ap"_g) op(epsilon) y$, label-pos:right),
+      arr((0,0), (0,1), $op(g) op(f) op(g) op(epsilon) y$),
+      arr((1,0), (1,1), $op(g) op(epsilon) y$, label-pos:right),
       arr((0,0), (1,0), $op(eta) op(g) op(f) op(g) y$, label-pos: right),
-      arr((0,1), (1,1), $op("ap"_g) op(epsilon) y$),
+      arr((0,1), (1,1), $op(g) op(epsilon) y$),
     )
   )
 
-  所以我們有 $op("ap"_g) op(epsilon) y = op(eta) op(g) y$，證畢.
+  所以我們有 $op(g) op(epsilon) y = op(eta) op(g) y$，證畢.
+
+  反方向類似，略.
 ]
 
 #theorem[
@@ -1654,7 +1658,25 @@
 ]
 
 #proof[
-  
+  設 $(g, eta, epsilon) : op("qinv") (f)$. 我們要構造一個四元組 $(g', eta', epsilon', tau) : op("ishae") (f)$. 設 $g' :eq.triple g$，$eta' :eq.triple eta$. 我們要構造合適的 $epsilon'$的定義，使得對於任何 $a: A$ 有 $op(f) op(eta) a = op(epsilon') op(f) a$.
+
+  根據 $epsilon$ 的自然性，我們有如下交換圖：
+
+  #align(
+    center,
+    commutative-diagram(
+      node((0,0), $op(f) op(g) op(f) op(g) op(f) a$), node((0,1), $op(f) op(g) op(f) a$),
+      node((1,0), $op(f) op(g) op(f) a$), node((1,1), $op(f) a$),
+      arr((0,1), (1,1), $op(epsilon) op(f) a$),
+      arr((0,0), (1,0), $op(epsilon) op(f) op(g) op(f) a$, label-pos: right),
+      arr((1,0), (1,1), $op(f) op(eta) a$, label-pos: right),
+      arr((0,0), (0,1), $op(f) op(g) op(f) op(eta) a$),
+    )
+  )
+
+  所以有 $(op(f) op(g) op(f) op(eta) a) op(square.filled.tiny) (op(epsilon) op(f) a) = (op(epsilon) op(f) op(g) op(f) a) op(square.filled.tiny) (op(f) op(eta) a)$，於是有 $(op(epsilon) op(f) op(g) op(f) a)^(-1) op(square.filled.tiny) (op(f) op(g) op(f) op(eta) a) op(square.filled.tiny) (op(epsilon) op(f) a) = op(f) op(eta) a$.
+
+  於是我們可以定義 $epsilon' :eq.triple (op(epsilon) op(f) op(g) op(f))^(-1) op(square.filled.tiny) (op(f) op(g) op(f) op(eta)) op(square.filled.tiny) (op(epsilon) op(f))$，證畢.
 ]
 
 #definition[
@@ -1679,4 +1701,28 @@
   $
     op(bold("isContr")) (f) :eq.triple (y: B) -> op("isContr") (op("fib"_f) (y)).
   $
+]
+
+#pagebreak()
+
+= *範疇論*
+
+== *範疇和預範疇*
+
+#definition[
+  *預範疇*
+
+  一個*預範疇* $A$ 系如下資料：
+
+  $1.$ 一個類型 $A_0$，它的項稱爲*對象*；
+
+  $2.$ 一個函數 $op("hom"_A) : A_0 -> A_0 -> "Set"$，集合 $op("hom"_A) (a, b)$ 的元素稱爲*態射*；
+
+  $3.$ 一個函數 $op(1) : (a: A_0) -> op("hom"_A) (a, a)$，$op(1)_a$ 稱爲*恆等態射*；
+
+  $4.$ 一個函數 $"_" compose "_" : op("hom"_A) (b, c) -> op("hom"_A) (a, b) -> op("hom"_A) (a, c)$ 稱爲*合成*；
+
+  $5.$ 對於任何 $a, b : A_0$ 和 $f: op("hom"_A) (a, b)$，我們有 $f = op(1)_b compose f$ 且 $f = f compose op(1)_a$；
+
+  $6.$ 對於任何 $a, b, c, d : A$ 和 $f: op("hom"_A) (a, b), g: op("hom"_A) (b, c), h: op("hom"_A) (c, d)$，我們有 $h compose (g compose f) = (h compose g) compose f$.
 ]
