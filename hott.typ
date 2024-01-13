@@ -1674,9 +1674,9 @@
     )
   )
 
-  所以有 $(op(f) op(g) op(f) op(eta) a) op(square.filled.tiny) (op(epsilon) op(f) a) = (op(epsilon) op(f) op(g) op(f) a) op(square.filled.tiny) (op(f) op(eta) a)$，於是有 $(op(epsilon) op(f) op(g) op(f) a)^(-1) op(square.filled.tiny) (op(f) op(g) op(f) op(eta) a) op(square.filled.tiny) (op(epsilon) op(f) a) = op(f) op(eta) a$.
+  所以有 $(op(f) op(g) op(f) op(eta) a) op(square.filled.tiny) (op(epsilon) op(f) a) = (op(epsilon) op(f) op(g) op(f) a) op(square.filled.tiny) (op(f) op(eta) a)$，於是有 $(op(epsilon) op(f) op(g) op(f) a)^(-1) op(square.filled.tiny) (op(f) op(eta) op(g) op(f) a) op(square.filled.tiny) (op(epsilon) op(f) a) = op(f) op(eta) a$.
 
-  於是我們可以定義 $epsilon' :eq.triple (op(epsilon) op(f) op(g) op(f))^(-1) op(square.filled.tiny) (op(f) op(g) op(f) op(eta)) op(square.filled.tiny) (op(epsilon) op(f))$，證畢.
+  於是我們可以定義 $epsilon' b :eq.triple (op(epsilon) op(f) op(g) b)^(-1) op(square.filled.tiny) (op(f) op(eta) op(g) b) op(square.filled.tiny) (op(epsilon) b)$，證畢.
 ]
 
 #definition[
@@ -1688,9 +1688,87 @@
   $
 ]
 
+#lemma[
+  對於任何 $f: A -> B, y:B$ 和 $(x,p), (x',p') : op("fib"_y)$. 我們有 $((x,p) = (x',p')) tilde.eq ((gamma : x = x') times (p = f(gamma) op(square.filled.tiny) p'))$.
+]
+
+#proof[
+  略.
+]
+
+#theorem[
+  如果 $f: A -> B$ 是一個半伴隨等價，則對於任何 $y: B$，同倫纖維 $op("fib"_f) (y)$ 是可縮的.
+]
+
+#proof[
+  設 $(g, eta, epsilon, tau) : op("ishae") (f)$，$y: B$. 那麼有 $(op(g) y, op(epsilon) y) : op("fib"_f) (y)$. 設 $(x,p) : op("fib"_f)$，我們要構造從 $(op(g) y, op(epsilon) y)$ 到 $(x,p)$ 的一條道路. 我們只需給出路徑 $gamma: op(g) y = x$ 使得 $op(epsilon) y = f(gamma) op(square.filled.tiny) p$.
+
+  根據 $epsilon$ 的自然性，我們有：
+
+  #align(
+    center,
+    commutative-diagram(
+      node((1,1), $y$),
+      node((0,1), $op(f) op(g) y$),
+      node((1,0), $op(f) x$),
+      node((0,0), $op(f) op(g) op(f) x$),
+      arr((0,1), (1,1), $op(epsilon) y$),
+      arr((1,0), (1,1), $p$, label-pos: right),
+      arr((0,0), (1,0), $op(epsilon) op(f) x$, label-pos: right),
+      arr((0,0), (0,1), $op(f) op(g) p$),
+    )
+  )
+
+  也就有：
+
+  #align(
+    center,
+    commutative-diagram(
+      node((1,1), $y$),
+      node((0,1), $op(f) op(g) y$),
+      node((1,0), $op(f) x$),
+      node((0,0), $op(f) op(g) op(f) x$),
+      arr((0,1), (1,1), $op(epsilon) y$),
+      arr((1,0), (1,1), $p$, label-pos: right),
+      arr((0,0), (1,0), $op(f) op(eta) x$, label-pos: right),
+      arr((0,0), (0,1), $op(f) op(g) p$),
+    )
+  )
+
+  令 $gamma :eq.triple (op(g) p)^(-1)$，證畢.
+]
+
+#definition[
+  *左逆*和*右逆*
+
+  給定 $f: A -> B$，我們定義 $f$ 的*左逆*和*右逆*的類型爲
+  $
+    op(bold("linv")) (f) :eq.triple (g: B -> A) times (op(g) op(f) tilde.op op("id"_A))；
+  $$
+    op(bold("rinv")) (f) :eq.triple (g: B -> A) times (op(f) op(g) tilde.op op("id"_B)).
+  $
+]
+
+#lemma[
+  如果 $f: A -> B$ 有一個擬逆 $g: B -> A$，那麼函數 $(f compose "_") : (C -> A) -> (C -> B)$ 和 $("_" compose f) : (B -> C) -> (A -> C)$ 也有擬逆.
+]
+
+#proof[
+  $(g compose "_") : (C -> B) -> (C -> A)$；$("_" compose g) : (A -> C) -> (B -> C)$.
+
+  $(f compose "_") compose (g compose "_") eq.triple f compose g compose "_"$；$("_" compose g) compose ("_" compose f) eq.triple "_" compose f compose g$.
+]
+
 == *雙可逆映射*
 
-
+#definition[
+  *雙可逆映射*
+  
+  我們將之前定義的 $op("isequiv")$ 重命名爲 $op(bold("biinv"))$：
+  $
+    op(bold("biinv")) (f) :eq.triple op("linv") times op("rinv").
+  $
+]
 
 == *可縮纖維*
 
