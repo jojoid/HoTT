@@ -975,11 +975,11 @@
 #definition[
   *同倫*
 
-  設 $P: A -> cal(U), f, g : (x: A) -> P(x)$. 從 $f$ 到 $g$ 的一個*同倫*定義爲一個類型爲 $(f tilde.op g) :eq.triple (x: A) -> f(x) = g(x)$ 的函數.
+  設 $P: A -> cal(U), f, g : (x: A) -> P(x)$. 從 $f$ 到 $g$ 的一個*同倫*定義爲一個類型爲 $(f tilde g) :eq.triple (x: A) -> f(x) = g(x)$ 的函數.
 ]
 
 #lemma[
-  設 $f: A -> B$. 則 $(x: A) |-> "refl"_(f(x)) : f tilde.op f$.
+  設 $f: A -> B$. 則 $(x: A) |-> "refl"_(f(x)) : f tilde f$.
 ]
 
 #proof[
@@ -989,11 +989,11 @@
 #lemma[
   設 $P: A -> cal(U)$. 我們有：
 
-  $1.$ $(f: (x: A) -> P(x)) -> (f tilde.op f)$；
+  $1.$ $(f: (x: A) -> P(x)) -> (f tilde f)$；
 
-  $2.$ $(f, g : (x: A) -> P(x)) -> (f tilde.op g) -> (g tilde.op f)$；
+  $2.$ $(f, g : (x: A) -> P(x)) -> (f tilde g) -> (g tilde f)$；
 
-  $3.$ $(f, g, h : (x: A) -> P(x)) -> (f tilde.op g) -> (g tilde.op h) -> (f tilde.op h)$.
+  $3.$ $(f, g, h : (x: A) -> P(x)) -> (f tilde g) -> (g tilde h) -> (f tilde h)$.
 ]
 
 #proof[
@@ -1001,7 +1001,7 @@
 ]
 
 #lemma[
-  設 $f, g : A -> B, H: f tilde.op g$. 則對於任何 $x, y : A, p: x = y$ 我們有 $H(x) op(square.filled.tiny) g(p) = f(p) op(square.filled.tiny) H(y)$，即下圖交換
+  設 $f, g : A -> B, H: f tilde g$. 則對於任何 $x, y : A, p: x = y$ 我們有 $H(x) op(square.filled.tiny) g(p) = f(p) op(square.filled.tiny) H(y)$，即下圖交換
 
   #align(
     center,
@@ -1021,7 +1021,7 @@
 ]
 
 #corollary[
-  設 $f: A -> A, H: f tilde.op op("id"_A)$. 則對於任何 $x: A$ 我們有 $H(f(x)) = f(H(x))$.
+  設 $f: A -> A, H: f tilde op("id"_A)$. 則對於任何 $x: A$ 我們有 $H(f(x)) = f(H(x))$.
 ]
 
 #proof[
@@ -1045,13 +1045,13 @@
 #definition[
   *擬逆*
 
-  對於一個函數 $f: A -> B$，它的一個*擬逆*是一個三元組 $(g, alpha, beta) : op(bold("qinv")) (f) :eq.triple (g: B -> A) times [(g compose f tilde.op op("id"_A)) times (f compose g tilde.op op("id"_B))]$.
+  對於一個函數 $f: A -> B$，它的一個*擬逆*是一個三元組 $(g, alpha, beta) : op(bold("qinv")) (f) :eq.triple (g: B -> A) times [(g compose f tilde op("id"_A)) times (f compose g tilde op("id"_B))]$.
 ]
 
 #definition[
   *等價*
 
-  對於任何函數 $f: A -> B$，定義 *$op("isequiv")$*$(f) :eq.triple [(g: B -> A) times (g compose f tilde.op op("id"_A))] times [(h: B -> A) times (f compose h tilde.op op("id"_B))]$，$(A$ *$tilde.eq$* $B) :eq.triple (f: A -> B) times op("isequiv") (f)$.
+  對於任何函數 $f: A -> B$，定義 *$op("isequiv")$*$(f) :eq.triple [(g: B -> A) times (g compose f tilde op("id"_A))] times [(h: B -> A) times (f compose h tilde op("id"_B))]$，$(A$ *$tilde.eq$* $B) :eq.triple (f: A -> B) times op("isequiv") (f)$.
 ]
 
 #lemma[
@@ -1063,7 +1063,7 @@
 #proof[
   $1.$ 略.
 
-  $2.$ 給定四元組 $(g, alpha, h, beta)： op("isequiv") (f)$，我們有 $alpha: (x: A) -> (g compose f) (x) = x, beta: (y: B) -> (f compose h) (y) = y$，那麼我們有同倫 $g compose beta^(-1) : (y: B) -> g(y) = (g compose f compose h) (y) eq.triple g tilde.op (g compose f compose h)$ 和 $alpha compose h : (y: B) -> (g compose f compose h) (y) = h(y) eq.triple (g compose f compose h) tilde.op h$. 於是我們可以定義同倫 $gamma :eq.triple (g compose beta^(-1)) op(square.filled.tiny) (alpha compose h) : g tilde.op h eq.triple (y: B) -> g(y) = h(y)$. 那麼 $f compose gamma : (y: B) -> (f compose g) (y) = (f compose h) (y) eq.triple (f compose g) tilde.op (f compose h)$. 於是有 $(f compose gamma) op(square.filled.tiny) beta : (f compose g) tilde.op op("id"_B)$. 所以有 $(g, alpha, (f compose gamma) op(square.filled.tiny) beta) : op("qinv") (f)$.
+  $2.$ 給定四元組 $(g, alpha, h, beta)： op("isequiv") (f)$，我們有 $alpha: (x: A) -> (g compose f) (x) = x, beta: (y: B) -> (f compose h) (y) = y$，那麼我們有同倫 $g compose beta^(-1) : (y: B) -> g(y) = (g compose f compose h) (y) eq.triple g tilde (g compose f compose h)$ 和 $alpha compose h : (y: B) -> (g compose f compose h) (y) = h(y) eq.triple (g compose f compose h) tilde h$. 於是我們可以定義同倫 $gamma :eq.triple (g compose beta^(-1)) op(square.filled.tiny) (alpha compose h) : g tilde h eq.triple (y: B) -> g(y) = h(y)$. 那麼 $f compose gamma : (y: B) -> (f compose g) (y) = (f compose h) (y) eq.triple (f compose g) tilde (f compose h)$. 於是有 $(f compose gamma) op(square.filled.tiny) beta : (f compose g) tilde op("id"_B)$. 所以有 $(g, alpha, (f compose gamma) op(square.filled.tiny) beta) : op("qinv") (f)$.
 ]
 
 #lemma[
@@ -1075,7 +1075,7 @@
 ]
 
 #proof[
-  $1.$ 我們要證明對於任何類型 $A: cal(U)$ 有 $[(g: B -> A) times (g compose op("id"_A) tilde.op op("id"_A))] times [(h: B -> A) times (op("id"_A) compose h tilde.op op("id"_B))]$，略.
+  $1.$ 我們要證明對於任何類型 $A: cal(U)$ 有 $[(g: B -> A) times (g compose op("id"_A) tilde op("id"_A))] times [(h: B -> A) times (op("id"_A) compose h tilde op("id"_B))]$，略.
 
   $2.$ $f$ 的擬逆.
 
@@ -1085,9 +1085,25 @@
 == *$Sigma$-類型*
 
 #theorem[
-  設 $P: A -> cal(U)$，$w, w' : (x: A) times P(x)$.
+  設 $B: A -> cal(U)$，$w, w' : (x: A) times B(x)$.
 
-  則我們有一個等價 $(w = w') tilde.eq (p: op("pr"_1) (w) = op("pr"_1) (w')) times (op("transport"^P) (p, op("pr"_2) (w)) = op("pr"_2) (w'))$.
+  則我們有一個等價 $(w = w') tilde.eq (p: op("pr"_1) (w) = op("pr"_1) (w')) times (op("transport"^B) (p, op("pr"_2) (w)) = op("pr"_2) (w'))$.
+]
+
+#proof[
+  略.
+]
+
+#corollary[
+  設 $B: A -> cal(U)$. 則對於任何 $w : (x : A) times B(x)$，我們有 $w = angle.l op("pr"_1) (w), op("pr"_2) (w) angle.r$.
+]
+
+#proof[
+  略.
+]
+
+#lemma[
+  設 $B: A -> cal(U)$，$C: (x: A) times (B(x) -> cal(U))$. 則我們有 $[(x: A) times (y: B(x)) times C(angle.l x,y angle.r)] tilde.eq [(p: (x: A) times B(x)) times C(p)]$.
 ]
 
 #proof[
@@ -1123,9 +1139,9 @@
 
   對於任何函數 $f, g : (x: A) -> B(x)$，我們有函數
   $
-    op(bold("happly")) : (f = g) -> (x: A) -> (f(x) = g(x)),
+    op(bold("happly")) (f,g) : (f = g) -> (x: A) -> (f(x) = g(x)),
   $$
-    op(bold("happly")) ("refl"_f) :eq.triple (x: A) |-> "refl"_(f(x)).
+    op(bold("happly")) (f,g,"refl"_f) :eq.triple (x: A) |-> "refl"_(f(x)).
   $
 ]
 
@@ -1354,6 +1370,22 @@
   略.
 ]
 
+== *泛性質*
+
+#theorem[
+  設 $A : X -> cal(U)$，$P : (x : X) -> A(x) -> cal(U)$. 則有等價：
+
+  $
+    [(x : X) -> (a : A(x)) times P(x,a)] tilde.eq [(g : (x : X) -> A(x)) times ((x : X) -> P(x, g(x)))]
+  $
+]
+
+#proof[
+  定義函數 $phi : [(x : X) -> (a : A(x)) times P(x,a)] -> [(g : (x : X) -> A(x)) times ((x : X) -> P(x, g(x)))],$ $phi(f) :eq.triple angle.l x |-> op("pr"_1) (f(x)), x |-> op("pr"_2) (f(x)) angle.r$ 和 $psi : [(g : (x : X) -> A(x)) times ((x : X) -> P(x, g(x)))] -> [(x : X) -> (a : A(x)) times P(x,a)],$ $psi(angle.l g,h angle.r) :eq.triple x |-> angle.l g(x), h(x) angle.r$.
+
+  剩餘證明略.
+]
+
 #pagebreak()
 
 = *集合和邏輯*
@@ -1491,7 +1523,7 @@
   給定類型 $A$ 和 $B$.
 
   $
-    A "和" B "是邏輯等價的" :eq.triple (A -> B) times (B -> A)
+    A "和" B "是邏輯等價的"（A "iff" B） :eq.triple (A -> B) times (B -> A)
   $
 
   給定命題 $P$ 和 $Q$.
@@ -1534,11 +1566,11 @@
 ]
 
 #lemma[
-  對於任何類型 $A$，以下是邏輯等價的：
+  對於任何類型 $A$，以下類型是邏輯等價的：
 
   $1.$ $op("isContr") (A)$；
 
-  $2.$ $op("isProp") (A)$ 且 我們有一個點 $a: A$；
+  $2.$ $A times op("isProp") (A)$；
 
   $3.$ $A tilde.eq bold(1)$.
 ]
@@ -1555,6 +1587,50 @@
   略.
 ]
 
+#lemma[
+  如果類型 $A$ 等價於 $B$ 且 $A$ 可縮，則 $B$ 可縮.
+]
+
+#proof[
+  略.
+]
+
+#definition[
+  *收縮*，*截面*，*收縮核*
+
+  稱函數 $r: A -> B$ 是一個*收縮*，如果存在一個函數 $s: B -> A$，稱爲它的一個*截面*，和一個同倫 $r compose s tilde op("id"_B)$. 我們稱 $B$ 爲 $A$ 的一個*收縮核*.
+]
+
+#lemma[
+  如果 $B$ 是 $A$ 的一個收縮核，且 $A$ 是可縮的，則 $B$ 是可縮的.
+]
+
+#proof[
+  令 $r: A -> B$ 是一個收縮，$s: B -> A$ 是它的一個截面，$epsilon : r compose s tilde op("id"_B)$，$a_0 : A$，$"contr"_(s(b)) : a_0 = s(b)$，$b_0 :eq.triple r(a_0), b : B$.
+
+  那麼我們有 $r("contr"_(s(b))) op(square.filled.tiny) epsilon(b) : b_0 = b$，證畢.
+]
+
+#lemma[
+  對於任何類型 $A$ 和 $a: A$，類型 $(x: A) times (a = x)$ 是可縮的.
+]
+
+#proof[
+  我們要證明 $(angle.l x,p angle.r : (x: A) times (a = x)) -> angle.l a,"refl"_a angle.r = angle.l x,p angle.r$，略.
+]
+
+#lemma[
+  設 $B: A -> cal(U)$. 則有：
+
+  $1.$ $[(x: A) -> op("isContr") (B(x))] -> [((x: A) times B(x)) tilde.eq A]$；
+
+  $2.$ $(a: A) times [((x: A) -> (a = x)) -> (((x: A) times B(x)) tilde.eq B(a))]$.
+]
+
+#proof[
+  略.
+]
+
 #pagebreak()
 
 = *等價*
@@ -1562,9 +1638,9 @@
 == *半伴隨等價*
 
 #recall[
-  對於任何函數 $f: A -> B$，定義 *$op("isequiv")$*$(f) :eq.triple [(g: B -> A) times (op(g) op(f) tilde.op op("id"_A))] times [(h: B -> A) times (op(f) op(h) tilde.op op("id"_B))]$，$(A$ *$tilde.eq$* $B) :eq.triple (f: A -> B) times op("isequiv") (f)$.
+  對於任何函數 $f: A -> B$，定義 *$op("isequiv")$*$(f) :eq.triple [(g: B -> A) times (op(g) op(f) tilde op("id"_A))] times [(h: B -> A) times (op(f) op(h) tilde op("id"_B))]$，$(A$ *$tilde.eq$* $B) :eq.triple (f: A -> B) times op("isequiv") (f)$.
 
-  對於一個函數 $f: A -> B$，它的一個*擬逆*是一個三元組 $(g, alpha, beta) : op(bold("qinv")) (f) :eq.triple (g: B -> A) times (op(g) op(f) tilde.op op("id"_A)) times (op(f) op(g) tilde.op op("id"_B))$.
+  對於一個函數 $f: A -> B$，它的一個*擬逆*是一個三元組 $(g, alpha, beta) : op(bold("qinv")) (f) :eq.triple (g: B -> A) times (op(g) op(f) tilde op("id"_A)) times (op(f) op(g) tilde op("id"_B))$.
 ]
 
 #definition[
@@ -1572,12 +1648,12 @@
 
   $
     op(bold("ishae")) (f) :eq.triple
-    (g: B -> A) times (eta : op(g) op(f) tilde.op op("id"_A)) times (epsilon : op(f) op(g) tilde.op op("id"_B)) times
-    (op(f) op(eta) tilde.op op(epsilon) op(f))；
+    (g: B -> A) times (eta : op(g) op(f) tilde op("id"_A)) times (epsilon : op(f) op(g) tilde op("id"_B)) times
+    (op(f) op(eta) tilde op(epsilon) op(f))；
   $$
     op(bold("ishae")') (f) :eq.triple
-    (g: B -> A) times (eta : op(g) op(f) tilde.op op("id"_A)) times (epsilon : op(f) op(g) tilde.op op("id"_B)) times
-    (op(g) op(epsilon) tilde.op op(eta) op(g)).
+    (g: B -> A) times (eta : op(g) op(f) tilde op("id"_A)) times (epsilon : op(f) op(g) tilde op("id"_B)) times
+    (op(g) op(epsilon) tilde op(eta) op(g)).
   $
 ]
 
@@ -1652,12 +1728,12 @@
 ]
 
 #theorem[
-  $
-    (f: A -> B) -> op("qinv") (f) -> op("ishae") (f).
-  $
+  對於任何 $f: A -> B$，我們有 $op("ishae") (f)$ iff $op("qinv") (f)$.
 ]
 
 #proof[
+  正方向顯然，我們來證明反方向.
+
   設 $(g, eta, epsilon) : op("qinv") (f)$. 我們要構造一個四元組 $(g', eta', epsilon', tau) : op("ishae") (f)$. 設 $g' :eq.triple g$，$eta' :eq.triple eta$. 我們要構造合適的 $epsilon'$的定義，使得對於任何 $a: A$ 有 $op(f) op(eta) a = op(epsilon') op(f) a$.
 
   根據 $epsilon$ 的自然性，我們有如下交換圖：
@@ -1684,7 +1760,7 @@
 
   一個函數 $f: A -> B$ 在一個點 $y: B$ 的一個*同倫纖維*定義爲：
   $
-    op(bold("fib")_f) (f) :eq.triple (x: A) times (f(x) = y).
+    op(bold("fib")_f) (y) :eq.triple (x: A) times (f(x) = y).
   $
 ]
 
@@ -1743,9 +1819,9 @@
 
   給定 $f: A -> B$，我們定義 $f$ 的*左逆*和*右逆*的類型爲
   $
-    op(bold("linv")) (f) :eq.triple (g: B -> A) times (op(g) op(f) tilde.op op("id"_A))；
+    op(bold("linv")) (f) :eq.triple (g: B -> A) times (op(g) op(f) tilde op("id"_A))；
   $$
-    op(bold("rinv")) (f) :eq.triple (g: B -> A) times (op(f) op(g) tilde.op op("id"_B)).
+    op(bold("rinv")) (f) :eq.triple (g: B -> A) times (op(f) op(g) tilde op("id"_B)).
   $
 ]
 
@@ -1759,6 +1835,30 @@
   $(f compose "_") compose (g compose "_") eq.triple f compose g compose "_"$；$("_" compose g) compose ("_" compose f) eq.triple "_" compose f compose g$.
 ]
 
+#definition[
+  給定 $f: A -> B$，$angle.l g,eta angle.r : op("linv") (f)$，$angle.l g,epsilon angle.r : op("rinv") (f)$. 我們定義：
+
+  $
+    op(bold("lcoh")_f) (angle.l g,eta angle.r) :eq.triple (epsilon : f compose g tilde op("id"_B)) times (op(g) op(epsilon) tilde op(eta) op(g))；
+  $$
+    op(bold("rcoh")_f) (angle.l g,epsilon angle.r) :eq.triple (eta : g compose f tilde op("id"_A)) times (op(f) op(eta) tilde op(epsilon) op(f)).
+  $
+]
+
+#lemma[
+  對於任何 $f: A -> B$，$angle.l g,eta angle.r : op("linv") (f)$，$angle.l g,epsilon angle.r : op("rinv") (f)$，我們有：
+
+  $
+    op("lcoh")_f (angle.l g,eta angle.r) tilde.eq (y: B) -> [angle.l op(f) op(g) y, op(eta) op(g) y angle.r = angle.l y, "refl"_(op(g) y) angle.r]；
+  $$
+    op("rcoh")_f (angle.l g,epsilon angle.r) tilde.eq (x: A) -> [angle.l op(g) op(f) x, op(epsilon) op(f) x angle.r = angle.l x, "refl"_(op(f) x) angle.r].
+  $
+]
+
+#proof[
+  略.
+]
+
 == *雙可逆映射*
 
 #definition[
@@ -1770,6 +1870,14 @@
   $
 ]
 
+#theorem[
+  對於任何 $f: A -> B$，我們有 $op("biinv") (f)$ iff $op("ishae") (f)$.
+]
+
+#proof[
+  略.
+]
+
 == *可縮纖維*
 
 #definition[
@@ -1779,6 +1887,252 @@
   $
     op(bold("isContr")) (f) :eq.triple (y: B) -> op("isContr") (op("fib"_f) (y)).
   $
+]
+
+#theorem[
+  對於任何 $f: A -> B$，我們有 $op("ishae") (f)$ iff $op("isContr") (f)$.
+]
+
+#proof[
+  正方向我們已經證明過了，現在我們來證明反方向.
+
+  設 $P: op("isContr") (f)$ $eq.triple$ $(y: B) -> op("isContr") (op("fib"_f) (y))$ $eq.triple$ $(y: B) -> [a: op("fib"_f) (y)] times [(b: op("fib"_f) (y)) -> (a = b)]$ $eq.triple$ $(y: B) -> [a: (x: A) times (f(x) = y)] times [(b: (x: A) times (f(x) = y)) -> (a = b)]$. 設函數 $g: B -> A, op(g) y :eq.triple op("pr"_1) op("pr"_1) op(P) y$，函數 $epsilon : op(f) op(g) tilde op("id"_B), op(epsilon) y :eq.triple op("pr"_2) op("pr"_1) op(P) y$，函數 $alpha : (y: B) -> [(b: (x: A) times (f(x) = y)) -> ((op("pr"_1) op(P) y) = b)], op(alpha) y :eq.triple op("pr"_2) op(P) y$.
+
+  我們要構造四元組 $angle.l g', epsilon', eta, tau angle.r : op("ishae") (f)$. 令 $g' :eq.triple g$，$epsilon' :eq.triple epsilon$.
+
+  還剩 $eta$ 和 $tau$ 需要構造，這其實相當於構造 $op("rcoh"_f) (g, epsilon)$ 的一個項，也就相當於構造 $(x: A) -> [angle.l op(g) op(f) x, op(epsilon) op(f) x angle.r = angle.l x, "refl"_(op(f) x) angle.r]$ 的一個項，略.
+]
+
+#theorem[
+  對於任何 $f: A -> B$，我們有 $op("isContr") (f)$ iff $op("ishae") (f)$ iff $op("biinv") (f)$.
+]
+
+== *閉包性質*
+
+#definition[
+  *收縮核*
+
+  稱函數 $g: A -> B$ 是函數 $f: X -> cal(Y)$ 的一個*收縮核*，如果：
+  
+  $1.$ 存在如下一個圖：
+
+  #align(
+    center,
+    commutative-diagram(
+      node((0,0), $A$), node((0,1), $X$), node((0,2), $A$),
+      node((1,0), $B$), node((1,1), $cal(Y)$), node((1,2), $B$),
+      arr((0,0), (1,0), $g$, label-pos: right),
+      arr((0,1), (1,1), $f$, label-pos: right),
+      arr((0,2), (1,2), $g$),
+      arr((0,0), (0,1), $s$, label-pos: right), arr((0,1), (0,2), $r$, label-pos: right),
+      arr((1,0), (1,1), $s'$), arr((1,1), (1,2), $r'$),
+      arr((0,0), (0,2), $op("id"_A)$, curve: 15deg),
+      arr((1,0), (1,2), $op("id"_B)$, label-pos:right, curve: -15deg),
+    )
+  )
+
+  使得有如下存在：
+
+  (i) 一個同倫 $R : r compose s tilde op("id"_A)$；
+
+  (ii) 一個同倫 $R' : r' compose s' tilde op("id"_B)$；
+
+  (iii) 一個同倫 $L : f compose s tilde s' compose g$；
+
+  (iv) 一個同倫 $K : g compose r tilde r' compose f$.
+
+  $2.$ 對於任何 $a: A$，我們有一條道路 $H(a)$ 見證下圖的交換：
+
+  #align(
+    center,
+    commutative-diagram(
+      node((0,0), $op(g) op(r) op(s) a$),
+      node((1,0), $op(g) a$),
+      node((0,1), $op(r') op(f) op(s) a$),
+      node((1,1), $op(r') op(s') op(g) a$),
+      arr((0,0), (1,0), $op(g) op(R) a$, label-pos: right, "nat"),
+      arr((1,0), (1,1), $(op(R') op(g) a)^(-1)$, label-pos: right, "nat"),
+      arr((0,0), (0,1), $op(K) op(s) a$, "nat"),
+      arr((0,1), (1,1), $op(r') op(L) a$, "nat"),
+    )
+  )
+]
+
+#recall[
+  *纖維化*
+
+  我們把類型族 $P: A -> cal(U)$ 視爲一個*纖維化*，$A$ 稱爲它的*底空間*，$P(x)$ 稱爲 $x$ 上的*纖維*，$(x: A) times P(x)$ 稱爲它的*全空間*，如果存在函數 $f: (x: A) -> P(x)$，則稱該函數爲 $P$ 的一個*截面*.
+
+  有時也稱全空間爲 $A$ 上的*纖維化*.
+]
+
+#definition[
+  *逐纖維變換*
+
+  給定 $P,Q : A -> cal(U)$，我們稱一個函數 $f: (x: A) -> P(x) -> Q(x)$ 爲一個*逐纖維變換*.
+]
+
+#definition[
+  $op(bold("total"))$
+
+  給定 $P,Q : A -> cal(U)$ 和一個逐纖維變換 $f: (x: A) -> P(x) -> Q(x)$，我們定義函數
+
+  $
+    op(bold("total")) (f) :eq.triple (w: (x: A) times P(x)) |-> angle.l op("pr"_1) w, f(op("pr"_1) w, op("pr"_2) w) angle.r : [(x: A) times P(x)] -> (x: A) times Q(x).
+  $
+]
+
+#theorem[
+  設 $f: (x: A) -> P(x) -> Q(x)$ 是一個逐纖維變換，$x: A$，$v: Q(x)$. 那麼我們有一個雙可逆映射
+  $
+    op("fib"_(op("total") (f))) (angle.l x,v angle.r) tilde.eq op("fib"_(f(x))) (v).
+  $
+]
+
+#proof[
+  略.
+]
+
+#definition[
+  *逐纖維等價*
+
+  我們稱一個逐纖維變換 $f: (x: A) -> P(x) -> Q(x)$ 是一個*逐纖維等價*，如果 $(x: A) -> op("ishae") (f(x))$.
+]
+
+#theorem[
+  設 $f: (x: A) -> P(x) -> Q(x)$ 是一個逐纖維變換. 那麼，“$f$ 是一個逐纖維等價” iff “$op("total") (f)$ 是一個雙可逆映射”.
+]
+
+#proof[
+  $f$ 是一個逐纖維等價
+
+  iff $(x: A) -> op("ishae") (f(x))$
+
+  iff $(x: A) -> op("isContr") (f(x))$
+
+  iff $(x: A) -> (v: Q(x)) -> op("isContr") (op("fib"_(f(x))) (v))$
+
+  iff $(w: (x: A) times Q(x)) -> op("isContr") (op("fib"_(op("total") (f))) (w))$
+
+  iff $op("isContr") (op("total") (f))$
+
+  iff $op("total") (f)$ 是一個雙可逆映射.
+]
+
+== *對象分類器*
+
+#lemma[
+  設 $B: A -> cal(U)$，$a: A$，$op("pr"_1) : ((x: A) times B(x)) -> A$ 是投影函數. 則我們有一個雙可逆映射 $op("fib"_op("pr"_1)) (a) tilde.eq B(a)$.
+]
+
+#proof[
+  略.
+]
+
+== *函數外延性*
+
+#definition[
+  *弱函數外延性原理（WFE）*
+
+  *弱函數外延性原理*斷言：對於任何 $P: A -> cal(U)$，存在一個函數
+  $
+    [(x: A) -> op("isContr") (P(x))] -> op("isContr") [(x: A) -> P(x)].
+  $
+]
+
+#lemma[
+  設有類型 $A, B, X :cal(U)$ 和一個雙可逆映射 $e eq.triple angle.l f_e, alpha angle.r : A tilde.eq B$. 那麼存在一個雙可逆映射 $f_e compose "_" : (X -> A) tilde.eq (X -> B)$.
+]
+
+#proof[
+  根據泛等，我們可以令 $e = op("idtoeqv") (p)$ 其中 $p: A = B$. 根據 $p$ 的道路歸納，我們只需假設 $p eq.triple "refl"_A$，那麼我們有 $e = op("id"_A)$. 剩餘證明略.
+]
+
+#corollary[
+  設 $B: A -> cal(U)$，$(x: A) -> op("isContr") (B(x))$. 那麼我們有：
+
+  $1.$ 投影 $op("pr"_1) : ((x: A) -> B(x)) -> A$ 是一個雙可逆映射；
+
+  $2.$ 存在一個雙可逆映射 $op("pr"_1) compose "_" : [A -> ((x: A) times B(x))] tilde.eq (A -> A)$.
+]
+
+#proof[
+  $1.$ 對於任何 $x: A$，我們有一個雙可逆映射 $op("fib"_op("pr"_1)) (x) tilde.eq B(x)$. 因爲 $B(x)$ 是可縮的，所以 $op("fib"_op("pr"_1)) (x)$ 是可縮的，所以 $op("pr"_1)$ 是可縮的，所以 $op("pr"_1)$ 是一個雙可逆映射.
+
+  $2.$ 略.
+]
+
+#theorem[
+  設 $B: A -> cal(U)$，$(x: A) -> op("isContr") (B(x))$，$alpha :eq.triple op("pr"_1) compose "_" : [A -> ((x: A) times B(x))] tilde.eq (A -> A)$. 那麼我們有：
+
+  $1.$ $(x: A) -> B(x)$ 是 $op("fib"_alpha) (op("id"_A))$ 的一個收縮核；
+
+  $2.$ $(x: A) -> B(x)$ 是可縮的（*弱函數外延性原理*）.
+]
+
+#proof[
+  $1.$ 定義函數
+  $phi :$
+  $[(x : A) -> B(x)] -> op("fib"_alpha) (op("id"_A))$
+  $eq.triple$
+  $[(x : A) -> B(x)] -> [(g : A -> ((x: A) times B(x))) times (op("pr"_1) op(g) = op("id"_A))],$
+  $phi(f)$
+  $:eq.triple$
+  $angle.l x |-> angle.l x,f(x) angle.r, "refl"_op("id"_A) angle.r$
+  和
+  $psi :$
+  $op("fib"_alpha) (op("id"_A)) -> (x: A) -> B(x)$
+  $eq.triple$
+  $[(g : A -> ((x: A) times B(x))) times (op("pr"_1) op(g) = op("id"_A))] -> (x: A) -> B(x),$
+  $psi(angle.l g, p angle.r)$
+  $:eq.triple$
+  $(x: A) |-> op("transport"^B) (op("happly") (p,x), op("pr"_2) op(g) x)$.
+
+  顯然，$op(psi) op(phi) tilde op("id"_((x : A) -> B(x)))$.
+
+  $2.$ 我們只需證明 $op("fib"_alpha) (op("id"_A))$ 是可縮的，而這可以通過證明 $alpha$ 是可縮的來證明，略.
+]
+
+#lemma[
+  設 $f : A -> B$. 如果 $A,B$ 是可縮的，那麼 $f$ 是一個雙可逆映射.
+]
+
+#proof[
+  設 $alpha : op("isContr") (A)$，$beta : op("isContr") (B)$，$a :eq.triple op("pr"_1) (alpha)$，$b :eq.triple op("pr"_1) (beta)$.
+  
+  那麼有 $p : b = f(a)$，對於任何 $y : B$ 有 $q_y :eq.triple op((op("pr"_2) op(beta))) y : b = y$
+  
+  我們要證明對於任何 $y : B$，$op("fib"_f) (y)$ 是可縮的.
+  
+  現在讓我們固定 $y : B$. 定義 $p_y :eq.triple p^(-1) op(square.filled.tiny) q_y : f(a) = y$. 因此 $angle.l a, p_y angle.r : op("fib"_f) (y)$.
+
+  我們只需證明對於任何 $angle.l a', p' angle.r : op("fib"_f) (y)$ 有 $k : a = a'$ 和 $op("transport"^(op("fib"_f) (y))) (k, p_y)  = p'$.
+
+  我們有 $op((op("pr"_2) op(alpha))) a' : a = a'$.
+
+  根據道路歸納，我們只需要證明 $op("transport"^(op("fib"_f) (y))) ("refl"_a, p_y)  = p'$，即 $p_y = p'$.
+
+  根據道路歸納，只需證明 $p_(f(a)) = p'$，即 $"refl"_(f(a)) = "refl"_(f(a))$.
+]
+
+#theorem[
+  *函數外延性原理*
+
+  對於任何 $B : A -> cal(U)$，$f : (x : A) -> B(x)$，$g : (x : A) -> B(x)$，我們有如下結論：
+  
+  函數
+  $
+    op("happly") (f,g) : (f = g) -> [(x : A) -> f(x) = g(x)]
+  $
+  是一個雙可逆映射.
+]
+
+#proof[
+  我們只需證明 $op("happly") (f, "_") : (g : (x : A) -> B(x)) -> (f = g) -> (f tilde g)$ 是一個逐纖維等價，而這只需要證明 $op("total") (op("happly") (f, "_")) : [(g : (x : A) -> B(x)) times (f = g)] -> (g : (x : A) -> B(x)) times (f tilde g)$ 是一個雙可逆映射. 我們已經知道 $(g : (x : A) -> B(x)) times (f = g)$ 是可縮的，所以只需要證明 $(g : (x : A) -> B(x)) times (f tilde g)$ 是可縮的.
+
+  我們有 $(g : (x : A) -> B(x)) times (f tilde g)$ 是 $(x : A) -> (u : B(x)) times (f(x) = u)$ 的一個收縮核，所以只需證明 $(x : A) -> (u : B(x)) times (f(x) = u)$ 是可縮的.
+
+  根據 WFE，我們只需證明對於任何 $x : A$ 有 $(u : B(x)) times (f(x) = u)$ 是可縮的，證畢.
 ]
 
 #pagebreak()
