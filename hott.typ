@@ -639,6 +639,8 @@
 == *定義*
 
 #example[
+  *函數的合成*
+
   $compose :eq.triple
   (A: cal(U)_i) |-> (B: cal(U)_i) |-> (C: cal(U)_i) |-> (g: B -> C) |-> (f: A -> B) |-> (x: A) |-> g(f(x)).$
 ]
@@ -1431,14 +1433,6 @@
 ]
 
 #lemma[
-  如果 $P, Q$ 是命題使得 $P -> Q$ 且 $Q -> P$，則 $P tilde.eq Q$.
-]
-
-#proof[
-  略.
-]
-
-#lemma[
   如果 $P$ 是一個命題且 $x_0 : P$，則 $P tilde.eq bold(1)$.
 ]
 
@@ -1859,6 +1853,16 @@
   略.
 ]
 
+#lemma[
+  如果 $f : A -> B$ 是一個半伴隨等價，則對於任何 $angle.l g,epsilon angle.r : op("rinv") (f)$，我們有 $op("rcoh")_f (angle.l g,epsilon angle.r)$ 是可縮的.
+]
+
+#proof[
+  我們只需證明對於任何 $x : A$，$angle.l op(g) op(f) x, op(epsilon) op(f) x angle.r = angle.l x, "refl"_(op(f) x) angle.r$ 是可縮的.
+
+  我們已經知道 $op("fib"_f) (op(f) x)$ 是可縮的，又因爲可縮空間的道路空間是可縮的，證畢.
+]
+
 == *雙可逆映射*
 
 #definition[
@@ -1904,7 +1908,7 @@
 ]
 
 #theorem[
-  對於任何 $f: A -> B$，我們有 $op("isContr") (f)$ iff $op("ishae") (f)$ iff $op("biinv") (f)$.
+  對於任何 $f: A -> B$，我們有 $op("qinv") (f)$ iff $op("isContr") (f)$ iff $op("ishae") (f)$ iff $op("biinv") (f)$.
 ]
 
 == *閉包性質*
@@ -1912,7 +1916,7 @@
 #definition[
   *收縮核*
 
-  稱函數 $g: A -> B$ 是函數 $f: X -> cal(Y)$ 的一個*收縮核*，如果：
+  稱函數 $g: A -> B$ 是函數 $f: X -> Y$ 的一個*收縮核*，如果：
   
   $1.$ 存在如下一個圖：
 
@@ -1920,7 +1924,7 @@
     center,
     commutative-diagram(
       node((0,0), $A$), node((0,1), $X$), node((0,2), $A$),
-      node((1,0), $B$), node((1,1), $cal(Y)$), node((1,2), $B$),
+      node((1,0), $B$), node((1,1), $Y$), node((1,2), $B$),
       arr((0,0), (1,0), $g$, label-pos: right),
       arr((0,1), (1,1), $f$, label-pos: right),
       arr((0,2), (1,2), $g$),
@@ -2135,6 +2139,86 @@
   根據 WFE，我們只需證明對於任何 $x : A$ 有 $(u : B(x)) times (f(x) = u)$ 是可縮的，證畢.
 ]
 
+#corollary[
+  $op(bold("funext"))$
+
+  對於任何 $B : A -> cal(U)$，$f : (x : A) -> B(x)$，$g : (x : A) -> B(x)$，函數 $op("happly") (f,g) : (f = g) -> [(x : A) -> f(x) = g(x)]$ 有一個擬逆：
+
+  $
+    op(bold("funext")) : [(x : A) -> f(x) = g(x)] -> (f = g).
+  $
+]
+
+#proof[
+  略.
+]
+
+#lemma[
+  對於任何類型 $A$，我們有 $op("isProp") (A)$ 和 $op("isSet") (A)$ 是命題.
+]
+
+#proof[
+  $op("funext")$.
+]
+
+#lemma[
+  $op("isProp") (A) tilde.eq (A -> op("isContr") (A))$.
+]
+
+#proof[
+  我們只需證明 $op("isProp") (A)$ iff $(A -> op("isContr") (A))$，略.
+]
+
+#lemma[
+  如果 $f : A -> B$ 有一個擬逆，那麼 $op("linv") (f)$ 和 $op("rinv") (f)$ 是可縮的.
+]
+
+#proof[
+  根據函數外延性，我們有 $op("linv") (f) tilde.eq (g : B -> A) times (op(g) op(f) = op("id"_A))$，即 $op("linv") (f) tilde.eq op("fib"_("_" compose f)) (op("id"_A))$. 因爲 $op("fib"_("_" compose f)) (op("id"_A))$ 是可縮的，所以 $op("linv") (f)$ 是可縮的.
+
+  類似地，可以證明 $op("rinv") (f)$ 是可縮的.
+]
+
+#theorem[
+  對於任何 $f: A -> B$，$op("ishae") (f)$ 是一個命題.
+]
+
+#proof[
+  我們只需假設 $f$ 是一個半伴隨等價，並證明 $op("ishae") (f)$ 是可縮的，即證明 $(g: B -> A) times (epsilon : op(f) op(g) tilde op("id"_B)) times (eta : op(g) op(f) tilde op("id"_A)) times (op(f) op(eta) tilde op(epsilon) op(f))$ 是可縮的，即證明 $(u : (g : B -> A) times (op(f) op(g) tilde op("id"_B))) times (eta : op((op("pr"_1) u)) op(f) tilde op("id"_A)) times (op(f) op(eta) tilde op((op("pr"_2) u)) op(f))$ 是可縮的，即證明 $(u : op("rinv") (f)) times op("rcoh") (angle.l op("pr"_1) (u), op("pr"_2) (u) angle.r)$ 是可縮的. 剩餘證明略.
+]
+
+#theorem[
+  對於任何 $f: A -> B$，$op("biinv") (f)$ 是一個命題.
+]
+
+#proof[
+  略.
+]
+
+#lemma[
+  設 $A$ 是類型，$B : A -> cal(U)$ 且對於任何 $x : A$ 有 $B(x)$ 是一個命題. 則 $(x : A) -> B(x)$ 是一個命題.
+]
+
+#proof[
+  $op("funext")$.
+]
+
+#theorem[
+  對於任何 $f: A -> B$，$op("isContr") (f)$ 是一個命題.
+]
+
+#proof[
+  略.
+]
+
+#theorem[
+  對於任何 $f: A -> B$，我們有 $op("isContr") (f) tilde.eq op("ishae") (f) tilde.eq op("biinv") (f)$.
+]
+
+#proof[
+  略.
+]
+
 #pagebreak()
 
 = *範疇論*
@@ -2157,4 +2241,80 @@
   $5.$ 對於任何 $a, b : A_0$ 和 $f: op("hom"_A) (a, b)$，我們有 $f = op(1)_b compose f$ 且 $f = f compose op(1)_a$；
 
   $6.$ 對於任何 $a, b, c, d : A$ 和 $f: op("hom"_A) (a, b), g: op("hom"_A) (b, c), h: op("hom"_A) (c, d)$，我們有 $h compose (g compose f) = (h compose g) compose f$.
+]
+
+#definition[
+  *同構*
+
+  一個態射 $f : op("hom"_A) (a,b)$ 是一個*同構*，如果存在一個態射 $g : op("hom"_A) (b,a)$ 使得 $g compose f = 1_a$ 且 $f compose g = 1_b$.
+
+  $
+    op(bold("isIso")) (f) :eq.triple (g : op("hom"_A) (b,a)) times (g compose f = 1_a) times (f compose g = 1_b)，
+  $
+
+  $
+    a bold(tilde.equiv) b :eq.triple (f : op("hom"_A) (a,b)) times op("isIso") (f).
+  $
+]
+
+#lemma[
+  對於任何態射 $f : op("hom"_A) (a,b)$，$op("isIso") (f)$ 是一個命題. 因此 $a tilde.equiv b$ 是一個集合.
+]
+
+#proof[
+  只需證明 $g = g'$，略.
+
+  我們以後將同構 $f : a tilde.equiv b$ 的*逆*記作 $bold(f^(-1))$.
+]
+
+#lemma[
+  $op(bold("idtoiso"))$
+
+  如果 $A$ 是一個預範疇且 $a,b$ 是它的對象，則有 $op(bold("idtoiso")_(a,b)) : (a = b) -> (a tilde.equiv b)$.
+]
+
+#proof[
+  略.
+]
+
+#lemma[
+  設 $A$ 是類型，$B : A -> cal(U)$ 且對於任何 $x : A$ 有 $B(x)$ 是一個集合. 則 $(x : A) -> B(x)$ 是一個集合.
+]
+
+#proof[
+  $op("funext")$.
+]
+
+#example[
+  預範疇 $cal(bold("Set"))$
+
+  $1.$ 對象類型爲 $"Set"$；
+
+  $2.$ $op("hom"_(cal(bold("Set")))) (a,b) :eq.triple a -> b$；
+
+  $3.$ $1_a :eq.triple op("id"_a)$；
+
+  $4.$ 態射合成定義爲函數的合成.
+]
+
+#definition[
+  *範疇*
+
+  稱一個預範疇 $A$ 是一個*範疇*，如果對於它的任何對象 $a,b$ 有 $op("idtoiso"_(a,b))$ 是一個等價.
+]
+
+#example[
+  $cal("Set")$ 是一個範疇.
+]
+
+#proof[
+  $op("ua")$.
+]
+
+#lemma[
+  在一個範疇中，所有對象組成的類型是一個 $1$-類型.
+]
+
+#proof[
+  只需證明 $a = b$ 是集合，略.
 ]
