@@ -1150,6 +1150,20 @@
 #proof[
   略.
 ]
+
+#lemma[
+  給定類型 $X$，一個路徑 $p : x_1 scripts(=)_X x_2$，類型族 $A,B : X -> cal(U)$，一個函數 $f : A(x_1) -> B(x_1)$. 則我們有：
+  $
+    op("transport"^(A -> B)) (p, f)
+    scripts(=)_(A(x_2) -> B(x_2))
+    x |-> op("transport"^B) (p, f(op("transport"^A) (p^(-1), x))).
+  $
+]
+
+#proof[
+  根據 $p$ 的道路歸納，我們只需證明 $op("transport"^(A -> B)) ("refl"_(x_1), f) scripts(=)_(A(x_1) -> B(x_1)) x |-> op("transport"^B) ("refl"_(x_1), f(op("transport"^A) ("refl"_(x_1), x)))$，即 $f scripts(=)_(A(x_1) -> B(x_1)) x |-> f(x)$，證畢.
+]
+
 == *宇宙和泛等公理*
 
 #lemma[
@@ -1157,9 +1171,9 @@
 ]
 
 #proof[
-  函數 $op("transport"^(op("id"_cal(U)))) ("_", "_") : (A scripts(=)_cal(U) B) -> A -> B$. 我們要證明 $(p: A scripts(=)_cal(U) B) -> op("isequiv") (op("transport"^(op("id"_cal(U)))) (p, "_"))$. 根據 $p$ 的道路歸納，只需證明 $op("isequiv") (op("transport"^(op("id"_cal(U)))) ("refl"_A, "_"))$，即證明 $op("isequiv") (op("id"_A))$，略.
+  函數 $op("transport"^op("id"_cal(U))) ("_", "_") : (A scripts(=)_cal(U) B) -> A -> B$. 我們要證明 $(p: A scripts(=)_cal(U) B) -> op("isequiv") (op("transport"^op("id"_cal(U))) (p, "_"))$. 根據 $p$ 的道路歸納，只需證明 $op("isequiv") (op("transport"^op("id"_cal(U))) ("refl"_A, "_"))$，即證明 $op("isequiv") (op("id"_A))$，略.
 
-  定義 $op(bold("idtoeqv")_(A, B)) (p) :eq.triple (op("transport"^(op("id"_cal(U)))) (p, "_"), a) : A tilde.eq B$，其中 $a: op("isequiv") (op("transport"^(op("id"_cal(U)))) (p, "_"))$.
+  定義 $op(bold("idtoeqv")_(A, B)) (p) :eq.triple (op("transport"^op("id"_cal(U))) (p, "_"), a) : A tilde.eq B$，其中 $a: op("isequiv") (op("transport"^op("id"_cal(U))) (p, "_"))$.
 ]
 
 #lemma[
@@ -1171,11 +1185,11 @@
 ]
 
 #lemma[
-  對於任何 $x, y : A, p: x = y, B: A -> cal(U), u: B(x)$，我們有 $op("transport"^B) (p, u) = op("transport"^(op("id"_cal(U)))) (op("ap"_B) (p), u) = op(op("pr"_1) (op("idtoeqv") (op("ap"_B) (p)))) (u)$.
+  對於任何 $x, y : A, p: x = y, B: A -> cal(U), u: B(x)$，我們有 $op("transport"^B) (p, u) = op("transport"^op("id"_cal(U))) (op("ap"_B) (p), u) = op(op("pr"_1) (op("idtoeqv") (op("ap"_B) (p)))) (u)$.
 ]
 
 #proof[
-  根據歸納原理，只需證明 $op("transport"^B) ("refl"_x, u) = op("transport"^(op("id"_cal(U)))) (op("ap"_B) ("refl"_x), u) = op(op("pr"_1) (op("idtoeqv") (op("ap"_B) ("refl"_x)))) (u)$，略.
+  根據歸納原理，只需證明 $op("transport"^B) ("refl"_x, u) = op("transport"^op("id"_cal(U))) (op("ap"_B) ("refl"_x), u) = op(op("pr"_1) (op("idtoeqv") (op("ap"_B) ("refl"_x)))) (u)$，略.
 ]
 
 #definition[
@@ -1281,6 +1295,8 @@
 #proof[
   略.
 ]
+
+== *餘積*
 
 == *自然數*
 
@@ -1403,6 +1419,18 @@
   $
 ]
 
+#example[
+  類型 $bold(1)$ 是一個集合.
+]
+
+#example[
+  類型 $bold(0)$ 是一個集合.
+]
+
+#example[
+  自然數類型 $NN$ 是一個集合.
+]
+
 #definition[
   *$1$-類型*
 
@@ -1419,6 +1447,16 @@
   設 $f: op("isSet") (A)$. 那麼對於任何 $x, y : A$ 和 $p, q : x = y$ 我們有 $p = q$. 給定 $x, y$ 和 $p$，定義 $g: (q: x = y) -> (p = q), g :eq.triple f(x, y, p, "_")$. 那麼對於任何 $q, q' : x = y$ 和 $alpha: q = q'$，我們有 $op("apd"_g) (alpha) : op("transport"^(q |-> (p = q))) (alpha, g(q)) = g(q')$，也就有 $g(q) op(square.filled.tiny) alpha = g(q')$.
 
   因此對於任何 $x, y : A, p, q : x = y, alpha, beta : p = q$，我們有 $g(p) op(square.filled.tiny) alpha = g(q)$ 且 $g(p) op(square.filled.tiny) beta = g(q)$，也就有 $g(p) op(square.filled.tiny) alpha = g(p) op(square.filled.tiny) beta$，也就有 $alpha = beta$.
+]
+
+#example[
+  宇宙 $cal(U)$ 不是一個集合.
+]
+
+#proof[
+  設 $f : bold(2) -> bold(2), f(0_bold(2)) :eq.triple 0_bold(2), f(1_bold(2)) :eq.triple 0_bold(2)$. 顯然 $f$ 是一個等價. 因此，根據泛等，由 $f$ 可以導出一個道路 $p : A = A$.
+
+  如果 $p = "refl"_A$，那麼有 $f = op("id"_A)$，矛盾，證畢.
 ]
 
 == *命題*
@@ -2217,6 +2255,62 @@
 
 #proof[
   略.
+]
+
+#recall[
+  *半伴隨等價*
+
+  $
+    op(bold("ishae")) (f) :eq.triple
+    (g: B -> A) times (eta : op(g) op(f) tilde op("id"_A)) times (epsilon : op(f) op(g) tilde op("id"_B)) times
+    (op(f) op(eta) tilde op(epsilon) op(f)).
+  $
+]
+
+#convention[
+  *等價*
+
+  對於任何函數 $f: A -> B$，我們定義 $op(bold("isequiv")) (f) :eq.triple op("ishae") (f)$.
+]
+
+#lemma[
+  對於任何函數 $f, g : A -> B$，有 $(f = g) -> (op("isequiv") (f) = op("equiv") (g))$.
+]
+
+#proof[
+  略.
+]
+
+#convention[
+  對於任何等價 $f$，以後如無必要，我們不區分 $f$ 和 $angle.l f,e angle.r$（其中 $e : op("isequiv") (f)$）.
+]
+
+#definition[
+  *$(A -> B)$*
+
+  給定類型 $X$，類型族 $A,B : X -> cal(U)$.
+
+  定義 *$(A -> B)$* $: X -> cal(U),$ *$(A -> B)$* $(x) :eq.triple A(x) -> B(x)$.
+]
+
+#theorem[
+  $
+    not ((A : cal(U)) -> not not A -> A)
+  $
+]
+
+#proof[
+  我們只需假設 $f : (A : cal(U)) -> not not A -> A$，並構造 $bold(0)$ 的一個項.
+
+  設 $e : bold(2) tilde.eq bold(2), e (1_bold(2)) :eq.triple 0_bold(2), e (0_bold(2)) :eq.triple 1_bold(2)$ 是一個等價. 設 $p :eq.triple op("ua") (e) : bold(2) = bold(2)$.
+
+  那麼我們有 $f(bold(2)) : not not bold(2) -> bold(2)$ 和 $op("apd"_f) (p) : op("transport"^(A |-> not not A -> A)) (p, f(bold(2))) = f(bold(2))$. 因此對於任何 $u : not not bold(2)$，我們有 $op("happly") (op("apd"_f) (p), u) : op("transport"^(A |-> not not A -> A)) (p, f(bold(2))) (u) = f(bold(2)) (u)$.
+
+  那麼對於任何 $u : not not bold(2)$，我們有 $op("transport"^(A |-> not not A -> A)) (p, f(bold(2))) (u) = op("transport"^op("id"_cal(U))) (p, f(bold(2)) (op("transport"^(A |-> not not A)) (p^(-1), u)))$.
+
+  根據 $op("funext")$，對於任何 $u,v : not not bold(2)$ 有 $u = v$. 因此我們有 $op("transport"^(A |-> not not A)) (p^(-1), u) = u$. 所以我們有 $op("transport"^op("id"_cal(U))) (op("ua") (e), f(bold(2)) (u)) = f(bold(2))(u)$.
+
+  根據泛等，我們有 $e(f(bold(2)) (u)) = f(bold(2))(u)$.
 ]
 
 #pagebreak()
