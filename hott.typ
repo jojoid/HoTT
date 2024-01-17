@@ -2430,7 +2430,12 @@
 
   設 $e : bold(2) tilde.eq bold(2), e (1_bold(2)) :eq.triple 0_bold(2), e (0_bold(2)) :eq.triple 1_bold(2)$ 是一個等價. 設 $p :eq.triple op("ua") (e) : bold(2) = bold(2)$.
 
-  那麼我們有 $f(bold(2)) : not not bold(2) -> bold(2)$ 和 $op("apd"_f) (p) : op("transport"^(A |-> not not A -> A)) (p, f(bold(2))) = f(bold(2))$. 因此對於任何 $u : not not bold(2)$，我們有 $op("happly") (op("apd"_f) (p), u) : op("transport"^(A |-> not not A -> A)) (p, f(bold(2))) (u) = f(bold(2)) (u)$.
+  那麼我們有 $f(bold(2)) : not not bold(2) -> bold(2)$ 和
+  $
+    op("apd"_f) (p) : op("transport"^(A |-> not not A -> A)) (p, f(bold(2))) = f(bold(2)).
+  $
+
+  因此對於任何 $u : not not bold(2)$，我們有 $op("happly") (op("apd"_f) (p), u) : op("transport"^(A |-> not not A -> A)) (p, f(bold(2))) (u) = f(bold(2)) (u)$.
 
   那麼對於任何 $u : not not bold(2)$，我們有 $op("transport"^(A |-> not not A -> A)) (p, f(bold(2))) (u) = op("transport"^op("id"_cal(U))) (p, f(bold(2)) (op("transport"^(A |-> not not A)) (p^(-1), u)))$.
 
