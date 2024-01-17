@@ -1298,6 +1298,129 @@
 
 == *餘積*
 
+#definition[
+  $op(bold("code"))$（“固定 $a_0 : A$”的版本）
+
+  給定 $A,B : cal(U)$，$a_0 : A$.
+
+  定義函數
+  $
+    op(bold("code")) : A + B -> cal(U)，
+  $
+  模式匹配
+  $
+    op(bold("code")) (op("inl") ("_")) :eq.triple a_0 = "_" : A -> cal(U)
+  $$
+    op(bold("code")) (op("inr") ("_")) :eq.triple b |-> bold(0) : B -> cal(U).
+  $
+]
+
+#theorem[
+  對於任何 $x : A + B$，我們有 $(op("inl") (a_0) = x) tilde.eq op("code") (x)$.
+]
+
+#proof[
+  定義函數
+  $
+    op(bold("encode")) : (x : A + B) -> (op("inl") (a_0) = x) -> op("code") (x),
+  $$
+    op(bold("encode")) (x, p) :eq.triple op("transport"^(op("code"))) (p, "refl"_(a_0)).
+  $ 和函數 $
+    op(bold("decode")) : (x : A + B) -> op("code") (x) -> (op("inl") (a_0) = x),
+  $ 模式匹配 $
+    op(bold("decode"))(op("inl") (a), c) :eq.triple op("ap"_(op("inl")) (c))
+  $$
+    op(bold("decode"))(op("inr") (b), c) :eq.triple op("ind"_bold(0)) ((x: bold(0)) |-> (op("inl") (a_0) = op("inr") (b)), c)
+  $
+
+  接下來我們需要證明對於任何 $x : A + B$ 有 $op("encode") (x, "_")$ 和 $op("decode") (x, "_")$ 互爲擬逆.
+
+  在其中一個方向，我們要證明對於任何 $p : op("inl") (a_0) = x$ 有 $op("decode") (x, op("encode") (x, p)) = p$. 根據 $p$ 的道路歸納，我們只需證明 $x eq.triple op("inl") (a_0)$，$p eq.triple "refl"_(op("inl") (a_0))$ 的情況：
+  $
+    op("decode") (op("inl") (a_0), op("encode") (op("inl") (a_0), "refl"_(op("inl") (a_0))))
+  $$
+    eq.triple op("decode") (op("inl") (a_0), op("transport"^(op("code"))) ("refl"_(op("inl") (a_0)), "refl"_(a_0)))
+  $$
+    eq.triple op("decode") (op("inl") (a_0), "refl"_(a_0))
+  $$
+    eq.triple op("ap"_(op("inl"))) ("refl"_(a_0)) 
+  $$
+    eq.triple "refl"_(op("inl") (a_0))
+  $$
+    eq.triple p.
+  $
+
+  在另一個方向，我們要證明對於任何 $c : op("code") (x)$ 有 $op("encode") (x, op("decode") (x, c)) = c$：
+
+  當 $x eq.triple op("inl") (a)$ 時，$c : a_0 = a$：
+  $
+    op("encode") (op("inl") (a), op("decode") (op("inl") (a), c))
+  $$
+    eq.triple op("encode") (op("inl") (a), op("ap"_(op("inl")) (c)))
+  $$
+    eq.triple op("transport"^op("code")) (op("ap"_(op("inl")) (c)), "refl"_(a_0))
+  $$
+    eq.triple op("transport"^(a |-> (a_0 = a))) (c, "refl"_(a_0))
+  $$
+    eq.triple "refl"_(a_0) op(square.filled.tiny) c
+  $$
+    eq.triple c.
+  $
+
+  當 $x eq.triple op("inr") (b)$ 時，$c : bold(0)$，略.
+]
+
+#corollary[
+  $
+    op("encode") (op("inl") (a), "_") : (op("inl") (a_0) = op("inl") (a)) -> (a_0 = a)；
+  $$
+    op("encode") (op("inr") (b), "_") : (op("inl") (a_0) = op("inr") (b)) ->bold(0).
+  $
+]
+
+#proof[
+  略.
+]
+
+#lemma[
+  $bold(2) tilde.eq bold(1) + bold(1)$.
+]
+
+#proof[
+  略.
+]
+
+#corollary[
+  $" "0_bold(2) != 1_bold(2)$.
+]
+
+#proof[
+  略.
+]
+
+#definition[
+  *$(A + B)$*
+
+  給定一個類型 $X$，類型族 $A,B : X -> cal(U)$，定義類型族：
+  $
+    bold((A + B)) : X -> cal(U), bold((A + B)) (x) :eq.triple A(x) + B(x).
+  $
+]
+
+#lemma[
+  給定一個類型 $X$，一個道路 $p : x_1 scripts(=)_X x_2$，類型族 $A,B : X -> cal(U)$，則我們有：
+
+  $
+    op("transport"^(A + B)) (p, op("inl") (a)) = op("inl") (op("transport"^A) (p,a))；
+  $$
+    op("transport"^(A + B)) (p, op("inr") (b)) = op("inr") (op("transport"^A) (p,b)).
+  $
+]
+
+#proof[
+  略.
+]
+
 == *自然數*
 
 #definition[
@@ -1349,11 +1472,11 @@
   $ 模式匹配 $
     op(bold("decode"))(0, 0, ast.small) :eq.triple "refl"_0
   $$
-    op(bold("decode")) (op("succ") (m), 0, "_") :eq.triple op("ind"_bold(0)) ((x: bold(0)) |-> (m = n), "_")
+    op(bold("decode")) (op("succ") (m), 0, c) :eq.triple op("ind"_bold(0)) ((x: bold(0)) |-> (m = n), c)
   $$
-    op(bold("decode")) (0, op("succ") (n), "_") :eq.triple op("ind"_bold(0)) ((x: bold(0)) |-> (m = n), "_")
+    op(bold("decode")) (0, op("succ") (n), c) :eq.triple op("ind"_bold(0)) ((x: bold(0)) |-> (m = n), c)
   $$
-    op(bold("decode")) (op("succ") (m), op("succ") (n), "_") :eq.triple op("ap"_op("succ")) compose op(bold("decode")) (m, n, "_").
+    op(bold("decode")) (op("succ") (m), op("succ") (n), c) :eq.triple op("ap"_op("succ")) compose op(bold("decode")) (m, n, c).
   $
 
   接下來我們要證明對於任何 $m, n : NN$ 有 $op("encode") (m, n, "_")$ 和 $op("decode") (m, n, "_")$ 互爲擬逆.
@@ -2288,12 +2411,15 @@
 #definition[
   *$(A -> B)$*
 
-  給定類型 $X$，類型族 $A,B : X -> cal(U)$.
-
-  定義 *$(A -> B)$* $: X -> cal(U),$ *$(A -> B)$* $(x) :eq.triple A(x) -> B(x)$.
+  給定類型 $X$，類型族 $A,B : X -> cal(U)$. 定義函數：
+  
+  $
+    bold((A -> B)) : X -> cal(U), bold((A -> B)) (x) :eq.triple A(x) -> B(x).
+  $
 ]
 
 #theorem[
+  *$not "DNE"_infinity$*
   $
     not ((A : cal(U)) -> not not A -> A)
   $
@@ -2310,7 +2436,12 @@
 
   根據 $op("funext")$，對於任何 $u,v : not not bold(2)$ 有 $u = v$. 因此我們有 $op("transport"^(A |-> not not A)) (p^(-1), u) = u$. 所以我們有 $op("transport"^op("id"_cal(U))) (op("ua") (e), f(bold(2)) (u)) = f(bold(2))(u)$.
 
-  根據泛等，我們有 $e(f(bold(2)) (u)) = f(bold(2))(u)$.
+  根據泛等，我們有
+  $
+    e(f(bold(2)) (u)) = f(bold(2))(u).
+  $
+
+  又因爲我們可以證明 $(x : bold(2)) -> not (e(x) = x)$，所以推出矛盾，證畢.
 ]
 
 #pagebreak()
