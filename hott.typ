@@ -1151,6 +1151,16 @@
   略.
 ]
 
+#definition[
+  *$(A -> B)$*
+
+  給定類型 $X$，類型族 $A,B : X -> cal(U)$. 定義函數：
+  
+  $
+    bold((A -> B)) : X -> cal(U), bold((A -> B)) (x) :eq.triple A(x) -> B(x).
+  $
+]
+
 #lemma[
   給定類型 $X$，一個路徑 $p : x_1 scripts(=)_X x_2$，類型族 $A,B : X -> cal(U)$，一個函數 $f : A(x_1) -> B(x_1)$. 則我們有：
   $
@@ -2406,16 +2416,6 @@
 
 #convention[
   對於任何等價 $f$，以後如無必要，我們不區分 $f$ 和 $angle.l f,e angle.r$（其中 $e : op("isequiv") (f)$）.
-]
-
-#definition[
-  *$(A -> B)$*
-
-  給定類型 $X$，類型族 $A,B : X -> cal(U)$. 定義函數：
-  
-  $
-    bold((A -> B)) : X -> cal(U), bold((A -> B)) (x) :eq.triple A(x) -> B(x).
-  $
 ]
 
 #theorem[
