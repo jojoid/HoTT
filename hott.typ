@@ -2400,14 +2400,14 @@
   $
 ]
 
-#convention[
+#definition[
   *等價*
 
   對於任何函數 $f: A -> B$，我們定義 $op(bold("isequiv")) (f) :eq.triple op("ishae") (f)$.
 ]
 
 #lemma[
-  對於任何函數 $f, g : A -> B$，有 $(f = g) -> (op("isequiv") (f) = op("equiv") (g))$.
+  對於任何函數 $f, g : A -> B$，有 $(f = g) -> (op("isequiv") (f) = op("isequiv") (g))$.
 ]
 
 #proof[
