@@ -1664,6 +1664,20 @@
   $
 ]
 
+#definition[
+  *$"Prop"_cal(U)$*
+
+  $
+    bold("Prop")_cal(U) :eq.triple {A : cal(U) | op("isProp") (A)}.
+  $
+]
+
+#definition[
+  *關係*
+
+  一個*關係*是一個命題族 $R : A times A -> "Prop"$，其中 $A$ 是集合.
+]
+
 == *命題截斷*
 
 #definition[
@@ -2462,7 +2476,7 @@
 
   $1.$ 一個類型 $A_0$，它的項稱爲*對象*；
 
-  $2.$ 一個函數 $op("hom"_A) : A_0 -> A_0 -> "Set"$，集合 $op("hom"_A) (a, b)$ 的元素稱爲*態射*；
+  $2.$ 一個函數 $op("hom"_A) : (A_0 times A_0) -> "Set"$. 集合 $op("hom"_A) (a, b)$ 的元素稱爲*態射*；
 
   $3.$ 一個函數 $op(1) : (a: A_0) -> op("hom"_A) (a, a)$，$op(1)_a$ 稱爲*恆等態射*；
 
@@ -2478,13 +2492,9 @@
 
   一個態射 $f : op("hom"_A) (a,b)$ 是一個*同構*，如果存在一個態射 $g : op("hom"_A) (b,a)$ 使得 $g compose f = 1_a$ 且 $f compose g = 1_b$.
 
-  $
-    op(bold("isIso")) (f) :eq.triple (g : op("hom"_A) (b,a)) times (g compose f = 1_a) times (f compose g = 1_b)，
-  $
+  $op(bold("isIso")) (f) :eq.triple (g : op("hom"_A) (b,a)) times (g compose f = 1_a) times (f compose g = 1_b)$，
 
-  $
-    a bold(tilde.equiv) b :eq.triple (f : op("hom"_A) (a,b)) times op("isIso") (f).
-  $
+  $a$ *$tilde.equiv$* $b$ $:eq.triple (f : op("hom"_A) (a,b)) times op("isIso") (f)$.
 ]
 
 #lemma[
@@ -2533,6 +2543,14 @@
   稱一個預範疇 $A$ 是一個*範疇*，如果對於它的任何對象 $a,b$ 有 $op("idtoiso"_(a,b))$ 是一個等價.
 ]
 
+#lemma[
+  在一個範疇中，對於任何它的對象 $a,b$，我們有 $op(bold("isotoid")_(a,b)) : (a tilde.equiv b) -> (a = b)$.
+]
+
+#proof[
+  略.
+]
+
 #example[
   $cal("Set")$ 是一個範疇.
 ]
@@ -2547,4 +2565,267 @@
 
 #proof[
   只需證明 $a = b$ 是集合，略.
+]
+
+#lemma[
+  在一個範疇 $A$ 中，對於 $p : a = a'$，$q : b = b'$，$f : op("hom"_A) (a,b)$，我們有 $op("transport"^op("hom"_A)) (angle.l p,q angle.r, f) scripts(=)_(op("hom"_A) (a',b')) op("idtoiso"_(b, b')) (q) compose f compose (op("idtoiso"_(a, a')) (p))^(-1)$.
+]
+
+#proof[
+  根據道路歸納。我們可以假設 $p eq.triple "refl"_a$，$q eq.triple "refl"_b$. 那麼引理中等式左邊就是 $f$，右邊是 $1_b compose f compose 1_a$，等於 $f$，證畢.
+]
+
+#lemma[
+  $1.$ $op("idtoiso") (p^(-1)) = (op("idtoiso") (p))^(-1)$；
+
+  $2.$ $op("idtoiso") (p op(square.filled.tiny) q) = op("idtoiso") (q) compose op("idtoiso") (p)$；
+
+  $3.$ $op("isotoid") (f compose e) = op("isotoid") (e) op(square.filled.tiny) op("isotoid") (f)$.
+]
+
+#proof[
+  略.
+]
+
+#example[
+  *預序*
+
+  一個預範疇 $A$，如果它的每個集合 $op("hom"_A) (a,b)$ 都是命題，則它等價於一個配備了一個自反且傳遞的關係的類型 $A_0$. 我們稱這是一個*預序*.
+]
+
+#lemma[
+  在一個預序 $A$ 中，如果我們有 $f : a <= b$ 和 $g : b <= a$，則我們有 $a tilde.equiv b$，且 $a tilde.equiv b$ 是一個命題.
+]
+
+#proof[
+  略.
+]
+
+#example[
+  *偏序集*
+
+  稱一個預序 $A$ 是一個*偏序集*，如果它是一個範疇，即如果 $A_0$ 是一個集合且 $<=$ 是反對稱的.
+]
+
+#example[
+  *羣胚*
+
+  對於任何 $1$-類型 $X$，存在一個範疇，它的對象類型是 $X$，且 $op("hom") (x,y) :tilde.equiv x = y$，我們稱之爲一個*羣胚*.
+]
+
+== *函子和自然變換*
+
+#definition[
+  *函子*
+
+  設 $A$ 和 $B$ 是預範疇. 一個*函子* $bold(F) : A -> B$ 系如下資料：
+
+  $1.$ 一個函數 $bold(F_0) : A_0 -> B_0$；
+
+  $2.$ 對於每對 $a,b : A_0$，一個函數 $bold(F_(a,b)) : op("hom"_A) (a,b) -> op("hom"_A) (op(F_0) a, op(F_0) b)$；
+
+  $3.$ 對於每個 $a : A_0$，我們有 $F_(a,a) (1_a) = 1_(op(F_0) a)$；
+
+  $4.$ 對於每組 $a,b,c : A_0$ 和 $f : op("hom"_A) (a,b)$ 和 $g : op("hom"_A) (b,c)$，我們有 $F_(a,c) (g compose f) = op(F_(b,c)) g compose op(F_(a,b)) f$.
+]
+
+#example[
+  *恆等函子*
+
+  設 $A$ 是一個預範疇. *恆等函子* $bold(1_A) : A -> A$ 系如下資料：
+
+  $1.$ 恆等函數 $op("id"_(A_0)) : A_0 -> A_0$；
+
+  $2.$ 對於每對 $a,b : A_0$，一個恆等函數 $op("id"_(op("hom"_A) (a,b))) : op("hom"_A) (a,b) -> op("hom"_A) (a,b)$.
+]
+
+#definition[
+  *自然變換*
+
+  給定函子 $F,G : A -> B$，一個*自然變換* $bold(gamma) : F -> G$ 系如下資料：
+
+  $1.$ 對於每個 $a : A_0$，一個態射 $bold(gamma_a) : op("hom"_B) (op(F_0) a, op(G_0) a)$；
+
+  $2.$ （*自然公理*） 對於每組 $a,b : A_0$ 和 $f : op("hom"_A) (a,b)$，我們有 $op(G_(a,b)) f compose gamma_a = gamma_b compose op(F_(a,b)) f$，如下面的交換圖所示：
+
+  #align(
+    center,
+    commutative-diagram(
+      node((0,0), $op(F_0) a$), node((0,1), $op(F_0) b$),
+      node((1,0), $op(G_0) a$), node((1,1), $op(G_0) b$),
+      arr((0,0), (0,1), $op(F_(a,b)) f$),
+      arr((1,0), (1,1), $op(G_(a,b)) f$, label-pos: right),
+      arr((0,0), (1,0), $gamma_a$, label-pos: right),
+      arr((0,1), (1,1), $gamma_b$),
+    )
+  )
+]
+
+#lemma[
+  給定函子 $F,G : A -> B$，從 $F$ 到 $G$ 的自然變換的類型是一個集合.
+]
+
+#proof[
+  略.
+]
+
+#definition[
+  *函子預範疇*，*自然同構*
+
+  給定預範疇 $A,B$，存在一個預範疇 $bold(B^A)$，稱爲*函子預範疇*，定義爲：
+
+  $1.$ *$(B^A)_0$* 是從 $A$ 到 $B$ 的函子的類型；
+
+  $2.$ *$op("hom"_(B^A)) (F,G)$* 是從 $F$ 到 $G$ 的自然變換的集合；
+
+  $3.$ *$(1_F)_a$* 定義爲 $1_(op(F_0) a)$；
+
+  $4.$ 態射（自然變換）的合成 *$(delta compose gamma)_a$* 定義爲 $delta_a compose gamma_a$.
+
+  $B^A$ 中的同構稱爲函子間的*自然同構*.
+]
+
+#lemma[
+  一個自然變換 $gamma : F -> G$ 是 $B^A$ 中的一個同構 iff 任何 $gamma_a$ 是 $B$ 中的一個同構.
+]
+
+#proof[
+  略.
+]
+
+#theorem[
+  如果 $B$ 是一個範疇，則 $B^A$ 是一個範疇.
+]
+
+#proof[
+  略.
+]
+
+#lemma[
+  設 $B^A$ 是一個範疇. 如果 $B^A$ 中的兩個對象 $F,G$ 是自然同構的，則 $F = G$.
+]
+
+#proof[
+  略.
+]
+
+#definition[
+  *函子範疇*
+  
+  設 $B^A$ 是一個函子預範疇. 稱 *$B^A$* 是一個*函子範疇*，如果 $A$ 和 $B$ 是範疇.
+]
+
+#definition[
+  *函子的合成*
+
+  給定函子 $F : A -> B$ 和 $G : B -> C$，它們的*合成*是函子 *$G compose F$* $: A -> C$，定義爲如下資料：
+
+  $1.$ *$(G compose F)_0$* $: A_0 -> C_0$ 定義爲 $G_0 compose F_0 : A_0 -> C_0$；
+
+  $2.$ *$(G compose F)_(a,b)$* $: op("hom"_A) (a,b) -> op("hom"_C) (op(G_0) op(F_0) a, op(G_0) op(F_0) b)$ 定義爲 $(G_(op(F_0) a, op(F_0) b) compose F_(a,b)) : op("hom"_A) (a,b) -> op("hom"_C) (op(G_0) op(F_0) a, op(G_0) op(F_0) b)$.
+]
+
+#definition[
+  *函子和自然映射的合成*
+
+  給定函子 $F : A -> B$ 和 $G,H : B -> C$ 和自然變換 $gamma : G -> H$，如下如所示：
+
+  #align(
+    center,
+    commutative-diagram(
+      node((1,0), $A$),
+      node((1,2), $B$),
+      node((1,4), $C$),
+      arr((1,0), (1,2), $F$),
+      arr((1,2), (1,4), $G$, curve: 60deg),
+      arr((1,2), (1,4), $H$, label-pos: right, curve: -60deg),
+      node((0,3), $$),
+      node((2,3), $$),
+      arr((0,3), (2,3), $gamma$, "nat")
+    )
+  )
+
+  $F$ 和 $gamma$ 的*合成* 是自然變換 *$op(gamma) op(F)$* $: op(G) op(F) -> op(H) op(F)$，定義爲如下資料：
+
+  對於每個 $a : A$，一個態射 *$(op(gamma) F)_a$* $: op("hom"_C) (op(G_0) op(F_0) a, op(H_0) op(F_0) a)$，定義爲 $gamma_(op(F_0) a) : op("hom"_C) (op(G_0) op(F_0) a, op(H_0) op(F_0) a)$.
+]
+
+#definition[
+  *自然映射和函子的合成*
+
+  給定函子 $F,G : A -> B$ 和 $H : B -> C$ 和自然變換 $gamma : F -> G$，如下如所示：
+
+  #align(
+    center,
+    commutative-diagram(
+      node((1,0), $A$),
+      node((1,2), $B$),
+      node((1,4), $C$),
+      arr((1,0), (1,2), $F$, curve: 60deg),
+      arr((1,0), (1,2), $G$, label-pos: right, curve: -60deg),
+      arr((1,2), (1,4), $H$),
+      node((0,1), $$),
+      node((2,1), $$),
+      arr((0,1), (2,1), $gamma$, "nat")
+    )
+  )
+
+  $gamma$ 和 $H$ 的*合成* 是自然變換 *$op(H) op(gamma)$* $: op(H) op(F) -> op(H) op(G)$，定義爲如下資料：
+
+  對於每個 $a : A$，一個態射 *$(op(H) op(gamma))_a$* $: op("hom"_C) (op(H_(op(F_0) a, op(G_0) a)) op(F_0) a, op(H_(op(F_0) a, op(G_0) a)) op(G_0) a)$，定義爲 $op(H) op(gamma_a) : op("hom"_C) (op(H_(op(F_0) a, op(G_0) a)) op(F_0) a, op(H_(op(F_0) a, op(G_0) a)) op(G_0) a)$.
+]
+
+#lemma[
+  給定函子 $F,G : A -> B$ 和 $H,K : B -> C$ 和自然變換 $gamma : F -> G$ 和 $delta : H -> K$，如下圖所示：
+
+  #align(
+    center,
+    commutative-diagram(
+      node((1,0), $A$),
+      node((1,2), $B$),
+      node((1,4), $C$),
+      arr((1,0), (1,2), $F$, curve: 60deg),
+      arr((1,0), (1,2), $G$, label-pos: right, curve: -60deg),
+      arr((1,2), (1,4), $H$, curve: 60deg),
+      arr((1,2), (1,4), $K$, label-pos: right, curve: -60deg),
+      node((0,1), $$),
+      node((2,1), $$),
+      arr((0,1), (2,1), $gamma$, "nat"),
+      node((0,3), $$),
+      node((2,3), $$),
+      arr((0,3), (2,3), $delta$, "nat")
+    )
+  )
+  
+  那麼我們有 $op((op(delta) G)) (op(H) gamma) = op((op(K) gamma)) (op(delta) F)$.
+]
+
+#proof[
+  略.
+]
+
+#lemma[
+  函子的合成是結合的：$op(H) op((op(G) F)) = op((op(H) G)) op(F)$.
+]
+
+#proof[
+  略.
+]
+
+== *伴隨*
+
+#definition[
+  *左伴隨*
+
+  一個函子 $F : A -> B$ 是一個*左伴隨*，如果有如下資料：
+
+  $1.$ 一個函子 $G : B -> A$；
+
+  $2.$ （*單位*） 一個自然變換 $eta : 1_A -> op(G) op(F)$；
+
+  $3.$ （*餘單位*） 一個自然變換 $epsilon : op(F) op(G) -> 1_B$；
+
+  $4.$ $op((op(epsilon) op(F))) (op(F) op(eta)) = 1_F$；
+
+  $5.$ $op((op(G) op(epsilon))) (op(eta) op(G)) = 1_G$.
 ]
