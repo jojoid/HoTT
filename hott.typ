@@ -242,7 +242,7 @@
     prooftrees.uni(right_label: [$" ctx-EXT"$])[$(x_1: A_1, ... , x_n: A_n) "ctx"$],
   )
 
-  其中，變量 $x_n$ 與變量 $x_1, ... , x_n$ 中的任何一個都不同.
+  其中，變量 $x_n$ 與變量 $x_1, ... , x_(n - 1)$ 中的任何一個都不同.
 ]
 
 == *結構規則*
@@ -333,12 +333,12 @@
 
   #prooftrees.tree(
     prooftrees.axi[$Gamma, x: A vdash b: B$],
-    prooftrees.uni(right_label: $" "Pi"-INTRO"$)[$Gamma vdash (x: A) |-> b : (x: A) -> B$],
+    prooftrees.uni(right_label: $" "Pi"-INTRO"$)[$Gamma vdash (x: A) . b : (x: A) -> B$],
   )
   
   #prooftrees.tree(
     prooftrees.axi[$Gamma, x: A vdash b_1 eq.triple b_2 : B$],
-    prooftrees.uni(right_label: $" "Pi"-INTRO-EQ"$)[$Gamma vdash (x: A) |-> b_1 eq.triple (x: A) |-> b_2 : (x: A) -> B$],
+    prooftrees.uni(right_label: $" "Pi"-INTRO-EQ"$)[$Gamma vdash (x: A) . b_1 eq.triple (x: A) . b_2 : (x: A) -> B$],
   )
 
   #prooftrees.tree(
@@ -356,22 +356,26 @@
   #prooftrees.tree(
     prooftrees.axi[$Gamma, x: A vdash b: B$],
       prooftrees.axi[$Gamma vdash a: A$],
-    prooftrees.bin(right_label: [$" "Pi"-COMP"$])[$Gamma vdash ((x: A) |-> b)(a) eq.triple b[a slash x]: B[a slash x]$],
+    prooftrees.bin(right_label: [$" "Pi"-COMP"$])[$Gamma vdash ((x: A) . b)(a) eq.triple b[a slash x]: B[a slash x]$],
   )
 
   #prooftrees.tree(
     prooftrees.axi[$Gamma vdash f: (x: A) -> B$],
-    prooftrees.uni(right_label: [$" "Pi"-UNIQ"$])[$Gamma vdash f eq.triple (x |-> f(x)) : (x: A) -> B$],
+    prooftrees.uni(right_label: [$" "Pi"-UNIQ"$])[$Gamma vdash f eq.triple (x . f(x)) : (x: A) -> B$],
   )
 ]
 
 #definition[
   *函數類型*
 
-  設 $B: cal(U), x |-> B : A -> cal(U)$. 我們定義*函數類型*
+  設 $B: cal(U), x . B : A -> cal(U)$. 我們定義*函數類型*
   $
     A -> B :eq.triple (x: A) -> B.
   $
+]
+
+#convention[
+  $x.A$ 也記爲 $x |-> A$.
 ]
 
 == *依賴序偶類型（$Sigma$-類型）*
@@ -415,7 +419,7 @@
 #definition[
   *cartesian 類型*
 
-  設 $B: cal(U), x |-> B : A -> cal(U)$. 我們定義*cartesian 類型*
+  設 $B: cal(U), x . B : A -> cal(U)$. 我們定義*cartesian 類型*
   $
     A times B :eq.triple (x: A) times B.
   $
